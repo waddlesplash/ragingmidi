@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="500"
+   height="300"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-752.36215)"
+     id="layer1">
+    <rect
+       width="500"
+       height="300"
+       ry="0"
+       x="0"
+       y="752.36212"
+       id="rect4047"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <text
+       x="37.351837"
+       y="868.81281"
+       id="text2985"
+       xml:space="preserve"
+       style="font-size:90.89964294px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="37.351837"
+         y="868.81281"
+         dx="0"
+         id="tspan2987"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:0px;word-spacing:-5.47000027px;fill:#ff0000;fill-opacity:1;font-family:In A Flash;-inkscape-font-specification:In A Flash">RAGING MIDI</tspan></text>
+    <g
+       transform="matrix(0.89190239,0,0,0.89190239,10.325048,74.13935)"
+       id="g4094">
+      <g
+         transform="translate(208.21979,-4)"
+         id="g3997">
+        <text
+           x="41"
+           y="967.36212"
+           id="text3225"
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#7575ff;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+             x="41"
+             y="967.36212"
+             id="tspan3227"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#7575ff;fill-opacity:1;font-family:In A Flash;-inkscape-font-specification:In A Flash">WADDLESPLASH</tspan></text>
+      </g>
+      <g
+         transform="translate(-88.26709,18.040745)"
+         id="g3997-4">
+        <text
+           x="144"
+           y="945.36212"
+           id="text3225-0"
+           xml:space="preserve"
+           style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff6600;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+             x="144"
+             y="945.36212"
+             id="tspan3227-9"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff6600;fill-opacity:1;font-family:In A Flash;-inkscape-font-specification:In A Flash">CREATED BY</tspan></text>
+      </g>
+    </g>
+    <text
+       x="47.866604"
+       y="957.38464"
+       id="text3225-0-4"
+       xml:space="preserve"
+       style="font-size:28.98994827px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffff00;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="47.866604"
+         y="957.38464"
+         id="tspan4140"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffff00;fill-opacity:1;font-family:In A Flash;-inkscape-font-specification:In A Flash">USING OPEN SOURCE COMPONENTS</tspan></text>
+  </g>
+</svg>

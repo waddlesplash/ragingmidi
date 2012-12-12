@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWind</class>
+ <widget class="QMainWindow" name="MainWind">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>742</width>
+    <height>565</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Raging MIDI</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QTreeWidget" name="tracksEdit">
+       <property name="indentation">
+        <number>0</number>
+       </property>
+       <column>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Type</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>On?</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Device</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Voice</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Instrument</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Volume</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Balance</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string notr="true">&lt;you_should_not_see_this&gt;</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="PianoRoll" name="pianoRoll"/>
+      <widget class="VirtualPiano" name="piano">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="SeekSlider" name="songPosSlider">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>742</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuTrack">
+    <property name="title">
+     <string>Track</string>
+    </property>
+    <addaction name="actionTrackAdd"/>
+    <addaction name="actionTrackRemove"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_Raging_Midi"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionViewAllEvents"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+   <addaction name="menuTrack"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="playToolbar">
+   <property name="windowTitle">
+    <string>Playback toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionTEMP"/>
+   <addaction name="separator"/>
+   <addaction name="actionPlay"/>
+   <addaction name="actionPause"/>
+   <addaction name="actionStop"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionTrackAdd">
+   <property name="text">
+    <string>Add</string>
+   </property>
+  </action>
+  <action name="actionTrackRemove">
+   <property name="text">
+    <string>Remove</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open...</string>
+   </property>
+  </action>
+  <action name="actionPlay">
+   <property name="text">
+    <string>Play</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="text">
+    <string>Stop</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="text">
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionAbout_Raging_Midi">
+   <property name="text">
+    <string>About Raging Midi</string>
+   </property>
+  </action>
+  <action name="actionTEMP"/>
+  <action name="actionViewAllEvents">
+   <property name="text">
+    <string>All MIDI events</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save as...</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>VirtualPiano</class>
+   <extends>QGraphicsView</extends>
+   <header>Gui/Widgets/VirtualPiano.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PianoRoll</class>
+   <extends>QGraphicsView</extends>
+   <header>Gui/PianoRoll.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SeekSlider</class>
+   <extends>QSlider</extends>
+   <header>Gui/Widgets/SeekSlider.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
