@@ -150,8 +150,8 @@
    <addaction name="actionTEMP"/>
    <addaction name="separator"/>
    <addaction name="actionPlay"/>
-   <addaction name="actionPause"/>
    <addaction name="actionStop"/>
+   <addaction name="actionRewind"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionTrackAdd">
@@ -179,11 +179,6 @@
     <string>Stop</string>
    </property>
   </action>
-  <action name="actionPause">
-   <property name="text">
-    <string>Pause</string>
-   </property>
-  </action>
   <action name="actionAbout_Raging_Midi">
    <property name="text">
     <string>About Raging Midi</string>
@@ -198,6 +193,11 @@
   <action name="actionSave">
    <property name="text">
     <string>Save as...</string>
+   </property>
+  </action>
+  <action name="actionRewind">
+   <property name="text">
+    <string>Rewind</string>
    </property>
   </action>
  </widget>

@@ -4,14 +4,6 @@
 #include "Player.h"
 #include "Gui/MainWind.h"
 
-void Player::resume()
-{
-    pauseSync.lock();
-    doPause = false;
-    pauseCond.wakeAll();
-    pauseSync.unlock();
-}
-
 void Player::handleEvent()
 {
     if(MainWind::trackStatus.value(e->track(),true) == false)
@@ -54,13 +46,6 @@ void Player::run()
             }
             handleEvent();
         }
-        pauseSync.lock();
-        if(doPause) {
-            qint64 offset = start_time - QDateTime::currentDateTime().toMSecsSinceEpoch();
-            pauseCond.wait(&pauseSync);
-            start_time = QDateTime::currentDateTime().toMSecsSinceEpoch()+offset;
-        }
-        pauseSync.unlock();
 
         if(doStop)
         { return; }

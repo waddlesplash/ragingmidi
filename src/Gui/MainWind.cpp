@@ -233,7 +233,6 @@ void MainWind::on_actionTrackAdd_triggered()
 void MainWind::on_actionPlay_triggered()
 {
     if(!midiFile) { return; }
-    if(player) { player->resume(); return; }
 
     player = new Player(midiFile,ui->piano,ui->songPosSlider->value());
     player->moveToThread(player);
@@ -243,11 +242,9 @@ void MainWind::on_actionPlay_triggered()
     connect(player,SIGNAL(tickChanged(qint32)),
             ui->pianoRoll->initLine(),SLOT(setTick(qint32)));
 }
-
 void MainWind::on_actionStop_triggered()
 {
     if(!player) { return; }
-    if(player->isPaused()) { player->resume(); }
 
     player->stop();
     player->wait();
@@ -256,25 +253,19 @@ void MainWind::on_actionStop_triggered()
     QtMidi::outStopAll();
     ui->piano->clearTrackColors();
     ui->pianoRoll->deleteLine();
+}
+void MainWind::on_actionRewind_triggered()
+{
+    if(player) { on_actionStop_triggered(); }
     ui->songPosSlider->setValue(0);
 }
 
-void MainWind::on_actionPause_triggered()
-{
-    if(!player) { return; }
-    player->pause();
-    ui->piano->clearTrackColors();
-    QtMidi::outStopAll();
-}
-
 void MainWind::on_songPosSlider_sliderReleased()
-{
+{/* // FIXME: doesnt work yet... just stops and does not start, and does not seek....
     if(!player) { return; }
-    int sliderPos = ui->songPosSlider->value();
     on_actionStop_triggered();
-    ui->songPosSlider->setValue(sliderPos);
     on_actionPlay_triggered();
-}
+*/}
 
 void MainWind::on_actionViewAllEvents_triggered()
 {

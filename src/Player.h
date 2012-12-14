@@ -1,10 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <QObject>
 #include <QThread>
-#include <QMutex>
-#include <QWaitCondition>
 
 #include <QtMidiFile.h>
 #include "Gui/Widgets/VirtualPiano.h"
@@ -18,16 +15,11 @@ public:
     {
         f = fil;
         piano = p;
-        doPause = false;
         doStop = false;
         sTick = tick;
     }
-    ~Player()
-    {}
+    inline ~Player() {}
 
-    inline void pause() { doPause = true; }
-    void resume();
-    inline bool isPaused() { return doPause; }
     inline void stop() { doStop = true; }
 
 protected:
@@ -41,12 +33,6 @@ private:
     QtMidiFile* f;
     VirtualPiano* piano;
 
-    /* No mutex needed here, as these
-     * only use one byte. However,
-     * QWaitCondition *requires* a mutex. */
-    bool doPause;
-    QWaitCondition pauseCond;
-    QMutex pauseSync;
     bool doStop;
 
     qint32 sTick;
