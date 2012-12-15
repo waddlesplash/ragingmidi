@@ -21,7 +21,8 @@ SOURCES += Gui/MainWind.cpp \
     Gui/Selectors/SelectOutput.cpp \
     Gui/PianoRoll.cpp \
     Gui/AllEvents.cpp \
-    Gui/Widgets/SeekSlider.cpp
+    Gui/Widgets/SeekSlider.cpp \
+    Gui/AboutDlg.cpp
 
 HEADERS  += Gui/MainWind.h \
     Gui/Selectors/SelectInstrument.h \
@@ -30,7 +31,9 @@ HEADERS  += Gui/MainWind.h \
     Gui/Selectors/SelectOutput.h \
     Gui/PianoRoll.h \
     Gui/AllEvents.h \
-    Gui/Widgets/SeekSlider.h
+    Gui/Widgets/SeekSlider.h \
+    Gui/AboutDlg.h \
+    config.h
 
 FORMS    += Gui/MainWind.ui \
     Gui/Selectors/SelectInstrument.ui \
@@ -38,4 +41,7 @@ FORMS    += Gui/MainWind.ui \
     Gui/Selectors/SelectOutput.ui \
     Gui/PianoRoll.ui \
     Gui/AllEvents.ui \
-    Gui/Widgets/SeekSlider.ui
+    Gui/Widgets/SeekSlider.ui \
+    Gui/AboutDlg.ui
+
+RESOURCES += Resources/Resources.qrc
