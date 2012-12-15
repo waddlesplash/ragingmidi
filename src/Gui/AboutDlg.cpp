@@ -42,7 +42,6 @@ AboutDlg::AboutDlg(QWidget *parent) :
     f.open(QFile::ReadOnly);
     QString rev(f.readAll());
     f.close();
-    rev = rev.replace("$Id:","",Qt::CaseInsensitive).replace("$","").trimmed();
     QString link;
     link += "<a href=\"https://github.com/waddlesplash/ragingmidi/commit/"+ rev;
     link += "\">"+ rev.mid(0,10) +"</a>";
