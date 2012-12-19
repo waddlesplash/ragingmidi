@@ -41,6 +41,7 @@ AboutDlg::AboutDlg(QWidget *parent) :
     QFile f(":/REVISION.txt");
     f.open(QFile::ReadOnly);
     QString rev(f.readAll());
+    rev = rev.trimmed();
     f.close();
     QString link;
     link += "<a href=\"https://github.com/waddlesplash/ragingmidi/commit/"+ rev;

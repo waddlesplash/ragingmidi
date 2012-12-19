@@ -45,3 +45,8 @@ FORMS    += Gui/MainWind.ui \
     Gui/AboutDlg.ui
 
 RESOURCES += Resources/Resources.qrc
+
+# Create the "REVISION" file
+exists(../.git/HEAD) {
+    system(git rev-parse HEAD >Resources/REVISION.txt)
+}
