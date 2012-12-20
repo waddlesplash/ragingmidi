@@ -65,7 +65,6 @@ void Player::handleEvent()
 void Player::run()
 {
     qint64 start_time = QDateTime::currentDateTime().toMSecsSinceEpoch();
-    //if(sTick > 0) { start_time -= (f->timeFromTick(sTick)*1000); }
     foreach(e,f->events()) {
         if(e->isNoteEvent() && (e->tick() < sTick)) { continue; }
 
