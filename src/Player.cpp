@@ -28,7 +28,7 @@
 #include "Player.h"
 #include "Gui/MainWind.h"
 
-Player::Player(QtMidiFile* fil, VirtualPiano* p, qint32 tick = 0)
+Player::Player(QtMidiFile* fil, VirtualPiano* p, qint32 tick)
     : QThread(0)
 {
     f = fil;
