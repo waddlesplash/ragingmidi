@@ -133,7 +133,7 @@ void PianoRoll::initEditor(QtMidiFile* f)
         if(e->isNoteEvent()) {
             if(e->type() == QtMidiEvent::NoteOff) {
                 edEv = new PianoRollEvent();
-                edEv->setColor(MainWind::trackColors.value(e->track()));
+                edEv->setColor(MainWind::trackColors->value(e->track()));
                 noteOn = lastNoteOn.value(e->note(),0);
                 if(!noteOn) { continue; }
 

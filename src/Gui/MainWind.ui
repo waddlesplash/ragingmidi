@@ -15,61 +15,19 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="SeekSlider" name="songPosSlider">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="0">
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QTreeWidget" name="tracksEdit">
-       <property name="indentation">
-        <number>0</number>
-       </property>
-       <column>
-        <property name="text">
-         <string>Name</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Type</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>On?</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Device</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Voice</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Instrument</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Volume</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Balance</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string notr="true">&lt;you_should_not_see_this&gt;</string>
-        </property>
-       </column>
-      </widget>
+      <widget class="TracksEdit" name="tracksEdit"/>
       <widget class="PianoRoll" name="pianoRoll"/>
       <widget class="VirtualPiano" name="piano">
        <property name="sizePolicy">
@@ -79,13 +37,6 @@
         </sizepolicy>
        </property>
       </widget>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="SeekSlider" name="songPosSlider">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
      </widget>
     </item>
    </layout>
@@ -223,6 +174,11 @@
    <class>SeekSlider</class>
    <extends>QSlider</extends>
    <header>Gui/Widgets/SeekSlider.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TracksEdit</class>
+   <extends>QTreeWidget</extends>
+   <header>Gui/Widgets/TracksEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

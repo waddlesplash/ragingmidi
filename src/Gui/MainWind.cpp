@@ -37,8 +37,8 @@
 #include "Dialogs/TransposeDlg.h"
 #include "Dialogs/AboutDlg.h"
 
-QMap<int,QColor> MainWind::trackColors;
-QMap<int,bool> MainWind::trackStatus;
+QMap<int,QColor>* MainWind::trackColors;
+QMap<int,bool>* MainWind::trackStatus;
 SeekSlider* MainWind::playLocSilder;
 
 MainWind::MainWind(QWidget *parent) :
@@ -50,7 +50,10 @@ MainWind::MainWind(QWidget *parent) :
     ui->setupUi(this);
 
     // More UI setup
-    ui->tracksEdit->hideColumn(8);
+    ui->tracksEdit->init(ui->piano);
+    trackColors = ui->tracksEdit->trackColors();
+    trackStatus = ui->tracksEdit->trackStatus();
+
     ui->playToolbar->insertWidget(ui->actionTEMP,ui->songPosSlider);
     ui->playToolbar->removeAction(ui->actionTEMP);
     playLocSilder = ui->songPosSlider;
@@ -93,59 +96,11 @@ void MainWind::openMidiFile(QString filename)
     midiFile = new QtMidiFile();
     midiFile->load(filename);
 
-    ui->tracksEdit->clear();
-
-    QStringList colorNames = QColor::colorNames();
-    colorNames.removeOne("black");
-    colorNames.removeOne("white");
-    colorNames.removeOne("azure");
-    colorNames.removeOne("aliceblue");
-    if(colorNames.size() < midiFile->tracks().size())
-    { /* TODO: Not enough colors! */ return; }
-
-    foreach(int curTrack,midiFile->tracks())
-    {
-        QTreeWidgetItem* i = new QTreeWidgetItem(ui->tracksEdit);
-        i->setBackgroundColor(0,QColor(colorNames.at(curTrack)));
-        trackColors.insert(curTrack,QColor(colorNames.at(curTrack)));
-
-        i->setText(1,tr("Instrument")); // Type
-        i->setText(2,tr("on")); // On?
-        i->setText(3,"<automatic>"); // Device
-        i->setText(8,QString::number(curTrack)); // Track
-
-        bool didInstr = false, didVoice = false, didMeta = false;
-        foreach(QtMidiEvent*e,midiFile->eventsForTrack(curTrack))
-        {
-            if(!didVoice && e->type() == QtMidiEvent::NoteOn)
-            {
-                i->setText(4,QString::number(e->voice()+1));
-                didVoice = true;
-            }
-            else if(!didInstr && e->type() == QtMidiEvent::ProgramChange)
-            {
-                int instr = e->number();
-                SelectInstrument sel(this);
-                sel.setInsNum(instr);
-                i->setText(5,sel.insName());
-                QtMidi::outSetInstr(e->voice(),e->number());
-                didInstr = true;
-            }
-            else if(!didMeta && (e->type() == QtMidiEvent::Meta) &&
-                    (e->number() == 0x03))
-            { i->setText(0,e->data()); didMeta = true; } // Name
-
-            if(didInstr && didVoice && didMeta) { break; }
-        }
-
-        if(!didInstr)
-        { i->setText(5,tr("(no instrument)")); }
-    }
+    ui->tracksEdit->setupTracks(midiFile);
     ui->songPosSlider->setMaximum(midiFile->events().last()->tick());
 
     // do the real work
     ui->pianoRoll->initEditor(midiFile);
-    updateTrackOn();
 }
 
 
@@ -160,95 +115,6 @@ void MainWind::on_actionSave_triggered()
 
     QFileInfo i(f);
     appSettings->setValue("LastFileDlgLoc",i.absoluteDir().path());
-}
-
-void MainWind::updateTrackOn()
-{
-    bool isOneSolo = false;
-    int soloTrack = 0;
-    QTreeWidgetItem* itm;
-    for(int i = 0;i<ui->tracksEdit->topLevelItemCount();i++)
-    {
-        itm = ui->tracksEdit->topLevelItem(i);
-        if((itm->text(2) == tr("solo")) && !isOneSolo)
-        {
-            isOneSolo = true;
-            soloTrack = itm->text(8).toInt();
-            ui->piano->clearTrackColors(itm->text(8).toInt());
-        }
-        bool on = (itm->text(2) == tr("on"));
-        trackStatus.insert(itm->text(8).toInt(),on);
-        if(!on) { QtMidi::outStopAll(itm->text(4).toInt()-1); }
-    }
-
-    if(!isOneSolo) { return; }
-
-    foreach(int i,trackStatus.keys())
-    {
-        if(i == soloTrack)
-        {
-            trackStatus.insert(i,true);
-            continue;
-        }
-        trackStatus.insert(i,false);
-    }
-    QtMidi::outStopAll();
-    ui->piano->clearTrackColors();
-}
-
-void MainWind::on_tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column)
-{
-    if(column == 0)
-    {
-        Qt::ItemFlags oldFlags = item->flags();
-        item->setFlags(oldFlags | Qt::ItemIsEditable);
-        ui->tracksEdit->editItem(item,column);
-        item->setFlags(oldFlags);
-    }
-    else if(column == 5)
-    {
-        SelectInstrument* ins = new SelectInstrument(this);
-        ins->setModal(true);
-        ins->setInsName(item->text(5));
-        if(ins->exec() == QDialog::Accepted)
-        {
-            item->setText(5,ins->insName());
-            foreach(QtMidiEvent*e,midiFile->eventsForTrack(item->text(8).toInt()))
-            {
-                if (e->type() == QtMidiEvent::ProgramChange)
-                { e->setNumber(ins->insNum()); }
-            }
-            QtMidi::outSetInstr(item->text(4).toInt()-1,ins->insNum());
-        }
-    }
-}
-
-void MainWind::on_tracksEdit_itemClicked(QTreeWidgetItem *item, int column)
-{
-    if(column == 2)
-    {
-        if(item->text(2) == tr("on"))
-        {
-            item->setText(2,tr("mute"));
-            item->setBackgroundColor(2,QColor("#a52a2a"));
-            item->setForeground(2,QColor(Qt::white));
-            updateTrackOn();
-        }
-        else if(item->text(2) == tr("mute"))
-        {
-            item->setText(2,tr("solo"));
-            item->setBackgroundColor(2,QColor(Qt::darkBlue));
-            updateTrackOn();
-        }
-        else
-        {
-            item->setText(2,tr("on"));
-            item->setBackgroundColor(2,QColor(Qt::white));
-            item->setForeground(2,QColor(Qt::black));
-            updateTrackOn();
-        }
-    }
-    VirtualPiano::voiceToUse = item->text(4).toInt()-1;
 }
 
 void MainWind::on_actionTranspose_triggered()

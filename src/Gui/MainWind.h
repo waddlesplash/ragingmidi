@@ -46,16 +46,13 @@ public:
     explicit MainWind(QWidget *parent = 0);
     ~MainWind();
 
-    static QMap<int,QColor> trackColors;
-    static QMap<int,bool> trackStatus;
+    static QMap<int,QColor>* trackColors;
+    static QMap<int,bool>* trackStatus;
     static SeekSlider* playLocSilder;
     
 private slots:
     void on_actionOpen_triggered();
     void on_actionSave_triggered();
-
-    void on_tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column);
-    void on_tracksEdit_itemClicked(QTreeWidgetItem *item, int column);
 
     void on_actionTranspose_triggered();
 
@@ -77,7 +74,6 @@ private:
     QSettings* appSettings;
 
     void openMidiFile(QString filename);
-    void updateTrackOn();
 };
 
 #endif // MAINWIND_H

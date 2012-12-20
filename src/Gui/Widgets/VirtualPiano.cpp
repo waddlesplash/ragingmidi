@@ -114,7 +114,7 @@ void VirtualPianoKey::setTrackColors(QList<QColor> newColors)
 }
 void VirtualPianoKey::addTrackColor(int track)
 {
-    QColor trackC = MainWind::trackColors.value(track);
+    QColor trackC = MainWind::trackColors->value(track);
     lock.lockForRead();
     if(!myColors.contains(trackC))
     {
@@ -127,7 +127,7 @@ void VirtualPianoKey::addTrackColor(int track)
 }
 void VirtualPianoKey::removeTrackColor(int track)
 {
-    QColor trackC = MainWind::trackColors.value(track);
+    QColor trackC = MainWind::trackColors->value(track);
     lock.lockForRead();
     if(myColors.contains(trackC))
     {
