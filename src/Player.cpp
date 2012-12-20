@@ -28,6 +28,15 @@
 #include "Player.h"
 #include "Gui/MainWind.h"
 
+Player::Player(QtMidiFile* fil, VirtualPiano* p, qint32 tick = 0)
+    : QThread(0)
+{
+    f = fil;
+    piano = p;
+    doStop = false;
+    sTick = tick;
+}
+
 void Player::handleEvent()
 {
     if(MainWind::trackStatus.value(e->track(),true) == false)

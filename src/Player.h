@@ -34,14 +34,7 @@ class Player : public QThread
 {
     Q_OBJECT
 public:
-    inline Player(QtMidiFile* fil, VirtualPiano* p, qint32 tick = 0)
-        : QThread(0)
-    {
-        f = fil;
-        piano = p;
-        doStop = false;
-        sTick = tick;
-    }
+    Player(QtMidiFile* fil, VirtualPiano* p, qint32 tick = 0);
     inline ~Player() {}
 
     inline void stop() { doStop = true; }
