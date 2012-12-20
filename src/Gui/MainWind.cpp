@@ -28,7 +28,6 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDesktopServices>
-#include <QProgressDialog>
 #include <QFile>
 
 #include <QtMidi.h>
