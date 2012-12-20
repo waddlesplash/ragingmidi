@@ -110,6 +110,7 @@
     <property name="title">
      <string>Edit</string>
     </property>
+    <addaction name="actionTranspose"/>
    </widget>
    <widget class="QMenu" name="menuTrack">
     <property name="title">
@@ -198,6 +199,11 @@
   <action name="actionRewind">
    <property name="text">
     <string>Rewind</string>
+   </property>
+  </action>
+  <action name="actionTranspose">
+   <property name="text">
+    <string>Transpose...</string>
    </property>
   </action>
  </widget>

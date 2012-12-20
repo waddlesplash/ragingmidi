@@ -28,13 +28,15 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDesktopServices>
+#include <QProgressDialog>
 #include <QFile>
 
 #include <QtMidi.h>
 #include "Selectors/SelectInstrument.h"
 #include "Selectors/SelectOutput.h"
-#include "AllEvents.h"
-#include "AboutDlg.h"
+#include "Dialogs/AllEvents.h"
+#include "Dialogs/TransposeDlg.h"
+#include "Dialogs/AboutDlg.h"
 
 QMap<int,QColor> MainWind::trackColors;
 QMap<int,bool> MainWind::trackStatus;
@@ -248,6 +250,34 @@ void MainWind::on_tracksEdit_itemClicked(QTreeWidgetItem *item, int column)
         }
     }
     VirtualPiano::voiceToUse = item->text(4).toInt()-1;
+}
+
+void MainWind::on_actionTranspose_triggered()
+{
+    if(player) { on_actionStop_triggered(); }
+    TransposeDlg t(this, ui->tracksEdit);
+    if(t.exec() == QDialog::Accepted) {
+        QList<int> tracks = t.tracksToTranspose();
+        int steps = t.transposeSteps();
+        if(steps == 0) { return; }
+
+        ui->statusBar->showMessage(tr("Transposing..."));
+        this->setEnabled(false);
+        foreach(int track,tracks) {
+            QList<QtMidiEvent*> evn = midiFile->eventsForTrack(track);
+            foreach(QtMidiEvent* e, evn) {
+                if(e->isNoteEvent()) {
+                    int n = e->note()+steps;
+                    if(n < 0) { n = 0; }
+                    if(n > 127) { n = 127; }
+                    e->setNote(n);
+                }
+            }
+        }
+        ui->pianoRoll->initEditor(midiFile);
+        this->setEnabled(true);
+        ui->statusBar->clearMessage();
+    }
 }
 
 void MainWind::on_actionTrackAdd_triggered()

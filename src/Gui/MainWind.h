@@ -57,6 +57,8 @@ private slots:
     void on_tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void on_tracksEdit_itemClicked(QTreeWidgetItem *item, int column);
 
+    void on_actionTranspose_triggered();
+
     void on_actionTrackAdd_triggered();
 
     void on_actionPlay_triggered();

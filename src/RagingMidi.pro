@@ -20,9 +20,10 @@ SOURCES += Gui/MainWind.cpp \
     Player.cpp \
     Gui/Selectors/SelectOutput.cpp \
     Gui/PianoRoll.cpp \
-    Gui/AllEvents.cpp \
+    Gui/Dialogs/AllEvents.cpp \
     Gui/Widgets/SeekSlider.cpp \
-    Gui/AboutDlg.cpp
+    Gui/Dialogs/AboutDlg.cpp \
+    Gui/Dialogs/TransposeDlg.cpp
 
 HEADERS  += Gui/MainWind.h \
     Gui/Selectors/SelectInstrument.h \
@@ -30,19 +31,21 @@ HEADERS  += Gui/MainWind.h \
     Player.h \
     Gui/Selectors/SelectOutput.h \
     Gui/PianoRoll.h \
-    Gui/AllEvents.h \
+    Gui/Dialogs/AllEvents.h \
     Gui/Widgets/SeekSlider.h \
-    Gui/AboutDlg.h \
-    config.h
+    Gui/Dialogs/AboutDlg.h \
+    config.h \
+    Gui/Dialogs/TransposeDlg.h
 
 FORMS    += Gui/MainWind.ui \
     Gui/Selectors/SelectInstrument.ui \
     Gui/Widgets/VirtualPiano.ui \
     Gui/Selectors/SelectOutput.ui \
     Gui/PianoRoll.ui \
-    Gui/AllEvents.ui \
+    Gui/Dialogs/AllEvents.ui \
     Gui/Widgets/SeekSlider.ui \
-    Gui/AboutDlg.ui
+    Gui/Dialogs/AboutDlg.ui \
+    Gui/Dialogs/TransposeDlg.ui
 
 RESOURCES += Resources/Resources.qrc
 
