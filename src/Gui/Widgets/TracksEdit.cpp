@@ -118,6 +118,21 @@ void TracksEdit::setupTracks(QtMidiFile *f)
     }
 }
 
+void TracksEdit::deleteCurTrack()
+{
+    TrackItem* i = static_cast<TrackItem*>(this->selectedItems().at(0));
+    if(!i) { return; }
+
+    int trackNum = i->track();
+    i->~QTreeWidgetItem();
+    foreach(QtMidiEvent*e,midiFile->eventsForTrack(trackNum))
+    {
+        midiFile->removeEvent(e);
+        delete e;
+    }
+    midiFile->removeTrack(trackNum);
+}
+
 void TracksEdit::updateTrackOn()
 {
     bool isOneSolo = false;

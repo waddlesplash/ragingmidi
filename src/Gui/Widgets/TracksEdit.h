@@ -101,6 +101,8 @@ public:
 
     TrackItem* createTrack(int trackNum);
     QList<TrackItem*> tracks();
+
+    void deleteCurTrack();
     
 private slots:
     void tracksEdit_itemClicked(QTreeWidgetItem *item, int column);

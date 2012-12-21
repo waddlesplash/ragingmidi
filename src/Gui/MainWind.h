@@ -57,6 +57,7 @@ private slots:
     void on_actionTranspose_triggered();
 
     void on_actionTrackAdd_triggered();
+    void on_actionTrackRemove_triggered();
 
     void on_actionPlay_triggered();
     void on_actionStop_triggered();
