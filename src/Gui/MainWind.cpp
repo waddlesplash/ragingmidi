@@ -158,6 +158,7 @@ void MainWind::on_actionTrackRemove_triggered()
 void MainWind::on_actionPlay_triggered()
 {
     if(!midiFile) { return; }
+    if(player) { return; }
 
     player = new Player(midiFile,ui->piano,ui->songPosSlider->value());
     player->moveToThread(player);
