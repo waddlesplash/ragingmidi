@@ -87,7 +87,7 @@ public:
 
     void initEditor(QtMidiFile* f);
 
-    PianoRollLine* initLine();
+    PianoRollLine* initLine(qint32 tick);
     void deleteLine();
 
 protected:

@@ -166,7 +166,7 @@ void MainWind::on_actionPlay_triggered()
     player->start();
 
     connect(player,SIGNAL(tickChanged(qint32)),
-            ui->pianoRoll->initLine(),SLOT(setTick(qint32)));
+            ui->pianoRoll->initLine(ui->songPosSlider->value()),SLOT(setTick(qint32)));
 }
 void MainWind::on_actionStop_triggered()
 {

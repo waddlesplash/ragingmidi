@@ -48,6 +48,7 @@ void PianoRollLine::setTick(qint32 tick)
             w = rect().width(), h = rect().height();
 
     this->setPos(tick/2.0,0);
+    if(!scene()) { return; }
     this->scene()->update(tick/2.0,0,1,scene()->height());
 
     QGraphicsView *p = qobject_cast<QGraphicsView*>(parent());
@@ -105,11 +106,11 @@ PianoRoll::~PianoRoll()
     delete ui;
 }
 
-PianoRollLine* PianoRoll::initLine()
+PianoRollLine* PianoRoll::initLine(qint32 tick)
 {
     line = new PianoRollLine(this,scene());
+    line->setTick(tick);
     scene()->addItem((QGraphicsItem*)line);
-    line->setTick(0);
     return line;
 }
 
