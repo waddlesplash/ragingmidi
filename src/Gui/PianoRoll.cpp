@@ -180,6 +180,7 @@ void PianoRoll::contextMenuEvent(QContextMenuEvent *event)
     QMenu m(this);
     m.addAction(tr("Zoom 100%"));
     QAction* a = m.exec(mapToGlobal(event->pos()));
+    if(!a) { return; }
     if(a->text() == tr("Zoom 100%"))
     { this->resetTransform(); }
 }
