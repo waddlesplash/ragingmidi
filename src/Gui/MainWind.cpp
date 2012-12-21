@@ -97,6 +97,7 @@ void MainWind::openMidiFile(QString filename)
     midiFile->load(filename);
 
     ui->tracksEdit->setupTracks(midiFile);
+    ui->songPosSlider->setValue(0);
     ui->songPosSlider->setMaximum(midiFile->events().last()->tick());
 
     // do the real work
