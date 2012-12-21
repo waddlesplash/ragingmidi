@@ -38,12 +38,12 @@
   </column>
   <column>
    <property name="text">
-    <string>New Column</string>
+    <string>Voice</string>
    </property>
   </column>
   <column>
    <property name="text">
-    <string>Voice</string>
+    <string>Instrument</string>
    </property>
   </column>
   <column>
