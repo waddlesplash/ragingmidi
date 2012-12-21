@@ -26,6 +26,7 @@
 #include "ui_TracksEdit.h"
 
 #include <QColor>
+#include <QMessageBox>
 #include <QtMidi.h>
 
 #include "../Selectors/SelectInstrument.h"
@@ -34,6 +35,19 @@ TrackItem::TrackItem(QTreeWidget *tree, int track)
     : QTreeWidgetItem(tree)
 {
     this->setText(TrackNumber,QString::number(track));
+
+    volSL = new TrackSlider(this->treeWidget());
+    volSL->setTracking(false);
+    volSL->setMinimum(0);
+    volSL->setValue(100);
+    volSL->setMaximum(100);
+    this->treeWidget()->setItemWidget(this,Vol,volSL);
+
+    balSL = new TrackSlider(this->treeWidget());
+    balSL->setTracking(false);
+    balSL->setMinimum(-50);
+    balSL->setMaximum(50);
+    this->treeWidget()->setItemWidget(this,Bal,balSL);
 }
 
 TracksEdit::TracksEdit(QWidget *parent) :
@@ -68,7 +82,38 @@ TrackItem* TracksEdit::createTrack(int trackNum)
     ret->setType(tr("Instrument"));
     ret->setOn(tr("on"));
     ret->setDevice("<automatic>");
+
+    ret->volSlider()->setTrack(trackNum);
+    ret->balSlider()->setTrack(trackNum);
+    connect(ret->volSlider(),SIGNAL(valueChanged(int)),this,SLOT(trackItem_volChanged(int)));
+    connect(ret->balSlider(),SIGNAL(valueChanged(int)),this,SLOT(trackItem_balChanged(int)));
+
     return ret;
+}
+
+void TracksEdit::trackItem_volChanged(int v)
+{
+    if(ignoreEvents) { return; }
+    TrackSlider* sl = qobject_cast<TrackSlider*>(sender());
+    if(!sl) { return; }
+    qDebug(QString::number(v).toAscii().constData());
+
+    int trk = sl->track();
+    int vel = 127.0*(v/100.0);
+    /* TODO: warn if track has velocity different in different notes */
+    foreach(QtMidiEvent* e, midiFile->eventsForTrack(trk))
+    {
+        if(e->type() != QtMidiEvent::NoteOn) { continue; }
+        e->setVelocity(vel);
+    }
+}
+void TracksEdit::trackItem_balChanged(int b)
+{
+    /* TODO: implement balance change.
+    if(ignoreEvents) { return; }
+    TrackSlider* sl = qobject_cast<TrackSlider*>(sender());
+    if(!sl) { return; }
+    int trk = sl->track(); */
 }
 
 QList<TrackItem*> TracksEdit::tracks()
@@ -89,19 +134,25 @@ void TracksEdit::init(VirtualPiano* p)
 
 void TracksEdit::setupTracks(QtMidiFile *f)
 {
+    ignoreEvents = true;
     midiFile = f;
     this->clear();
     foreach(int curTrack,midiFile->tracks())
     {
         TrackItem* i = this->createTrack(curTrack);
 
-        bool didInstr = false, didVoice = false, didMeta = false;
+        bool didInstr = false, didVoice = false, didMeta = false, didVol = false;
         foreach(QtMidiEvent* e, midiFile->eventsForTrack(curTrack))
         {
             if(!didVoice && e->type() == QtMidiEvent::NoteOn)
             {
                 i->setVoice(e->voice());
                 didVoice = true;
+            }
+            if(!didVol && e->type() == QtMidiEvent::NoteOn)
+            {
+                i->setVol((e->velocity()/127.0)*100);
+                didVol = true;
             }
             else if(!didInstr && e->type() == QtMidiEvent::ProgramChange)
             {
@@ -122,6 +173,7 @@ void TracksEdit::setupTracks(QtMidiFile *f)
         if(!didInstr)
         { i->setInst(tr("(no instrument)")); }
     }
+    ignoreEvents = false;
 }
 
 void TracksEdit::deleteCurTrack()

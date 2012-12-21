@@ -28,6 +28,7 @@
 #include <QTreeWidget>
 #include <QtMidiFile.h>
 #include <QStringList>
+#include <QSlider>
 #include <QMap>
 
 #include "VirtualPiano.h"
@@ -35,6 +36,20 @@
 namespace Ui {
 class TracksEdit;
 }
+
+class TrackSlider : public QSlider
+{
+    Q_OBJECT
+public:
+    inline TrackSlider(QWidget* p = 0)
+        : QSlider(p) { setOrientation(Qt::Horizontal); myTrack = 0; }
+
+    inline int track() { return myTrack; }
+    inline void setTrack(int t) { myTrack = t; }
+
+private:
+    int myTrack;
+};
 
 class TrackItem : public QTreeWidgetItem
 {
@@ -71,16 +86,20 @@ public:
     inline void setInst(QString ins) { setText(Inst,ins); }
     inline QString inst() { return text(Inst); }
 
-    inline void setVol(int vol) { setText(Vol,QString::number(vol)); }
-    inline int vol() { return text(Vol).toInt(); }
+    inline void setVol(int vol) { volSL->setValue(vol); }
+    inline int vol() { return volSL->value(); }
+    inline TrackSlider* volSlider() { return volSL; }
 
-    inline void setBal(int bal) { setText(Bal,QString::number(bal)); }
-    inline int bal() { return text(Bal).toInt(); }
+    inline void setBal(int bal) { balSL->setValue(bal); }
+    inline int bal() { return balSL->value(); }
+    inline TrackSlider* balSlider() { return balSL; }
 
     inline int track() { return text(TrackNumber).toInt(); }
 
 private:
     int myTrackId;
+    TrackSlider* volSL;
+    TrackSlider* balSL;
 };
 
 
@@ -104,6 +123,9 @@ public:
     void deleteCurTrack();
     
 private slots:
+    void trackItem_volChanged(int v);
+    void trackItem_balChanged(int b);
+
     void tracksEdit_itemClicked(QTreeWidgetItem *item, int column);
     void tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
@@ -111,6 +133,7 @@ private:
     Ui::TracksEdit *ui;
     QMap<int,QColor> myTrackColors;
     QMap<int,bool> myTrackStatus;
+    bool ignoreEvents;
 
     QtMidiFile *midiFile;
     VirtualPiano *piano;
