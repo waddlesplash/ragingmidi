@@ -30,6 +30,12 @@
 
 #include "../Selectors/SelectInstrument.h"
 
+TrackItem::TrackItem(QTreeWidget *tree, int track)
+    : QTreeWidgetItem(tree)
+{
+    this->setText(TrackNumber,QString::number(track));
+}
+
 TracksEdit::TracksEdit(QWidget *parent) :
     QTreeWidget(parent),
     ui(new Ui::TracksEdit)

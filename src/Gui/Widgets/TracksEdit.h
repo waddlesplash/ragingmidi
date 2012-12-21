@@ -39,8 +39,7 @@ class TracksEdit;
 class TrackItem : public QTreeWidgetItem
 {
 public:
-    inline TrackItem(QTreeWidget* tree = 0, int track = 0)
-        : QTreeWidgetItem(tree) { setText(TrackNumber,QString::number(track)); }
+    TrackItem(QTreeWidget* tree = 0, int track = 0);
 
     enum ColumnIds {
         Name = 0,
