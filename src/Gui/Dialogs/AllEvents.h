@@ -25,6 +25,13 @@
 #ifndef ALLEVENTS_H
 #define ALLEVENTS_H
 
+/****h* RagingMidi/AllEvents.h
+ * PURPOSE
+ *   Dialog with a list of all the MIDI events
+ *   in the current MIDI file.
+ ******
+ */
+
 #include <QDialog>
 #include <QTreeWidget>
 #include <QtMidiFile.h>
@@ -33,7 +40,16 @@ namespace Ui {
 class AllEvents;
 }
 
+/****c* AllEvents.h/GuiMidiEvent
+ * SYNOPSIS
+ */
 class GuiMidiEvent : public QTreeWidgetItem
+/**
+ * DESCRIPTION
+ *   Subclass of QTreeWidgetItem geared towards
+ *   showing a MIDI event.
+ ******
+ */
 {
 public:
     inline explicit GuiMidiEvent(QTreeWidget *p = 0)
@@ -43,7 +59,16 @@ public:
     void init(QtMidiEvent *e);
 };
 
+/****c* AllEvents.h/AllEvents
+ * SYNOPSIS
+ */
 class AllEvents : public QDialog
+/**
+ * DESCRIPTION
+ *   Dialog that takes care of creating all the
+ *   GuiMidiEvent[s] for one specific MIDI file.
+ ******
+ */
 {
     Q_OBJECT
 public:
