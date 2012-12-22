@@ -25,6 +25,14 @@
 #ifndef SELECTINSTRUMENT_H
 #define SELECTINSTRUMENT_H
 
+/****h* RagingMidi/SelectInstrument.h
+ * PURPOSE
+ *   Creates a dialog with a list of all the
+ *   valid MIDI instruments and allows the user
+ *   to select one.
+ ******
+ */
+
 #include <QDialog>
 #include <QTreeWidgetItem>
 
@@ -32,7 +40,12 @@ namespace Ui {
 class SelectInstrument;
 }
 
+
+/****c* SelectInstrument.h/SelectInstrument
+ * SYNOPSIS
+ */
 class SelectInstrument : public QDialog
+/********/
 {
     Q_OBJECT
     
