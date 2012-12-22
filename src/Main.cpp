@@ -22,6 +22,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
+/****h* RagingMidi/Main.cpp
+ * PURPOSE
+ *   Initializer for Raging MIDI. Creates the
+ *	 QApplication and MainWind objects.
+ ******
+ */
+ 
 #include <QtGui/QApplication>
 #include <QtGui/QPlastiqueStyle>
 #include "Gui/MainWind.h"
