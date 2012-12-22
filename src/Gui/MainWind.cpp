@@ -63,6 +63,8 @@ MainWind::MainWind(QWidget *parent) :
     player = 0;
 
     this->show();
+    ui->piano->setMaximumHeight(ui->piano->height());
+
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted)
     { QtMidi::initMidiOut(selOut.midiOutId()); }
