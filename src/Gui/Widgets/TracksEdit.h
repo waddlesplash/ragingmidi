@@ -25,6 +25,14 @@
 #ifndef TRACKSEDIT_H
 #define TRACKSEDIT_H
 
+/****h* RagingMidi/TracksEdit.h
+ * PURPOSE
+ *   Subclass of QTreeWidget and related
+ *   classes to create a widget to edit tracks
+ *   with.
+ ******
+ */
+
 #include <QTreeWidget>
 #include <QtMidiFile.h>
 #include <QStringList>
@@ -37,7 +45,16 @@ namespace Ui {
 class TracksEdit;
 }
 
+/****c* TracksEdit.h/TrackSlider
+ * SYNOPSIS
+ */
 class TrackSlider : public QSlider
+/**
+ * DESCRIPTION
+ *   Subclass of QSlider that can store what MIDI track
+ *   it was created for.
+ ******
+ */
 {
     Q_OBJECT
 public:
@@ -51,7 +68,16 @@ private:
     int myTrack;
 };
 
+/****c* TracksEdit.h/TrackItem
+ * SYNOPSIS
+ */
 class TrackItem : public QTreeWidgetItem
+/**
+ * DESCRIPTION
+ *   Subclass of QTreeWidgetItem that is
+ *   designed to store MIDI track data.
+ ******
+ */
 {
 public:
     TrackItem(QTreeWidget* tree = 0, int track = 0);
@@ -102,8 +128,17 @@ private:
     TrackSlider* balSL;
 };
 
-
+/****c* TracksEdit.h/TracksEdit
+ * SYNOPSIS
+ */
 class TracksEdit : public QTreeWidget
+/**
+ * DESCRIPTION
+ *   Subclass of QTreeWidget that is
+ *   designed to use the above two classes
+ *   to edit MIDI track data.
+ ******
+ */
 {
     Q_OBJECT
     
