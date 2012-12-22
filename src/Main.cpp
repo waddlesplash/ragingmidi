@@ -24,8 +24,8 @@
 
 /****h* RagingMidi/Main.cpp
  * PURPOSE
- *   Initializer for Raging MIDI. Creates the
- *	 QApplication and MainWind objects.
+ *  Initializer for Raging MIDI. Creates the
+ *  QApplication and MainWind objects.
  ******
  */
  
