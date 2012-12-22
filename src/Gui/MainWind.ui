@@ -23,19 +23,24 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QSplitter" name="splitter">
+     <widget class="QSplitter" name="splitter_2">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="TracksEdit" name="tracksEdit"/>
-      <widget class="PianoRoll" name="pianoRoll"/>
-      <widget class="VirtualPiano" name="piano">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="TracksEdit" name="tracksEdit" native="true"/>
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
+       <widget class="PianoRoll" name="pianoRoll"/>
+       <widget class="VirtualPiano" name="piano">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -177,8 +182,9 @@
   </customwidget>
   <customwidget>
    <class>TracksEdit</class>
-   <extends>QTreeWidget</extends>
+   <extends>QWidget</extends>
    <header>Gui/Widgets/TracksEdit.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
