@@ -31,11 +31,13 @@
 #include <QWheelEvent>
 #include <QContextMenuEvent>
 #include <QPointF>
-#include "QtMidiFile.h"
-/****h* GUI/PianoRoll.h
+
+#include <QtMidiFile.h>
+
+/****h* RagingMidi/PianoRoll.h
  * PURPOSE
- *   Events and painting for the window which displays a
- *   scrolling piano roll of the notes on tracks.
+ *   Events and painting for the "PianoRoll" widget which
+ *   displays a scrolling piano roll of the notes on tracks.
  ******
  */
 
@@ -43,14 +45,13 @@ namespace Ui {
 class PianoRoll;
 }
 
-/**************************************************************/
-/****c* GUI/PianoRoll.h/PianoRollLine
+/****c* PianoRoll.h/PianoRollLine
  * SYNOPSIS
  */
 class PianoRollLine : public QObject, QGraphicsRectItem
-/* 
+/**
  * DESCRIPTION
- * 
+ *   The scrolling line that shows the current play location.
  ******
  */
 {
@@ -62,17 +63,16 @@ public:
 public slots:
     void setTick(qint32 tick);
 };
-/**************************************************************/
 
 
-/**************************************************************/
-/****c* GUI/PianoRoll.h/PianoRollEvent
+/****c* PianoRoll.h/PianoRollEvent
  * SYNOPSIS
  */
 class PianoRollEvent : public QGraphicsRectItem
-/* 
+/**
  * DESCRIPTION
- * 
+ *  Rectangle that shows the location of one pair of
+ *  NoteOn and NoteOff events in the piano roll.
  ******
  */
 {
@@ -102,17 +102,16 @@ private:
     QtMidiEvent* myNoteOff;
     QColor myColor;
 };
-/**************************************************************/
 
 
-/**************************************************************/
-/****c* GUI/PianoRoll.h/PianoRoll
+/****c* PianoRoll.h/PianoRoll
  * SYNOPSIS
  */
 class PianoRoll : public QGraphicsView
-/* 
+/**
  * DESCRIPTION
- * 
+ *   Widget that handles the display and the
+ *   management of PianoRollEvent[s].
  ******
  */
 {
