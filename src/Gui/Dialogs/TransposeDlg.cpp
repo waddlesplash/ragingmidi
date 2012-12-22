@@ -1,20 +1,21 @@
 #include "TransposeDlg.h"
 #include "ui_TransposeDlg.h"
 
-TransposeDlg::TransposeDlg(QWidget *parent, QTreeWidget *tracksEdit) :
+TransposeDlg::TransposeDlg(QWidget *parent, TracksEdit *tracksEdit) :
     QDialog(parent),
     ui(new Ui::TransposeDlg)
 {
     ui->setupUi(this);
     ui->tracksChoose->hideColumn(2);
 
-    for(int i = 0;i<tracksEdit->topLevelItemCount();i++) {
-        QTreeWidgetItem* t = tracksEdit->topLevelItem(i);
+    foreach(TrackItem* t,tracksEdit->tracks()) {
+        if(t->inst() == tr("(no instrument)")) { continue; }
+
         QTreeWidgetItem* n = new QTreeWidgetItem(ui->tracksChoose);
-        n->setText(0,t->text(0));
-        n->setBackgroundColor(0,t->backgroundColor(0));
-        n->setText(1,t->text(5));
-        n->setText(2,t->text(8));
+        n->setText(0,t->name());
+        n->setBackgroundColor(0,t->backgroundColor(TrackItem::Name));
+        n->setText(1,t->inst());
+        n->setText(2,t->text(TrackItem::TrackNumber));
     }
 }
 

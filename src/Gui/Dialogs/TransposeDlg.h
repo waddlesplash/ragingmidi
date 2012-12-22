@@ -5,6 +5,8 @@
 #include <QTreeWidget>
 #include <QList>
 
+#include "../Widgets/TracksEdit.h"
+
 namespace Ui {
 class TransposeDlg;
 }
@@ -14,7 +16,7 @@ class TransposeDlg : public QDialog
     Q_OBJECT
     
 public:
-    explicit TransposeDlg(QWidget *parent = 0, QTreeWidget* tracksEdit = 0);
+    explicit TransposeDlg(QWidget *parent = 0, TracksEdit* tracksEdit = 0);
     ~TransposeDlg();
 
     QList<int> tracksToTranspose();
