@@ -3,3 +3,4 @@
 *.o
 *.exe
 Makefile*
+docs
