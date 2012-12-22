@@ -1,6 +1,14 @@
 #ifndef TRANSPOSEDLG_H
 #define TRANSPOSEDLG_H
 
+/****h* RagingMidi/TransposeDlg.h
+ * PURPOSE
+ *   Shows a dialog that allows the user to
+ *   transpose any number of tracks down or up.
+ ******
+ */
+
+
 #include <QDialog>
 #include <QTreeWidget>
 #include <QList>
@@ -11,7 +19,11 @@ namespace Ui {
 class TransposeDlg;
 }
 
+/****c* TransposeDlg.h/TransposeDlg
+ * SYNOPSIS
+ */
 class TransposeDlg : public QDialog
+/********/
 {
     Q_OBJECT
     
