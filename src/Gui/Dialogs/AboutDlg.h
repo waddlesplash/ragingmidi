@@ -25,6 +25,14 @@
 #ifndef ABOUTDLG_H
 #define ABOUTDLG_H
 
+/****h* RagingMidi/AboutDlg.h
+ * PURPOSE
+ *   Shows a dialog that says the current version
+ *   of Raging MIDI (and revision ID) along with
+ *   copyright information.
+ ******
+ */
+
 #include <QDialog>
 #include <QUrl>
 
@@ -32,7 +40,11 @@ namespace Ui {
 class AboutDlg;
 }
 
+/****c* AboutDlg.h/AboutDlg
+ * SYNOPSIS
+ */
 class AboutDlg : public QDialog
+/********/
 {
     Q_OBJECT
     
