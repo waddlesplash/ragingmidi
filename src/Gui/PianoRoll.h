@@ -32,12 +32,27 @@
 #include <QContextMenuEvent>
 #include <QPointF>
 #include "QtMidiFile.h"
+/****h* GUI/PianoRoll.h
+ * PURPOSE
+ *   Events and painting for the window which displays a
+ *   scrolling piano roll of the notes on tracks.
+ ******
+ */
 
 namespace Ui {
 class PianoRoll;
 }
 
+/**************************************************************/
+/****c* GUI/PianoRoll.h/PianoRollLine
+ * SYNOPSIS
+ */
 class PianoRollLine : public QObject, QGraphicsRectItem
+/* 
+ * DESCRIPTION
+ * 
+ ******
+ */
 {
     Q_OBJECT
 public:
@@ -47,8 +62,19 @@ public:
 public slots:
     void setTick(qint32 tick);
 };
+/**************************************************************/
 
+
+/**************************************************************/
+/****c* GUI/PianoRoll.h/PianoRollEvent
+ * SYNOPSIS
+ */
 class PianoRollEvent : public QGraphicsRectItem
+/* 
+ * DESCRIPTION
+ * 
+ ******
+ */
 {
 public:
     inline PianoRollEvent() : QGraphicsRectItem(0)
@@ -76,8 +102,19 @@ private:
     QtMidiEvent* myNoteOff;
     QColor myColor;
 };
+/**************************************************************/
 
+
+/**************************************************************/
+/****c* GUI/PianoRoll.h/PianoRoll
+ * SYNOPSIS
+ */
 class PianoRoll : public QGraphicsView
+/* 
+ * DESCRIPTION
+ * 
+ ******
+ */
 {
     Q_OBJECT
     
