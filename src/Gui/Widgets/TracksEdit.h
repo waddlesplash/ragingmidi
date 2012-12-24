@@ -156,6 +156,9 @@ public:
     QList<TrackItem*> tracks();
 
     void deleteCurTrack();
+
+signals:
+    void somethingChanged();
     
 private slots:
     void trackItem_volChanged(int v);

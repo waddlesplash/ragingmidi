@@ -106,6 +106,7 @@ void TracksEdit::trackItem_volChanged(int v)
         if(e->type() != QtMidiEvent::NoteOn) { continue; }
         e->setVelocity(vel);
     }
+    emit somethingChanged();
 }
 void TracksEdit::trackItem_balChanged(int b)
 {

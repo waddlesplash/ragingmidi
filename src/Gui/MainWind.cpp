@@ -61,7 +61,12 @@ MainWind::MainWind(QWidget *parent) :
     // Variables
     midiFile = 0;
     player = 0;
+    midiFileLoc = "";
 
+    // Connections
+    connect(ui->tracksEdit,SIGNAL(somethingChanged()),this,SLOT(somethingChanged()));
+
+    // Final UI setup
     this->show();
     ui->piano->setMaximumHeight(ui->piano->height());
 
@@ -78,8 +83,21 @@ MainWind::~MainWind()
     QtMidi::closeMidiOut();
 }
 
+void MainWind::somethingChanged()
+{
+    this->setWindowModified(true);
+}
+
 void MainWind::on_actionOpen_triggered()
 {
+    if(this->isWindowModified())
+    {
+        int res = QMessageBox::warning(this,tr("Unsaved changes!"),
+                             tr("You have unsaved changes!<br/>Are you sure you want to open another file?"),
+                             QMessageBox::Yes,QMessageBox::No);
+        if(res != QMessageBox::Yes) { return; }
+    }
+
     QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
     QString f = QFileDialog::getOpenFileName(this,tr("Open file..."),
                                              appSettings->value("LastFileDlgLoc",s).toString(),
@@ -89,8 +107,10 @@ void MainWind::on_actionOpen_triggered()
 
     QFileInfo i(f);
     appSettings->setValue("LastFileDlgLoc",i.absoluteDir().path());
+    midiFileLoc = f;
+    this->setWindowModified(false);
+    this->setWindowTitle(tr("%1[*] - Raging MIDI","%1 = filename").arg(i.fileName()));
 }
-
 void MainWind::openMidiFile(QString filename)
 {
     if(player) { on_actionStop_triggered(); }
@@ -105,9 +125,19 @@ void MainWind::openMidiFile(QString filename)
     // do the real work
     ui->pianoRoll->initEditor(midiFile);
 }
-
-
 void MainWind::on_actionSave_triggered()
+{
+    if(!midiFileLoc.isEmpty())
+    {
+        midiFile->save(midiFileLoc);
+        this->setWindowModified(false);
+    }
+    else
+    {
+        on_actionSaveAs_triggered();
+    }
+}
+void MainWind::on_actionSaveAs_triggered()
 {
     QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
     QString f = QFileDialog::getSaveFileName(this,tr("Save file..."),
@@ -118,6 +148,9 @@ void MainWind::on_actionSave_triggered()
 
     QFileInfo i(f);
     appSettings->setValue("LastFileDlgLoc",i.absoluteDir().path());
+    midiFileLoc = f;
+    this->setWindowModified(false);
+    this->setWindowTitle(tr("%1[*] - Raging MIDI","%1 = filename").arg(i.fileName()));
 }
 
 void MainWind::on_actionTranspose_triggered()
@@ -144,6 +177,7 @@ void MainWind::on_actionTranspose_triggered()
         }
         ui->pianoRoll->initEditor(midiFile);
         this->setEnabled(true);
+        somethingChanged();
         ui->statusBar->clearMessage();
     }
 }
@@ -156,6 +190,7 @@ void MainWind::on_actionTrackRemove_triggered()
 {
     ui->tracksEdit->deleteCurTrack();
     ui->pianoRoll->initEditor(midiFile);
+    somethingChanged();
 }
 
 void MainWind::on_actionPlay_triggered()

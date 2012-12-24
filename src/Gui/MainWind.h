@@ -67,8 +67,11 @@ public:
     static SeekSlider* playLocSilder;
     
 private slots:
+    void somethingChanged();
+
     void on_actionOpen_triggered();
     void on_actionSave_triggered();
+    void on_actionSaveAs_triggered();
 
     void on_actionTranspose_triggered();
 
@@ -86,9 +89,11 @@ private slots:
 
 private:
     Ui::MainWind *ui;
+
     QtMidiFile* midiFile;
     Player* player;
     QSettings* appSettings;
+    QString midiFileLoc;
 
     void openMidiFile(QString filename);
 };
