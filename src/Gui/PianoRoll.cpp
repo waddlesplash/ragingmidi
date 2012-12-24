@@ -58,7 +58,7 @@ void PianoRollLine::setTick(qint32 tick)
 }
 
 void PianoRollEvent::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
-{
+{/*
     e->accept();
     int note = y()/7;
     qint32 tick = x()*2;
@@ -73,7 +73,7 @@ void PianoRollEvent::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
     myNoteOn->setTick(tick);
     myNoteOff->setNote(note);
     myNoteOff->setTick(tick+(rect().width()/2.0));
-    this->scene()->update(x(),y(),rect().width(),rect().height());
+    this->scene()->update(x(),y(),rect().width(),rect().height());*/
 }
 
 void PianoRollEvent::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
