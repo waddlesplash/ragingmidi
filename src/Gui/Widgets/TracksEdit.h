@@ -64,6 +64,9 @@ public:
     inline int track() { return myTrack; }
     inline void setTrack(int t) { myTrack = t; }
 
+protected:
+    inline void wheelEvent(QWheelEvent *) {}
+
 private:
     int myTrack;
 };
