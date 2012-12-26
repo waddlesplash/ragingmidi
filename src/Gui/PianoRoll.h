@@ -58,7 +58,6 @@ class PianoRollLine : public QObject, QGraphicsRectItem
     Q_OBJECT
 public:
     PianoRollLine(QObject* parent, QGraphicsScene* s);
-    inline ~PianoRollLine() {}
 
 public slots:
     void setTick(qint32 tick);
@@ -83,7 +82,6 @@ public:
         setFlag(QGraphicsItem::ItemIsSelectable);
         setFlag(QGraphicsItem::ItemIsMovable);
     }
-    inline ~PianoRollEvent() {}
 
     inline void setSize(qreal x, qreal y, qreal w, qreal h)
     { this->setPos(x,y); this->setRect(0,0,w,h); }

@@ -54,7 +54,6 @@ class GuiMidiEvent : public QTreeWidgetItem
 public:
     inline explicit GuiMidiEvent(QTreeWidget *p = 0)
         : QTreeWidgetItem(p) {}
-    inline ~GuiMidiEvent() {}
 
     void init(QtMidiEvent *e);
 };

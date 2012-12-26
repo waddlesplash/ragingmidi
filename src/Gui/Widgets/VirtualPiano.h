@@ -63,7 +63,6 @@ class VirtualPianoKey : public QObject, QGraphicsRectItem
     Q_OBJECT
 public:
     explicit VirtualPianoKey(QObject *parent = 0, int midiKey = 0, QString noteName = "", bool isBlackKey = false);
-    inline ~VirtualPianoKey() {}
 
     inline void setSize(int x, int y, int w, int h)
     { this->setRect(0,0,w,h); this->setPos(x,y); }
