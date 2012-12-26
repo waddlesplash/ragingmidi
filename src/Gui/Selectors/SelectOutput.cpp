@@ -35,7 +35,6 @@ SelectOutput::SelectOutput(QWidget *parent) :
     ui->setupUi(this);
     ui->refreshBtn->setIcon(QApplication::style()->standardIcon(QStyle::SP_BrowserReload));
     on_refreshBtn_clicked();
-    ui->acceptBB->setEnabled(false);
 }
 
 SelectOutput::~SelectOutput()

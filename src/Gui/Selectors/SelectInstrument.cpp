@@ -30,8 +30,6 @@ SelectInstrument::SelectInstrument(QWidget *parent) :
     ui(new Ui::SelectInstrument)
 {
     ui->setupUi(this);
-
-    ui->acceptBB->setEnabled(false);
 }
 
 SelectInstrument::~SelectInstrument()
