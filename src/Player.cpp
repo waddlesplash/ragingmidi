@@ -22,7 +22,7 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <QDateTime>
+#include <QElapsedTimer>
 #include <QtMidi.h>
 
 #include "Player.h"
@@ -64,15 +64,15 @@ void Player::handleEvent()
 
 void Player::run()
 {
-    qint64 start_time = QDateTime::currentDateTime().toMSecsSinceEpoch();
+    QElapsedTimer t;
+    t.start();
     foreach(e,f->events()) {
         if(e->isNoteEvent() && (e->tick() < sTick)) { continue; }
 
         if(e->type() != QtMidiEvent::Meta) {
             qint64 event_time = f->timeFromTick(e->tick()-sTick) * 1000;
-            qint64 current_time = QDateTime::currentDateTime().toMSecsSinceEpoch();
 
-            qint32 waitTime = event_time - (current_time - start_time);
+            qint32 waitTime = event_time - t.elapsed();
             if(waitTime > 0) {
                 msleep(waitTime);
             }
