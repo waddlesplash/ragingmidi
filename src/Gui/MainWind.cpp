@@ -188,6 +188,7 @@ void MainWind::on_actionTrackAdd_triggered()
 }
 void MainWind::on_actionTrackRemove_triggered()
 {
+    if(!midiFile) { return; }
     ui->tracksEdit->deleteCurTrack();
     ui->pianoRoll->initEditor(midiFile);
     somethingChanged();
