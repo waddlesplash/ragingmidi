@@ -147,6 +147,7 @@ void TracksEdit::setupTracks(QtMidiFile *f)
             if(!didVoice && e->type() == QtMidiEvent::NoteOn)
             {
                 i->setVoice(e->voice());
+                if(e->voice() == 9) { i->setInst(tr("Drums")); didInstr = true; }
                 didVoice = true;
             }
             if(!didVol && e->type() == QtMidiEvent::NoteOn)
