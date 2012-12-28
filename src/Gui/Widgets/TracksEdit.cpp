@@ -26,7 +26,6 @@
 #include "ui_TracksEdit.h"
 
 #include <QColor>
-#include <QMessageBox>
 #include <QtMidi.h>
 
 #include "../Selectors/SelectInstrument.h"
