@@ -229,6 +229,7 @@ void TracksEdit::tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column)
         this->editItem(itm,column);
         itm->setFlags(oldFlags);
     } else if(column == TrackItem::Inst) {
+        if(itm->voice() == 9) { return; } // drums, don't change
         SelectInstrument* ins = new SelectInstrument(this);
         ins->setModal(true);
         ins->setInsName(itm->inst());
