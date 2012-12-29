@@ -71,7 +71,7 @@
         </column>
         <column>
          <property name="text">
-          <string>&lt;hide_me&gt;</string>
+          <string notr="true">&lt;hide_me&gt;</string>
          </property>
         </column>
        </widget>
