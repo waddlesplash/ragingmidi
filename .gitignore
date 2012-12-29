@@ -4,3 +4,5 @@
 *.exe
 Makefile*
 docs
+binary
+dist
