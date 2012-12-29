@@ -8,7 +8,10 @@ CONFIG += qt
 QT  += core gui opengl
 
 TEMPLATE = app
-win32 { TARGET = RagingMidi }
+win32 {
+    TARGET = RagingMidi
+    RC_FILE = Resources/winres.rc
+}
 !win32 { TARGET = ragingmidi }
 
 include(QtMidi/QtMidi.pri)

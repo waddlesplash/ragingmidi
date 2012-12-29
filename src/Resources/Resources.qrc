@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>REVISION.txt</file>
+        <file>Logo.ico</file>
     </qresource>
 </RCC>

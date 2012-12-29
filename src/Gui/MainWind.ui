@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Raging MIDI[*]</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../Resources/Resources.qrc">
+    <normaloff>:/Logo.ico</normaloff>:/Logo.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
@@ -188,6 +192,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../Resources/Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
