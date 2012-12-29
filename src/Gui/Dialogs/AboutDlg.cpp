@@ -53,6 +53,12 @@ AboutDlg::AboutDlg(QWidget *parent) :
     int size = sizeof(void*)*8;
     QString arch = tr("%1-bit","32-bit or 64-bit").arg(size);
     ui->archLbl->setText(arch);
+
+    ui->textBrowser->setText(tr("<u><b>Created By</b></u><br />"
+                                "<a href=\"https://github.com/waddlesplash\"><u>@waddlesplash</u></a><br />"
+                                "<br />"
+                                "<u><b>Using Code By</b></u><br />"
+                                "David G. Slomin, <a href=\"http://www.sreal.com/~div/midi-utilities/\"><u>MIDI Utilities</u></a>."));
 }
 
 AboutDlg::~AboutDlg()
