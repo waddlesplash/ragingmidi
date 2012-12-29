@@ -55,6 +55,7 @@ public:
 private slots:
     void on_textBrowser_anchorClicked(const QUrl &arg1);
     void on_fromRevLbl_linkActivated(const QString &link);
+    void on_urlLbl_linkActivated(const QString &link);
 
 private:
     Ui::AboutDlg *ui;

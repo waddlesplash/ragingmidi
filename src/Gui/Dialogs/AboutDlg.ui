@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>348</width>
+    <height>294</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -53,6 +53,13 @@
       <property name="margin">
        <number>0</number>
       </property>
+      <item row="2" column="0">
+       <widget class="QLabel" name="fromRevLbl">
+        <property name="text">
+         <string notr="true">&lt;from rev. label&gt;</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="versionLbl">
         <property name="text">
@@ -61,9 +68,9 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="fromRevLbl">
+       <widget class="QLabel" name="urlLbl">
         <property name="text">
-         <string notr="true">&lt;from rev. label&gt;</string>
+         <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://sourceforge.net/projects/ragingmidi/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;sf.net/p/ragingmidi/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>

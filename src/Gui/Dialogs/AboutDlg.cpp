@@ -69,3 +69,8 @@ void AboutDlg::on_fromRevLbl_linkActivated(const QString &link)
 {
     QDesktopServices::openUrl(QUrl(link));
 }
+
+void AboutDlg::on_urlLbl_linkActivated(const QString &link)
+{
+    QDesktopServices::openUrl(QUrl(link));
+}
