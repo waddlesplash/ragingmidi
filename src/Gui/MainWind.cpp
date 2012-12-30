@@ -49,7 +49,15 @@ MainWind::MainWind(QWidget *parent) :
 
     ui->setupUi(this);
 
-    // More UI setup
+    // Icon setup
+    ui->actionOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
+    ui->actionSave->setIcon(style()->standardIcon(QStyle::SP_DialogSaveButton));
+
+    ui->actionPlay->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+    ui->actionStop->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
+    ui->actionRewind->setIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward));
+
+    // UI & Static Var. setup
     ui->tracksEdit->init(ui->piano);
     trackColors = ui->tracksEdit->trackColors();
     trackStatus = ui->tracksEdit->trackStatus();
