@@ -30,6 +30,8 @@ SelectInstrument::SelectInstrument(QWidget *parent) :
     ui(new Ui::SelectInstrument)
 {
     ui->setupUi(this);
+    ui->midiInstr->resizeColumnToContents(0);
+    ui->midiInstr->resizeColumnToContents(1);
 }
 
 SelectInstrument::~SelectInstrument()

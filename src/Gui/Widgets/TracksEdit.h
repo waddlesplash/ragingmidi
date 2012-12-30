@@ -181,6 +181,7 @@ private:
     QStringList colorNames;
 
     void updateTrackOn();
+    void resizeColsToContents();
 };
 
 #endif // TRACKSEDIT_H

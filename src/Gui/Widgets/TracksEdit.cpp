@@ -66,11 +66,19 @@ TracksEdit::TracksEdit(QWidget *parent) :
             this,SLOT(tracksEdit_itemDoubleClicked(QTreeWidgetItem*,int)));
     connect(this,SIGNAL(itemClicked(QTreeWidgetItem*,int)),
             this,SLOT(tracksEdit_itemClicked(QTreeWidgetItem*,int)));
+
+    resizeColsToContents();
 }
 
 TracksEdit::~TracksEdit()
 {
     delete ui;
+}
+
+void TracksEdit::resizeColsToContents()
+{
+    for(int i = 0;i<this->columnCount();i++)
+    { this->resizeColumnToContents(i); }
 }
 
 TrackItem* TracksEdit::createTrack(int trackNum)
@@ -175,6 +183,7 @@ void TracksEdit::setupTracks(QtMidiFile *f)
         { i->setInst(tr("(no instrument)")); }
     }
     ignoreEvents = false;
+    resizeColsToContents();
 }
 
 void TracksEdit::deleteCurTrack()
