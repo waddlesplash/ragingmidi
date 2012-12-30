@@ -45,9 +45,13 @@ MainWind::MainWind(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWind)
 {
+    // Important stuff
+    ui->setupUi(this);
     appSettings = new QSettings("waddlesplash","ragingmidi");
 
-    ui->setupUi(this);
+#ifdef Q_OS_WIN /* Windows users expect 16px icons */
+    this->setIconSize(QSize(16,16));
+#endif
 
     // Icon setup
     ui->actionOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
