@@ -83,6 +83,46 @@ MainWind::~MainWind()
     QtMidi::closeMidiOut();
 }
 
+int MainWind::confirmUnsaved()
+{
+    if(this->isWindowModified()) {
+        QMessageBox a(this);
+#ifndef Q_OS_MAC
+        a.setText("<b>"+tr("You have unsaved changes!")+"</b>");
+#else
+        a.setText(tr("You have unsaved changes!"));
+#endif
+        a.setInformativeText(tr("Do you want to save your changes?"));
+        a.setIcon(QMessageBox::Warning);
+        a.setWindowTitle(tr("Unsaved changes!"));
+        a.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+        a.setDefaultButton(QMessageBox::Save);
+        return a.exec();
+    } else {
+        return -1;
+    }
+}
+
+void MainWind::closeEvent(QCloseEvent *e)
+{
+    if(this->isWindowModified()) {
+        switch(confirmUnsaved()) {
+        case QMessageBox::Save:
+            on_actionSave_triggered();
+            e->accept();
+            break;
+        case QMessageBox::Discard:
+            e->accept();
+            break;
+        case QMessageBox::Cancel:
+            e->ignore();
+            break;
+        }
+    } else {
+        e->accept();
+    }
+}
+
 void MainWind::somethingChanged()
 {
     this->setWindowModified(true);
@@ -90,12 +130,17 @@ void MainWind::somethingChanged()
 
 void MainWind::on_actionOpen_triggered()
 {
-    if(this->isWindowModified())
-    {
-        int res = QMessageBox::warning(this,tr("Unsaved changes!"),
-                             tr("You have unsaved changes!<br/>Are you sure you want to open another file?"),
-                             QMessageBox::Yes,QMessageBox::No);
-        if(res != QMessageBox::Yes) { return; }
+    if(this->isWindowModified()) {
+        switch(confirmUnsaved()) {
+        case QMessageBox::Save:
+            on_actionSave_triggered();
+            break;
+        case QMessageBox::Discard:
+            break;
+        case QMessageBox::Cancel:
+            return;
+            break;
+        }
     }
 
     QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);

@@ -65,6 +65,9 @@ public:
     static QMap<int,QColor>* trackColors;
     static QMap<int,bool>* trackStatus;
     static SeekSlider* playLocSilder;
+
+protected:
+    void closeEvent(QCloseEvent *e);
     
 private slots:
     void somethingChanged();
@@ -96,6 +99,7 @@ private:
     QString midiFileLoc;
 
     void openMidiFile(QString filename);
+    int confirmUnsaved();
 };
 
 #endif // MAINWIND_H
