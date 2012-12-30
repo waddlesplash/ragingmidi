@@ -70,7 +70,7 @@ private:
 
     bool doStop;
 
-    qint32 sTick;
+    qint32 sTick; /* start tick */
 
 private slots:
     void handleEvent();

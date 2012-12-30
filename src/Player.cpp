@@ -64,13 +64,15 @@ void Player::handleEvent()
 
 void Player::run()
 {
+    float sTime = 0; /* start time, in seconds */
+    if(sTick) { sTime = f->timeFromTick(sTick); }
     QElapsedTimer t;
     t.start();
     foreach(e,f->events()) {
         if(e->isNoteEvent() && (e->tick() < sTick)) { continue; }
 
         if(e->type() != QtMidiEvent::Meta) {
-            qint64 event_time = f->timeFromTick(e->tick()-sTick) * 1000;
+            qint64 event_time = (f->timeFromTick(e->tick())-sTime) * 1000;
 
             qint32 waitTime = event_time - t.elapsed();
             if(waitTime > 0) {
