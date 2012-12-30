@@ -272,6 +272,7 @@ void TracksEdit::tracksEdit_itemClicked(QTreeWidgetItem *item, int column)
             itm->setForeground(TrackItem::On,QColor(Qt::black));
             updateTrackOn();
         }
+        this->resizeColumnToContents(TrackItem::On);
     }
     VirtualPiano::voiceToUse = itm->voice();
 }
