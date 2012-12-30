@@ -23,7 +23,6 @@
  */
 
 #include "VirtualPiano.h"
-#include "ui_VirtualPiano.h"
 
 #include "../MainWind.h"
 
@@ -141,11 +140,9 @@ void VirtualPianoKey::removeTrackColor(int track)
 
 
 VirtualPiano::VirtualPiano(QWidget *parent) :
-    QGraphicsView(parent),
-    ui(new Ui::VirtualPiano)
+    QGraphicsView(parent)
 {
-    ui->setupUi(this);
-
+    this->setMinimumHeight(80);
 #ifndef QT_NO_OPENGL
     this->setViewport(new QGLWidget());
 #endif
@@ -183,11 +180,6 @@ VirtualPiano::VirtualPiano(QWidget *parent) :
     addWhiteKey(scene,"G");
 
     voiceToUse = 0;
-}
-
-VirtualPiano::~VirtualPiano()
-{
-    delete ui;
 }
 
 void VirtualPiano::addWhiteKey(QGraphicsScene* scene, QString noteName)

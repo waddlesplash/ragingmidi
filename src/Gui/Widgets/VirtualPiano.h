@@ -110,7 +110,6 @@ class VirtualPiano : public QGraphicsView
     
 public:
     explicit VirtualPiano(QWidget *parent = 0);
-    ~VirtualPiano();
 
     inline VirtualPianoKey* key(int num) { return keys.value(num); }
 
@@ -120,7 +119,6 @@ public:
     static int voiceToUse;
     
 private:
-    Ui::VirtualPiano *ui;
     QMap<int,VirtualPianoKey*> keys;
 
     int k;
