@@ -29,8 +29,8 @@
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QFile>
-
 #include <QtMidi.h>
+
 #include "Selectors/SelectInstrument.h"
 #include "Selectors/SelectOutput.h"
 #include "Dialogs/AllEvents.h"
@@ -70,6 +70,11 @@ MainWind::MainWind(QWidget *parent) :
     ui->playToolbar->removeAction(ui->actionTEMP);
     playLocSilder = ui->songPosSlider;
 
+    QWidget* spacer = new QWidget();
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    ui->playToolbar->addWidget(spacer);
+    ui->playToolbar->addWidget(ui->curTimeLbl);
+
     // Variables
     midiFile = 0;
     player = 0;
@@ -93,6 +98,11 @@ MainWind::~MainWind()
 {
     delete ui;
     QtMidi::closeMidiOut();
+}
+
+void MainWind::setTimeCounter(qint32 tick)
+{
+    ui->curTimeLbl->setText(QString::number(tick));
 }
 
 int MainWind::confirmUnsaved()
@@ -288,6 +298,11 @@ void MainWind::on_songPosSlider_sliderReleased()
     on_actionStop_triggered();
     on_actionPlay_triggered();
 */}
+
+void MainWind::on_songPosSlider_valueChanged(int value)
+{
+    this->setTimeCounter(value);
+}
 
 void MainWind::on_actionViewAllEvents_triggered()
 {

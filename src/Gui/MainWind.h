@@ -39,8 +39,8 @@
 #include <QSettings>
 
 #include <QtMidiFile.h>
-#include "../Player.h"
 #include "Widgets/SeekSlider.h"
+#include "../Player.h"
 
 namespace Ui {
 class MainWind;
@@ -61,6 +61,8 @@ class MainWind : public QMainWindow
 public:
     explicit MainWind(QWidget *parent = 0);
     ~MainWind();
+
+    void setTimeCounter(qint32 tick);
 
     static QMap<int,QColor>* trackColors;
     static QMap<int,bool>* trackStatus;
@@ -84,7 +86,9 @@ private slots:
     void on_actionPlay_triggered();
     void on_actionStop_triggered();
     void on_actionRewind_triggered();
+
     void on_songPosSlider_sliderReleased();
+    void on_songPosSlider_valueChanged(int value);
 
     void on_actionViewAllEvents_triggered();
 
