@@ -93,7 +93,12 @@ void VirtualPianoKey::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     }
 
     if(isBlack) { return; }
+
+    // Draw the key name (not for Black keys)
     painter->setPen(Qt::black);
+    QFont f = painter->font();
+    f.setPointSize(8);
+    painter->setFont(f);
     painter->drawText(x+7,y+53,myNoteName);
 }
 
