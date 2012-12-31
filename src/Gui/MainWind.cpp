@@ -42,17 +42,13 @@ QMap<int,QColor>* MainWind::trackColors;
 QMap<int,bool>* MainWind::trackStatus;
 SeekSlider* MainWind::playLocSilder;
 
-MainWind::MainWind(QWidget *parent) :
+MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWind)
 {
     // Important stuff
     ui->setupUi(this);
     appSettings = new QSettings("waddlesplash","ragingmidi");
-
-#ifdef Q_OS_WIN /* Windows users expect 16px icons */
-    this->setIconSize(QSize(16,16));
-#endif
 
     // Icon setup
     ui->actionOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
@@ -93,6 +89,12 @@ MainWind::MainWind(QWidget *parent) :
     { QtMidi::initMidiOut(selOut.midiOutId()); }
     else
     { QApplication::exit(); }
+
+    // Check command-line options
+    for(int i = 1;i<argc;i++) {
+        QFile f(QString(argv[i]));
+        if(f.exists()) { openMidiFile(QString(argv[i])); }
+    }
 }
 
 MainWind::~MainWind()

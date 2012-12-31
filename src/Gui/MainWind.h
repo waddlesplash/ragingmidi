@@ -59,7 +59,7 @@ class MainWind : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWind(QWidget *parent = 0);
+    explicit MainWind(int argc, char* argv[], QWidget *parent = 0);
     ~MainWind();
 
     static QMap<int,QColor>* trackColors;
