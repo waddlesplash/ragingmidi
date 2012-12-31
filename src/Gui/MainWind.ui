@@ -61,7 +61,10 @@
 color: rgb(0, 255, 0);</string>
       </property>
       <property name="text">
-       <string notr="true">0</string>
+       <string notr="true">0:00.000</string>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
       </property>
      </widget>
     </item>
