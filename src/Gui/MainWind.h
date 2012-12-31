@@ -62,8 +62,6 @@ public:
     explicit MainWind(QWidget *parent = 0);
     ~MainWind();
 
-    void setTimeCounter(qint32 tick);
-
     static QMap<int,QColor>* trackColors;
     static QMap<int,bool>* trackStatus;
     static SeekSlider* playLocSilder;
@@ -102,6 +100,7 @@ private:
     QSettings* appSettings;
     QString midiFileLoc;
 
+    void setTimeCounter(qint32 tick);
     void openMidiFile(QString filename);
     int confirmUnsaved();
 };

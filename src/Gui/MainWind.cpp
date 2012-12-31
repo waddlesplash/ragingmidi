@@ -30,6 +30,7 @@
 #include <QDesktopServices>
 #include <QFile>
 #include <QtMidi.h>
+#include <math.h> // for floor()
 
 #include "Selectors/SelectInstrument.h"
 #include "Selectors/SelectOutput.h"
@@ -102,7 +103,10 @@ MainWind::~MainWind()
 
 void MainWind::setTimeCounter(qint32 tick)
 {
-    ui->curTimeLbl->setText(QString::number(tick));
+    float time = midiFile->timeFromTick(tick);
+    int min = floor(time/60.0);
+    time -= min*60;
+    ui->curTimeLbl->setText(QString("%1:%2").arg(min).arg(time,6,'f',3,'0'));
 }
 
 int MainWind::confirmUnsaved()
