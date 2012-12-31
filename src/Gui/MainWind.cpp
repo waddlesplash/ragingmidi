@@ -93,7 +93,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     // Check command-line options
     for(int i = 1;i<argc;i++) {
         QFile f(QString(argv[i]));
-        if(f.exists()) { openMidiFile(QString(argv[i])); }
+        if(f.exists()) { openMidiFile(QString(argv[i])); break; }
     }
 }
 
@@ -105,6 +105,7 @@ MainWind::~MainWind()
 
 void MainWind::setTimeCounter(qint32 tick)
 {
+    if(!midiFile) { return; }
     float time = midiFile->timeFromTick(tick);
     int min = floor(time/60.0);
     time -= min*60;
