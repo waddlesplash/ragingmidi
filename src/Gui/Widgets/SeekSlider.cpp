@@ -1,7 +1,7 @@
 /*
  * Raging MIDI (https://github.com/waddlesplash/ragingmidi).
  *
- * Copyright (c) 2012 WaddleSplash & contributors (see AUTHORS.txt).
+ * Copyright (c) 2012-2013 WaddleSplash & contributors (see AUTHORS.txt).
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the "Software"),

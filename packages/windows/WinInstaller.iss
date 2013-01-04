@@ -15,7 +15,7 @@
 #define AppPublisher "waddlesplash"
 #define AppURL "http://sourceforge.net/projects/ragingmidi/"
 #define AppExeName "RagingMidi.exe"
-#define AppCopyright "© 2012 WaddleSplash & contributors."
+#define AppCopyright "© 2012-2013 WaddleSplash & contributors."
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
