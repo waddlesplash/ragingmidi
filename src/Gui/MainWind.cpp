@@ -178,12 +178,6 @@ void MainWind::on_actionOpen_triggered()
                                              tr("MIDI files (*.mid *.midi)"));
     if(!f.isEmpty()) { openMidiFile(f); }
     else { return; }
-
-    QFileInfo i(f);
-    appSettings->setValue("LastFileDlgLoc",i.absoluteDir().path());
-    midiFileLoc = f;
-    this->setWindowModified(false);
-    this->setWindowTitle(tr("%1[*] - Raging MIDI","%1 = filename").arg(i.fileName()));
 }
 void MainWind::openMidiFile(QString filename)
 {
@@ -198,6 +192,13 @@ void MainWind::openMidiFile(QString filename)
 
     // do the real work
     ui->pianoRoll->initEditor(midiFile);
+
+    // update stuff
+    QFileInfo i(filename);
+    appSettings->setValue("LastFileDlgLoc",i.absoluteDir().path());
+    midiFileLoc = filename;
+    this->setWindowModified(false);
+    this->setWindowTitle(tr("%1[*] - Raging MIDI","%1 = filename").arg(i.fileName()));
 }
 void MainWind::on_actionSave_triggered()
 {
