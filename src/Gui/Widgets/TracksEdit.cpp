@@ -186,6 +186,8 @@ void TracksEdit::setupTracks(QtMidiFile *f)
     }
     ignoreEvents = false;
     resizeColsToContents();
+    myTrackStatus.clear();
+    updateTrackOn();
 }
 
 void TracksEdit::deleteCurTrack()
