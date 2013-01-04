@@ -66,6 +66,8 @@ TracksEdit::TracksEdit(QWidget *parent) :
             this,SLOT(tracksEdit_itemDoubleClicked(QTreeWidgetItem*,int)));
     connect(this,SIGNAL(itemClicked(QTreeWidgetItem*,int)),
             this,SLOT(tracksEdit_itemClicked(QTreeWidgetItem*,int)));
+    connect(this,SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this,SLOT(tracksEdit_itemChanged(QTreeWidgetItem*,int)));
 
     resizeColsToContents();
 }
@@ -280,5 +282,26 @@ void TracksEdit::tracksEdit_itemClicked(QTreeWidgetItem *item, int column)
         this->resizeColumnToContents(TrackItem::On);
     }
     VirtualPiano::voiceToUse = itm->voice();
+}
+
+void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
+{
+    if(ignoreEvents) { return; }
+
+    TrackItem* itm = static_cast<TrackItem*>(item);
+    if(column == TrackItem::Name)
+    {
+        foreach(QtMidiEvent* e, midiFile->eventsForTrack(itm->track()))
+        {
+            if((e->type() == QtMidiEvent::Meta) &&
+               (e->number() == 0x03) &&
+               (e->data() != itm->name().toAscii()))
+            {
+                e->setData(itm->name().toAscii());
+                emit somethingChanged();
+                return;
+            }
+        }
+    }
 }
 
