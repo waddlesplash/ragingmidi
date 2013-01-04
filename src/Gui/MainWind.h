@@ -90,7 +90,8 @@ private slots:
 
     void on_actionViewAllEvents_triggered();
 
-    void on_actionAbout_Raging_Midi_triggered();
+    void on_actionAbout_triggered();
+    void on_actionAboutQt_triggered();
 
 private:
     Ui::MainWind *ui;

@@ -105,7 +105,8 @@ color: rgb(0, 255, 0);</string>
      <string>Help</string>
     </property>
     <addaction name="separator"/>
-    <addaction name="actionAbout_Raging_Midi"/>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -164,9 +165,9 @@ color: rgb(0, 255, 0);</string>
     <string>Stop</string>
    </property>
   </action>
-  <action name="actionAbout_Raging_Midi">
+  <action name="actionAbout">
    <property name="text">
-    <string>About Raging Midi</string>
+    <string>About...</string>
    </property>
   </action>
   <action name="actionTEMP"/>
@@ -196,6 +197,11 @@ color: rgb(0, 255, 0);</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>About Qt...</string>
    </property>
   </action>
  </widget>

@@ -318,8 +318,12 @@ void MainWind::on_actionViewAllEvents_triggered()
     e.exec();
 }
 
-void MainWind::on_actionAbout_Raging_Midi_triggered()
+void MainWind::on_actionAbout_triggered()
 {
     AboutDlg a(this);
     a.exec();
+}
+void MainWind::on_actionAboutQt_triggered()
+{
+    QApplication::aboutQt();
 }
