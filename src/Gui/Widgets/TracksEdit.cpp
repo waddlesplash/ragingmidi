@@ -244,11 +244,16 @@ void TracksEdit::tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column)
         ins->setInsName(itm->inst());
         if(ins->exec() == QDialog::Accepted) {
             itm->setInst(ins->insName());
+            int insNum = ins->insNum();
+            bool didChange = false;
             foreach(QtMidiEvent*e,midiFile->eventsForTrack(itm->track())) {
-                if (e->type() == QtMidiEvent::ProgramChange)
-                { e->setNumber(ins->insNum()); }
+                if (e->type() == QtMidiEvent::ProgramChange) {
+                    didChange = (e->number() != insNum) || didChange;
+                    e->setNumber(insNum);
+                }
             }
             QtMidi::outSetInstr(itm->voice(),ins->insNum());
+            if(didChange) { emit somethingChanged(); }
         }
     }
 }
