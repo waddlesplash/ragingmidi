@@ -71,6 +71,7 @@ protected:
     
 private slots:
     void somethingChanged();
+    void setSongTick(qint32 tick);
 
     void on_actionOpen_triggered();
     void on_actionSave_triggered();
@@ -101,7 +102,6 @@ private:
     QSettings* appSettings;
     QString midiFileLoc;
 
-    void setTimeCounter(qint32 tick);
     void openMidiFile(QString filename);
     int confirmUnsaved();
 };

@@ -27,7 +27,8 @@ SOURCES += Gui/MainWind.cpp \
     Gui/Widgets/SeekSlider.cpp \
     Gui/Dialogs/AboutDlg.cpp \
     Gui/Dialogs/TransposeDlg.cpp \
-    Gui/Widgets/TracksEdit.cpp
+    Gui/Widgets/TracksEdit.cpp \
+    Gui/Widgets/TimeEdit.cpp
 
 HEADERS  += Gui/MainWind.h \
     Gui/Selectors/SelectInstrument.h \
@@ -40,7 +41,8 @@ HEADERS  += Gui/MainWind.h \
     Gui/Dialogs/AboutDlg.h \
     config.h \
     Gui/Dialogs/TransposeDlg.h \
-    Gui/Widgets/TracksEdit.h
+    Gui/Widgets/TracksEdit.h \
+    Gui/Widgets/TimeEdit.h
 
 FORMS    += Gui/MainWind.ui \
     Gui/Selectors/SelectInstrument.ui \
@@ -50,7 +52,8 @@ FORMS    += Gui/MainWind.ui \
     Gui/Widgets/SeekSlider.ui \
     Gui/Dialogs/AboutDlg.ui \
     Gui/Dialogs/TransposeDlg.ui \
-    Gui/Widgets/TracksEdit.ui
+    Gui/Widgets/TracksEdit.ui \
+    Gui/Widgets/TimeEdit.ui
 
 RESOURCES += Resources/Resources.qrc
 

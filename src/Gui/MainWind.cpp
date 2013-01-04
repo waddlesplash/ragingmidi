@@ -30,7 +30,6 @@
 #include <QDesktopServices>
 #include <QFile>
 #include <QtMidi.h>
-#include <math.h> // for floor()
 
 #include "Selectors/SelectInstrument.h"
 #include "Selectors/SelectOutput.h"
@@ -70,7 +69,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     QWidget* spacer = new QWidget();
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ui->playToolbar->addWidget(spacer);
-    ui->playToolbar->addWidget(ui->curTimeLbl);
+    ui->playToolbar->addWidget(ui->timeEdit);
 
     // Variables
     midiFile = 0;
@@ -79,6 +78,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
 
     // Connections
     connect(ui->tracksEdit,SIGNAL(somethingChanged()),this,SLOT(somethingChanged()));
+    connect(ui->timeEdit,SIGNAL(tickChanged(qint32)),this,SLOT(setSongTick(qint32)));
 
     // Final UI setup
     this->show();
@@ -101,15 +101,6 @@ MainWind::~MainWind()
 {
     delete ui;
     QtMidi::closeMidiOut();
-}
-
-void MainWind::setTimeCounter(qint32 tick)
-{
-    if(!midiFile) { return; }
-    float time = midiFile->timeFromTick(tick);
-    int min = floor(time/60.0);
-    time -= min*60;
-    ui->curTimeLbl->setText(QString("%1:%2").arg(min).arg(time,6,'f',3,'0'));
 }
 
 int MainWind::confirmUnsaved()
@@ -157,6 +148,11 @@ void MainWind::somethingChanged()
     this->setWindowModified(true);
 }
 
+void MainWind::setSongTick(qint32 tick)
+{
+    ui->songPosSlider->setValue(tick);
+}
+
 void MainWind::on_actionOpen_triggered()
 {
     if(this->isWindowModified()) {
@@ -188,6 +184,7 @@ void MainWind::openMidiFile(QString filename)
 
     ui->tracksEdit->setupTracks(midiFile);
     ui->songPosSlider->setValue(0);
+    ui->timeEdit->setMidiFile(midiFile);
     ui->songPosSlider->setMaximum(midiFile->events().last()->tick());
 
     // do the real work
@@ -306,10 +303,9 @@ void MainWind::on_songPosSlider_sliderReleased()
     on_actionStop_triggered();
     on_actionPlay_triggered();
 */}
-
 void MainWind::on_songPosSlider_valueChanged(int value)
 {
-    this->setTimeCounter(value);
+    ui->timeEdit->setTick(value);
 }
 
 void MainWind::on_actionViewAllEvents_triggered()
