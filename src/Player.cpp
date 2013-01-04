@@ -39,7 +39,7 @@ Player::Player(QtMidiFile* fil, VirtualPiano* p, qint32 tick)
 
 void Player::handleEvent()
 {
-    if(MainWind::trackStatus->value(e->track(),true) == false)
+    if((MainWind::trackStatus->value(e->track(),true) == false) && e->isNoteEvent())
     { return; }
 
     if (e->type() == QtMidiEvent::SysEx) { // TODO: sysex
