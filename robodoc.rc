@@ -11,7 +11,7 @@ options:
     --index
     --html
     --cmode
-	--nopre
+    --nopre
     --nosort
     --sections
 remark begin markers:
@@ -21,4 +21,4 @@ remark end markers:
 source items:
     EXAMPLE
     SYNOPSIS
-	SOURCE
+    SOURCE
