@@ -25,11 +25,14 @@
 #include "SelectInstrument.h"
 #include "ui_SelectInstrument.h"
 
+#include <QPushButton>
+
 SelectInstrument::SelectInstrument(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SelectInstrument)
 {
     ui->setupUi(this);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     ui->midiInstr->resizeColumnToContents(0);
     ui->midiInstr->resizeColumnToContents(1);
 }
@@ -105,7 +108,7 @@ void SelectInstrument::on_searchLE_textChanged(const QString &)
 
 void SelectInstrument::on_midiInstr_itemClicked()
 {
-    ui->acceptBB->setEnabled(true);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }
 
 void SelectInstrument::on_midiInstr_itemDoubleClicked(QTreeWidgetItem*, int)

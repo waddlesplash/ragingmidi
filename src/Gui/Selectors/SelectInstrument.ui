@@ -14,17 +14,17 @@
    <string>Select Instrument</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="2">
+   <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Search:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="2">
+   <item row="0" column="1">
     <widget class="QLineEdit" name="searchLE"/>
    </item>
-   <item row="1" column="0" colspan="3">
+   <item row="1" column="0" colspan="2">
     <widget class="QTreeWidget" name="midiInstr">
      <property name="indentation">
       <number>0</number>
@@ -41,7 +41,7 @@
      </column>
      <item>
       <property name="text">
-       <string>0</string>
+       <string notr="true">0</string>
       </property>
       <property name="text">
        <string>Acoustic Grand Piano</string>
@@ -49,7 +49,7 @@
      </item>
      <item>
       <property name="text">
-       <string>1</string>
+       <string notr="true">1</string>
       </property>
       <property name="text">
        <string>Bright Acoustic Piano</string>
@@ -57,7 +57,7 @@
      </item>
      <item>
       <property name="text">
-       <string>2</string>
+       <string notr="true">2</string>
       </property>
       <property name="text">
        <string>Electric Grand Piano</string>
@@ -65,7 +65,7 @@
      </item>
      <item>
       <property name="text">
-       <string>3</string>
+       <string notr="true">3</string>
       </property>
       <property name="text">
        <string>Honky-tonk Piano</string>
@@ -73,7 +73,7 @@
      </item>
      <item>
       <property name="text">
-       <string>4</string>
+       <string notr="true">4</string>
       </property>
       <property name="text">
        <string>Electric Piano 1</string>
@@ -81,7 +81,7 @@
      </item>
      <item>
       <property name="text">
-       <string>5</string>
+       <string notr="true">5</string>
       </property>
       <property name="text">
        <string>Electric Piano 2</string>
@@ -89,7 +89,7 @@
      </item>
      <item>
       <property name="text">
-       <string>6</string>
+       <string notr="true">6</string>
       </property>
       <property name="text">
        <string>Harpsichord</string>
@@ -97,7 +97,7 @@
      </item>
      <item>
       <property name="text">
-       <string>7</string>
+       <string notr="true">7</string>
       </property>
       <property name="text">
        <string>Clavi</string>
@@ -105,7 +105,7 @@
      </item>
      <item>
       <property name="text">
-       <string>8</string>
+       <string notr="true">8</string>
       </property>
       <property name="text">
        <string>Celesta</string>
@@ -113,7 +113,7 @@
      </item>
      <item>
       <property name="text">
-       <string>9</string>
+       <string notr="true">9</string>
       </property>
       <property name="text">
        <string>Glockenspiel</string>
@@ -121,7 +121,7 @@
      </item>
      <item>
       <property name="text">
-       <string>10</string>
+       <string notr="true">10</string>
       </property>
       <property name="text">
        <string>Music Box</string>
@@ -129,7 +129,7 @@
      </item>
      <item>
       <property name="text">
-       <string>11</string>
+       <string notr="true">11</string>
       </property>
       <property name="text">
        <string>Vibraphone</string>
@@ -137,7 +137,7 @@
      </item>
      <item>
       <property name="text">
-       <string>12</string>
+       <string notr="true">12</string>
       </property>
       <property name="text">
        <string>Marimba</string>
@@ -145,7 +145,7 @@
      </item>
      <item>
       <property name="text">
-       <string>13</string>
+       <string notr="true">13</string>
       </property>
       <property name="text">
        <string>Xylophone</string>
@@ -153,7 +153,7 @@
      </item>
      <item>
       <property name="text">
-       <string>14</string>
+       <string notr="true">14</string>
       </property>
       <property name="text">
        <string>Tubular Bells</string>
@@ -161,7 +161,7 @@
      </item>
      <item>
       <property name="text">
-       <string>15</string>
+       <string notr="true">15</string>
       </property>
       <property name="text">
        <string>Dulcimer</string>
@@ -169,7 +169,7 @@
      </item>
      <item>
       <property name="text">
-       <string>16</string>
+       <string notr="true">16</string>
       </property>
       <property name="text">
        <string>Drawbar Organ</string>
@@ -177,7 +177,7 @@
      </item>
      <item>
       <property name="text">
-       <string>17</string>
+       <string notr="true">17</string>
       </property>
       <property name="text">
        <string>Percussive Organ</string>
@@ -185,7 +185,7 @@
      </item>
      <item>
       <property name="text">
-       <string>18</string>
+       <string notr="true">18</string>
       </property>
       <property name="text">
        <string>Rock Organ</string>
@@ -193,7 +193,7 @@
      </item>
      <item>
       <property name="text">
-       <string>19</string>
+       <string notr="true">19</string>
       </property>
       <property name="text">
        <string>Church Organ</string>
@@ -201,7 +201,7 @@
      </item>
      <item>
       <property name="text">
-       <string>20</string>
+       <string notr="true">20</string>
       </property>
       <property name="text">
        <string>Reed Organ</string>
@@ -209,7 +209,7 @@
      </item>
      <item>
       <property name="text">
-       <string>21</string>
+       <string notr="true">21</string>
       </property>
       <property name="text">
        <string>Accordion</string>
@@ -217,7 +217,7 @@
      </item>
      <item>
       <property name="text">
-       <string>22</string>
+       <string notr="true">22</string>
       </property>
       <property name="text">
        <string>Harmonica</string>
@@ -225,7 +225,7 @@
      </item>
      <item>
       <property name="text">
-       <string>23</string>
+       <string notr="true">23</string>
       </property>
       <property name="text">
        <string>Tango Accordion</string>
@@ -233,7 +233,7 @@
      </item>
      <item>
       <property name="text">
-       <string>24</string>
+       <string notr="true">24</string>
       </property>
       <property name="text">
        <string>Acoustic Guitar (nylon)</string>
@@ -241,7 +241,7 @@
      </item>
      <item>
       <property name="text">
-       <string>25</string>
+       <string notr="true">25</string>
       </property>
       <property name="text">
        <string>Acoustic Guitar (steel)</string>
@@ -249,7 +249,7 @@
      </item>
      <item>
       <property name="text">
-       <string>26</string>
+       <string notr="true">26</string>
       </property>
       <property name="text">
        <string>Electric Guitar (jazz)</string>
@@ -257,7 +257,7 @@
      </item>
      <item>
       <property name="text">
-       <string>27</string>
+       <string notr="true">27</string>
       </property>
       <property name="text">
        <string>Electric Guitar (clean)</string>
@@ -265,7 +265,7 @@
      </item>
      <item>
       <property name="text">
-       <string>28</string>
+       <string notr="true">28</string>
       </property>
       <property name="text">
        <string>Electric Guitar (muted)</string>
@@ -273,7 +273,7 @@
      </item>
      <item>
       <property name="text">
-       <string>29</string>
+       <string notr="true">29</string>
       </property>
       <property name="text">
        <string>Overdriven Guitar</string>
@@ -281,7 +281,7 @@
      </item>
      <item>
       <property name="text">
-       <string>30</string>
+       <string notr="true">30</string>
       </property>
       <property name="text">
        <string>Distortion Guitar</string>
@@ -289,7 +289,7 @@
      </item>
      <item>
       <property name="text">
-       <string>31</string>
+       <string notr="true">31</string>
       </property>
       <property name="text">
        <string>Guitar harmonics</string>
@@ -297,7 +297,7 @@
      </item>
      <item>
       <property name="text">
-       <string>32</string>
+       <string notr="true">32</string>
       </property>
       <property name="text">
        <string>Acoustic Bass</string>
@@ -305,7 +305,7 @@
      </item>
      <item>
       <property name="text">
-       <string>33</string>
+       <string notr="true">33</string>
       </property>
       <property name="text">
        <string>Electric Bass (finger)</string>
@@ -313,7 +313,7 @@
      </item>
      <item>
       <property name="text">
-       <string>34</string>
+       <string notr="true">34</string>
       </property>
       <property name="text">
        <string>Electric Bass (pick)</string>
@@ -321,7 +321,7 @@
      </item>
      <item>
       <property name="text">
-       <string>35</string>
+       <string notr="true">35</string>
       </property>
       <property name="text">
        <string>Fretless Bass</string>
@@ -329,7 +329,7 @@
      </item>
      <item>
       <property name="text">
-       <string>36</string>
+       <string notr="true">36</string>
       </property>
       <property name="text">
        <string>Slap Bass 1</string>
@@ -337,7 +337,7 @@
      </item>
      <item>
       <property name="text">
-       <string>37</string>
+       <string notr="true">37</string>
       </property>
       <property name="text">
        <string>Slap Bass 2</string>
@@ -345,7 +345,7 @@
      </item>
      <item>
       <property name="text">
-       <string>38</string>
+       <string notr="true">38</string>
       </property>
       <property name="text">
        <string>Synth Bass 1</string>
@@ -353,7 +353,7 @@
      </item>
      <item>
       <property name="text">
-       <string>39</string>
+       <string notr="true">39</string>
       </property>
       <property name="text">
        <string>Synth Bass 2</string>
@@ -361,7 +361,7 @@
      </item>
      <item>
       <property name="text">
-       <string>40</string>
+       <string notr="true">40</string>
       </property>
       <property name="text">
        <string>Violin</string>
@@ -369,7 +369,7 @@
      </item>
      <item>
       <property name="text">
-       <string>41</string>
+       <string notr="true">41</string>
       </property>
       <property name="text">
        <string>Viola</string>
@@ -377,7 +377,7 @@
      </item>
      <item>
       <property name="text">
-       <string>42</string>
+       <string notr="true">42</string>
       </property>
       <property name="text">
        <string>Cello</string>
@@ -385,7 +385,7 @@
      </item>
      <item>
       <property name="text">
-       <string>43</string>
+       <string notr="true">43</string>
       </property>
       <property name="text">
        <string>Contrabass</string>
@@ -393,7 +393,7 @@
      </item>
      <item>
       <property name="text">
-       <string>44</string>
+       <string notr="true">44</string>
       </property>
       <property name="text">
        <string>Tremolo Strings</string>
@@ -401,7 +401,7 @@
      </item>
      <item>
       <property name="text">
-       <string>45</string>
+       <string notr="true">45</string>
       </property>
       <property name="text">
        <string>Pizzicato Strings</string>
@@ -409,7 +409,7 @@
      </item>
      <item>
       <property name="text">
-       <string>46</string>
+       <string notr="true">46</string>
       </property>
       <property name="text">
        <string>Orchestral Harp</string>
@@ -417,7 +417,7 @@
      </item>
      <item>
       <property name="text">
-       <string>47</string>
+       <string notr="true">47</string>
       </property>
       <property name="text">
        <string>Timpani</string>
@@ -425,7 +425,7 @@
      </item>
      <item>
       <property name="text">
-       <string>48</string>
+       <string notr="true">48</string>
       </property>
       <property name="text">
        <string>String Ensemble 1</string>
@@ -433,7 +433,7 @@
      </item>
      <item>
       <property name="text">
-       <string>49</string>
+       <string notr="true">49</string>
       </property>
       <property name="text">
        <string>String Ensemble 2</string>
@@ -441,7 +441,7 @@
      </item>
      <item>
       <property name="text">
-       <string>50</string>
+       <string notr="true">50</string>
       </property>
       <property name="text">
        <string>SynthStrings 1</string>
@@ -449,7 +449,7 @@
      </item>
      <item>
       <property name="text">
-       <string>51</string>
+       <string notr="true">51</string>
       </property>
       <property name="text">
        <string>SynthStrings 2</string>
@@ -457,7 +457,7 @@
      </item>
      <item>
       <property name="text">
-       <string>52</string>
+       <string notr="true">52</string>
       </property>
       <property name="text">
        <string>Choir Aahs</string>
@@ -465,7 +465,7 @@
      </item>
      <item>
       <property name="text">
-       <string>53</string>
+       <string notr="true">53</string>
       </property>
       <property name="text">
        <string>Voice Oohs</string>
@@ -473,7 +473,7 @@
      </item>
      <item>
       <property name="text">
-       <string>54</string>
+       <string notr="true">54</string>
       </property>
       <property name="text">
        <string>Synth Voice</string>
@@ -481,7 +481,7 @@
      </item>
      <item>
       <property name="text">
-       <string>55</string>
+       <string notr="true">55</string>
       </property>
       <property name="text">
        <string>Orchestra Hit</string>
@@ -489,7 +489,7 @@
      </item>
      <item>
       <property name="text">
-       <string>56</string>
+       <string notr="true">56</string>
       </property>
       <property name="text">
        <string>Trumpet</string>
@@ -497,7 +497,7 @@
      </item>
      <item>
       <property name="text">
-       <string>57</string>
+       <string notr="true">57</string>
       </property>
       <property name="text">
        <string>Trombone</string>
@@ -505,7 +505,7 @@
      </item>
      <item>
       <property name="text">
-       <string>58</string>
+       <string notr="true">58</string>
       </property>
       <property name="text">
        <string>Tuba</string>
@@ -513,7 +513,7 @@
      </item>
      <item>
       <property name="text">
-       <string>59</string>
+       <string notr="true">59</string>
       </property>
       <property name="text">
        <string>Muted Trumpet</string>
@@ -521,7 +521,7 @@
      </item>
      <item>
       <property name="text">
-       <string>60</string>
+       <string notr="true">60</string>
       </property>
       <property name="text">
        <string>French Horn</string>
@@ -529,7 +529,7 @@
      </item>
      <item>
       <property name="text">
-       <string>61</string>
+       <string notr="true">61</string>
       </property>
       <property name="text">
        <string>Brass Section</string>
@@ -537,7 +537,7 @@
      </item>
      <item>
       <property name="text">
-       <string>62</string>
+       <string notr="true">62</string>
       </property>
       <property name="text">
        <string>SynthBrass 1</string>
@@ -545,7 +545,7 @@
      </item>
      <item>
       <property name="text">
-       <string>63</string>
+       <string notr="true">63</string>
       </property>
       <property name="text">
        <string>SynthBrass 2</string>
@@ -553,7 +553,7 @@
      </item>
      <item>
       <property name="text">
-       <string>64</string>
+       <string notr="true">64</string>
       </property>
       <property name="text">
        <string>Soprano Sax</string>
@@ -561,7 +561,7 @@
      </item>
      <item>
       <property name="text">
-       <string>65</string>
+       <string notr="true">65</string>
       </property>
       <property name="text">
        <string>Alto Sax</string>
@@ -569,7 +569,7 @@
      </item>
      <item>
       <property name="text">
-       <string>66</string>
+       <string notr="true">66</string>
       </property>
       <property name="text">
        <string>Tenor Sax</string>
@@ -577,7 +577,7 @@
      </item>
      <item>
       <property name="text">
-       <string>67</string>
+       <string notr="true">67</string>
       </property>
       <property name="text">
        <string>Baritone Sax</string>
@@ -585,7 +585,7 @@
      </item>
      <item>
       <property name="text">
-       <string>68</string>
+       <string notr="true">68</string>
       </property>
       <property name="text">
        <string>Oboe</string>
@@ -593,7 +593,7 @@
      </item>
      <item>
       <property name="text">
-       <string>69</string>
+       <string notr="true">69</string>
       </property>
       <property name="text">
        <string>English Horn</string>
@@ -601,7 +601,7 @@
      </item>
      <item>
       <property name="text">
-       <string>70</string>
+       <string notr="true">70</string>
       </property>
       <property name="text">
        <string>Bassoon</string>
@@ -609,7 +609,7 @@
      </item>
      <item>
       <property name="text">
-       <string>71</string>
+       <string notr="true">71</string>
       </property>
       <property name="text">
        <string>Clarinet</string>
@@ -617,7 +617,7 @@
      </item>
      <item>
       <property name="text">
-       <string>72</string>
+       <string notr="true">72</string>
       </property>
       <property name="text">
        <string>Piccolo</string>
@@ -625,7 +625,7 @@
      </item>
      <item>
       <property name="text">
-       <string>73</string>
+       <string notr="true">73</string>
       </property>
       <property name="text">
        <string>Flute</string>
@@ -633,7 +633,7 @@
      </item>
      <item>
       <property name="text">
-       <string>74</string>
+       <string notr="true">74</string>
       </property>
       <property name="text">
        <string>Recorder</string>
@@ -641,7 +641,7 @@
      </item>
      <item>
       <property name="text">
-       <string>75</string>
+       <string notr="true">75</string>
       </property>
       <property name="text">
        <string>Pan Flute</string>
@@ -649,7 +649,7 @@
      </item>
      <item>
       <property name="text">
-       <string>76</string>
+       <string notr="true">76</string>
       </property>
       <property name="text">
        <string>Blown Bottle</string>
@@ -657,7 +657,7 @@
      </item>
      <item>
       <property name="text">
-       <string>77</string>
+       <string notr="true">77</string>
       </property>
       <property name="text">
        <string>Shakuhachi</string>
@@ -665,7 +665,7 @@
      </item>
      <item>
       <property name="text">
-       <string>78</string>
+       <string notr="true">78</string>
       </property>
       <property name="text">
        <string>Whistle</string>
@@ -673,7 +673,7 @@
      </item>
      <item>
       <property name="text">
-       <string>79</string>
+       <string notr="true">79</string>
       </property>
       <property name="text">
        <string>Ocarina</string>
@@ -681,7 +681,7 @@
      </item>
      <item>
       <property name="text">
-       <string>80</string>
+       <string notr="true">80</string>
       </property>
       <property name="text">
        <string>Lead 1 (square)</string>
@@ -689,7 +689,7 @@
      </item>
      <item>
       <property name="text">
-       <string>81</string>
+       <string notr="true">81</string>
       </property>
       <property name="text">
        <string>Lead 2 (sawtooth)</string>
@@ -697,7 +697,7 @@
      </item>
      <item>
       <property name="text">
-       <string>82</string>
+       <string notr="true">82</string>
       </property>
       <property name="text">
        <string>Lead 3 (calliope)</string>
@@ -705,7 +705,7 @@
      </item>
      <item>
       <property name="text">
-       <string>83</string>
+       <string notr="true">83</string>
       </property>
       <property name="text">
        <string>Lead 4 (chiff)</string>
@@ -713,7 +713,7 @@
      </item>
      <item>
       <property name="text">
-       <string>84</string>
+       <string notr="true">84</string>
       </property>
       <property name="text">
        <string>Lead 5 (charang)</string>
@@ -721,7 +721,7 @@
      </item>
      <item>
       <property name="text">
-       <string>85</string>
+       <string notr="true">85</string>
       </property>
       <property name="text">
        <string>Lead 6 (voice)</string>
@@ -729,7 +729,7 @@
      </item>
      <item>
       <property name="text">
-       <string>86</string>
+       <string notr="true">86</string>
       </property>
       <property name="text">
        <string>Lead 7 (fifths)</string>
@@ -737,7 +737,7 @@
      </item>
      <item>
       <property name="text">
-       <string>87</string>
+       <string notr="true">87</string>
       </property>
       <property name="text">
        <string>Lead 8 (bass + lead)</string>
@@ -745,7 +745,7 @@
      </item>
      <item>
       <property name="text">
-       <string>88</string>
+       <string notr="true">88</string>
       </property>
       <property name="text">
        <string>Pad 1 (new age)</string>
@@ -753,7 +753,7 @@
      </item>
      <item>
       <property name="text">
-       <string>89</string>
+       <string notr="true">89</string>
       </property>
       <property name="text">
        <string>Pad 2 (warm)</string>
@@ -761,7 +761,7 @@
      </item>
      <item>
       <property name="text">
-       <string>90</string>
+       <string notr="true">90</string>
       </property>
       <property name="text">
        <string>Pad 3 (polysynth)</string>
@@ -769,7 +769,7 @@
      </item>
      <item>
       <property name="text">
-       <string>91</string>
+       <string notr="true">91</string>
       </property>
       <property name="text">
        <string>Pad 4 (choir)</string>
@@ -777,7 +777,7 @@
      </item>
      <item>
       <property name="text">
-       <string>92</string>
+       <string notr="true">92</string>
       </property>
       <property name="text">
        <string>Pad 5 (bowed)</string>
@@ -785,7 +785,7 @@
      </item>
      <item>
       <property name="text">
-       <string>93</string>
+       <string notr="true">93</string>
       </property>
       <property name="text">
        <string>Pad 6 (metallic)</string>
@@ -793,7 +793,7 @@
      </item>
      <item>
       <property name="text">
-       <string>94</string>
+       <string notr="true">94</string>
       </property>
       <property name="text">
        <string>Pad 7 (halo)</string>
@@ -801,7 +801,7 @@
      </item>
      <item>
       <property name="text">
-       <string>95</string>
+       <string notr="true">95</string>
       </property>
       <property name="text">
        <string>Pad 8 (sweep)</string>
@@ -809,7 +809,7 @@
      </item>
      <item>
       <property name="text">
-       <string>96</string>
+       <string notr="true">96</string>
       </property>
       <property name="text">
        <string>FX 1 (rain)</string>
@@ -817,7 +817,7 @@
      </item>
      <item>
       <property name="text">
-       <string>97</string>
+       <string notr="true">97</string>
       </property>
       <property name="text">
        <string>FX 2 (soundtrack)</string>
@@ -825,7 +825,7 @@
      </item>
      <item>
       <property name="text">
-       <string>98</string>
+       <string notr="true">98</string>
       </property>
       <property name="text">
        <string>FX 3 (crystal)</string>
@@ -833,7 +833,7 @@
      </item>
      <item>
       <property name="text">
-       <string>99</string>
+       <string notr="true">99</string>
       </property>
       <property name="text">
        <string>FX 4 (atmosphere)</string>
@@ -841,7 +841,7 @@
      </item>
      <item>
       <property name="text">
-       <string>100</string>
+       <string notr="true">100</string>
       </property>
       <property name="text">
        <string>FX 5 (brightness)</string>
@@ -849,7 +849,7 @@
      </item>
      <item>
       <property name="text">
-       <string>101</string>
+       <string notr="true">101</string>
       </property>
       <property name="text">
        <string>FX 6 (goblins)</string>
@@ -857,7 +857,7 @@
      </item>
      <item>
       <property name="text">
-       <string>102</string>
+       <string notr="true">102</string>
       </property>
       <property name="text">
        <string>FX 7 (echoes)</string>
@@ -865,7 +865,7 @@
      </item>
      <item>
       <property name="text">
-       <string>103</string>
+       <string notr="true">103</string>
       </property>
       <property name="text">
        <string>FX 8 (sci-fi)</string>
@@ -873,7 +873,7 @@
      </item>
      <item>
       <property name="text">
-       <string>104</string>
+       <string notr="true">104</string>
       </property>
       <property name="text">
        <string>Sitar</string>
@@ -881,7 +881,7 @@
      </item>
      <item>
       <property name="text">
-       <string>105</string>
+       <string notr="true">105</string>
       </property>
       <property name="text">
        <string>Banjo</string>
@@ -889,7 +889,7 @@
      </item>
      <item>
       <property name="text">
-       <string>106</string>
+       <string notr="true">106</string>
       </property>
       <property name="text">
        <string>Shamisen</string>
@@ -897,7 +897,7 @@
      </item>
      <item>
       <property name="text">
-       <string>107</string>
+       <string notr="true">107</string>
       </property>
       <property name="text">
        <string>Koto</string>
@@ -905,7 +905,7 @@
      </item>
      <item>
       <property name="text">
-       <string>108</string>
+       <string notr="true">108</string>
       </property>
       <property name="text">
        <string>Kalimba</string>
@@ -913,7 +913,7 @@
      </item>
      <item>
       <property name="text">
-       <string>109</string>
+       <string notr="true">109</string>
       </property>
       <property name="text">
        <string>Bag pipe</string>
@@ -921,7 +921,7 @@
      </item>
      <item>
       <property name="text">
-       <string>110</string>
+       <string notr="true">110</string>
       </property>
       <property name="text">
        <string>Fiddle</string>
@@ -929,7 +929,7 @@
      </item>
      <item>
       <property name="text">
-       <string>111</string>
+       <string notr="true">111</string>
       </property>
       <property name="text">
        <string>Shanai</string>
@@ -937,7 +937,7 @@
      </item>
      <item>
       <property name="text">
-       <string>112</string>
+       <string notr="true">112</string>
       </property>
       <property name="text">
        <string>Tinkle Bell</string>
@@ -945,7 +945,7 @@
      </item>
      <item>
       <property name="text">
-       <string>113</string>
+       <string notr="true">113</string>
       </property>
       <property name="text">
        <string>Agogo</string>
@@ -953,7 +953,7 @@
      </item>
      <item>
       <property name="text">
-       <string>114</string>
+       <string notr="true">114</string>
       </property>
       <property name="text">
        <string>Steel Drums</string>
@@ -961,7 +961,7 @@
      </item>
      <item>
       <property name="text">
-       <string>115</string>
+       <string notr="true">115</string>
       </property>
       <property name="text">
        <string>Woodblock</string>
@@ -969,7 +969,7 @@
      </item>
      <item>
       <property name="text">
-       <string>116</string>
+       <string notr="true">116</string>
       </property>
       <property name="text">
        <string>Taiko Drum</string>
@@ -977,7 +977,7 @@
      </item>
      <item>
       <property name="text">
-       <string>117</string>
+       <string notr="true">117</string>
       </property>
       <property name="text">
        <string>Melodic Tom</string>
@@ -985,7 +985,7 @@
      </item>
      <item>
       <property name="text">
-       <string>118</string>
+       <string notr="true">118</string>
       </property>
       <property name="text">
        <string>Synth Drum</string>
@@ -993,7 +993,7 @@
      </item>
      <item>
       <property name="text">
-       <string>119</string>
+       <string notr="true">119</string>
       </property>
       <property name="text">
        <string>Reverse Cymbal</string>
@@ -1001,7 +1001,7 @@
      </item>
      <item>
       <property name="text">
-       <string>120</string>
+       <string notr="true">120</string>
       </property>
       <property name="text">
        <string>Guitar Fret Noise</string>
@@ -1009,7 +1009,7 @@
      </item>
      <item>
       <property name="text">
-       <string>121</string>
+       <string notr="true">121</string>
       </property>
       <property name="text">
        <string>Breath Noise</string>
@@ -1017,7 +1017,7 @@
      </item>
      <item>
       <property name="text">
-       <string>122</string>
+       <string notr="true">122</string>
       </property>
       <property name="text">
        <string>Seashore</string>
@@ -1025,7 +1025,7 @@
      </item>
      <item>
       <property name="text">
-       <string>123</string>
+       <string notr="true">123</string>
       </property>
       <property name="text">
        <string>Bird Tweet</string>
@@ -1033,7 +1033,7 @@
      </item>
      <item>
       <property name="text">
-       <string>124</string>
+       <string notr="true">124</string>
       </property>
       <property name="text">
        <string>Telephone Ring</string>
@@ -1041,7 +1041,7 @@
      </item>
      <item>
       <property name="text">
-       <string>125</string>
+       <string notr="true">125</string>
       </property>
       <property name="text">
        <string>Helicopter</string>
@@ -1049,7 +1049,7 @@
      </item>
      <item>
       <property name="text">
-       <string>126</string>
+       <string notr="true">126</string>
       </property>
       <property name="text">
        <string>Applause</string>
@@ -1057,7 +1057,7 @@
      </item>
      <item>
       <property name="text">
-       <string>127</string>
+       <string notr="true">127</string>
       </property>
       <property name="text">
        <string>Gunshot</string>
@@ -1065,35 +1065,19 @@
      </item>
     </widget>
    </item>
-   <item row="2" column="0" colspan="3">
+   <item row="2" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
     <widget class="QFrame" name="frame">
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="margin">
        <number>0</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QDialogButtonBox" name="acceptBB">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="standardButtons">
-         <set>QDialogButtonBox::Ok</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QDialogButtonBox" name="cancelBB">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="standardButtons">
-         <set>QDialogButtonBox::Cancel</set>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -1102,7 +1086,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>acceptBB</sender>
+   <sender>buttonBox</sender>
    <signal>accepted()</signal>
    <receiver>SelectInstrument</receiver>
    <slot>accept()</slot>
@@ -1118,13 +1102,13 @@
    </hints>
   </connection>
   <connection>
-   <sender>cancelBB</sender>
+   <sender>buttonBox</sender>
    <signal>rejected()</signal>
    <receiver>SelectInstrument</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>352</x>
+     <x>199</x>
      <y>278</y>
     </hint>
     <hint type="destinationlabel">
