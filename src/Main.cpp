@@ -28,7 +28,7 @@
  *  QApplication and MainWind objects.
  ******
  */
- 
+
 #include <QtGui/QApplication>
 #include <QtGui/QPlastiqueStyle>
 #include "Gui/MainWind.h"
@@ -37,7 +37,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWind w(argc,argv);
-    w.show();
-
-    return a.exec();
+    if(w.didInitOk()) {
+        return a.exec();
+    } else {
+        return 0;
+    }
 }

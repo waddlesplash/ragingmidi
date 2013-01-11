@@ -62,6 +62,8 @@ public:
     explicit MainWind(int argc, char* argv[], QWidget *parent = 0);
     ~MainWind();
 
+    inline bool didInitOk() { return initOK; }
+
     static QMap<int,QColor>* trackColors;
     static QMap<int,bool>* trackStatus;
     static SeekSlider* playLocSilder;
@@ -91,11 +93,14 @@ private slots:
 
     void on_actionViewAllEvents_triggered();
 
+    void on_actionDeviceReconnect_triggered();
+
     void on_actionAbout_triggered();
     void on_actionAboutQt_triggered();
 
 private:
     Ui::MainWind *ui;
+    bool initOK;
 
     QtMidiFile* midiFile;
     Player* player;

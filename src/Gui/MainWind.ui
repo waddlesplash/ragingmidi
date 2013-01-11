@@ -54,7 +54,7 @@
      <x>0</x>
      <y>0</y>
      <width>742</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -92,9 +92,16 @@
     </property>
     <addaction name="actionViewAllEvents"/>
    </widget>
+   <widget class="QMenu" name="menuDevices">
+    <property name="title">
+     <string>Devices</string>
+    </property>
+    <addaction name="actionDeviceReconnect"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
+   <addaction name="menuDevices"/>
    <addaction name="menuTrack"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -180,6 +187,11 @@
   <action name="actionAboutQt">
    <property name="text">
     <string>About Qt...</string>
+   </property>
+  </action>
+  <action name="actionDeviceReconnect">
+   <property name="text">
+    <string>Reconnect...</string>
    </property>
   </action>
  </widget>

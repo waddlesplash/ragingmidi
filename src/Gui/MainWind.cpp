@@ -84,23 +84,28 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     this->show();
     ui->piano->setMaximumHeight(ui->piano->height());
 
+    // Open MIDI out
     SelectOutput selOut(this);
-    if(selOut.exec() == QDialog::Accepted)
-    { QtMidi::initMidiOut(selOut.midiOutId()); }
-    else
-    { QApplication::exit(); }
+    if(selOut.exec() == QDialog::Accepted) {
+        QtMidi::initMidiOut(selOut.midiOutId());
+    } else {
+        initOK = false;
+        return;
+    }
 
-    // Check command-line options
+    // Load file if specified on the commandline
     for(int i = 1;i<argc;i++) {
         QFile f(QString(argv[i]));
         if(f.exists()) { openMidiFile(QString(argv[i])); break; }
     }
+
+    initOK = true;
 }
 
 MainWind::~MainWind()
 {
     delete ui;
-    QtMidi::closeMidiOut();
+    if(initOK) { QtMidi::closeMidiOut(); }
 }
 
 int MainWind::confirmUnsaved()
@@ -312,6 +317,15 @@ void MainWind::on_actionViewAllEvents_triggered()
 {
     AllEvents e(this,midiFile);
     e.exec();
+}
+
+void MainWind::on_actionDeviceReconnect_triggered()
+{
+    SelectOutput selOut(this);
+    if(selOut.exec() == QDialog::Accepted) {
+        QtMidi::closeMidiOut();
+        QtMidi::initMidiOut(selOut.midiOutId());
+    }
 }
 
 void MainWind::on_actionAbout_triggered()

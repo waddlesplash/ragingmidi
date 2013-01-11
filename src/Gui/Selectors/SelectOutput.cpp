@@ -27,12 +27,15 @@
 
 #include <QtMidi.h>
 #include <QStringList>
+#include <QPushButton>
 
 SelectOutput::SelectOutput(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SelectOutput)
 {
     ui->setupUi(this);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+
     ui->refreshBtn->setIcon(QApplication::style()->standardIcon(QStyle::SP_BrowserReload));
     on_refreshBtn_clicked();
 
@@ -77,7 +80,7 @@ void SelectOutput::on_searchLE_textChanged(const QString &)
 
 void SelectOutput::on_midiOutNames_itemClicked()
 {
-    ui->acceptBB->setEnabled(true);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }
 
 void SelectOutput::on_midiOutNames_itemDoubleClicked(QTreeWidgetItem *, int)
