@@ -2,6 +2,10 @@ Created By
 -------------
 @waddlesplash (https://github.com/waddlesplash)
 
+Contributors
+-------------
+Forrest Cavalier III (https://github.com/forrestcavalier)
+
 Using Code By
 --------------
 David G. Slomin, MIDI Utilities. (http://www.sreal.com/~div/midi-utilities/)
