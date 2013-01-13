@@ -43,6 +43,7 @@ TimeEdit::~TimeEdit()
 
 void TimeEdit::mouseReleaseEvent(QMouseEvent *e)
 {
+    if(!file) { return; }
     if(this->currentIndex() == 0) {
         this->setCurrentIndex(1);
         this->setCursor(QCursor(Qt::ArrowCursor));
