@@ -64,11 +64,15 @@ public:
     inline int track() { return myTrack; }
     inline void setTrack(int t) { myTrack = t; }
 
+    void setValue(int v);
+    void revert();
+
 protected:
     inline void wheelEvent(QWheelEvent *) {}
 
 private:
     int myTrack;
+    int valToRevertTo;
 };
 
 /****c* TracksEdit.h/TrackItem

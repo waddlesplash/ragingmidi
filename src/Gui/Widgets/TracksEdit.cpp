@@ -26,9 +26,23 @@
 #include "ui_TracksEdit.h"
 
 #include <QColor>
+#include <QMessageBox>
 #include <QtMidi.h>
 
 #include "../Selectors/SelectInstrument.h"
+
+void TrackSlider::setValue(int v)
+{
+    valToRevertTo = v;
+    QSlider::setValue(v);
+}
+
+void TrackSlider::revert()
+{
+    blockSignals(true);
+    setValue(valToRevertTo);
+    blockSignals(false);
+}
 
 TrackItem::TrackItem(QTreeWidget *tree, int track)
     : QTreeWidgetItem(tree)
@@ -105,11 +119,23 @@ void TracksEdit::trackItem_volChanged(int v)
     if(ignoreEvents) { return; }
     TrackSlider* sl = qobject_cast<TrackSlider*>(sender());
     if(!sl) { return; }
-    qDebug(QString::number(v).toAscii().constData());
 
     int trk = sl->track();
     int vel = 127.0*(v/100.0);
-    /* TODO: warn if track has velocity different in different notes */
+    int oldVel = -1;
+    foreach(QtMidiEvent* e, midiFile->eventsForTrack(trk))
+    {
+        if(e->type() != QtMidiEvent::NoteOn) { continue; }
+        if(oldVel == -1) { oldVel = e->velocity(); continue; }
+        if(oldVel != e->velocity()) {
+            int ret = QMessageBox::warning(this->parentWidget(),tr("Different volumes!"),
+                                           tr("<b>Some of the notes in this track have different volumes than others.</b><br/>"
+                                              "Are you sure you want to modify the volume?"),
+                                           QMessageBox::Ok,QMessageBox::Cancel);
+            if(ret == QMessageBox::Ok) { break; }
+            else { sl->revert(); return; }
+        }
+    }
     foreach(QtMidiEvent* e, midiFile->eventsForTrack(trk))
     {
         if(e->type() != QtMidiEvent::NoteOn) { continue; }
