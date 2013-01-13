@@ -151,7 +151,7 @@ void TracksEdit::setupTracks(QtMidiFile *f)
     {
         TrackItem* i = this->createTrack(curTrack);
 
-        bool didInstr = false, didVoice = false, didMeta = false, didVol = false;
+        bool didInstr = false, didVoice = false, didName = false, didVol = false;
         foreach(QtMidiEvent* e, midiFile->eventsForTrack(curTrack))
         {
             if(!didVoice && e->type() == QtMidiEvent::NoteOn)
@@ -174,15 +174,17 @@ void TracksEdit::setupTracks(QtMidiFile *f)
                 QtMidi::outSetInstr(e->voice(),e->number());
                 didInstr = true;
             }
-            else if(!didMeta && (e->type() == QtMidiEvent::Meta) &&
+            else if(!didName && (e->type() == QtMidiEvent::Meta) &&
                     (e->number() == 0x03))
-            { i->setName(e->data()); didMeta = true; } // Name
+            { i->setName(e->data()); didName = true; } // Name
 
-            if(didInstr && didVoice && didMeta) { break; }
+            if(didInstr && didVoice && didName) { break; }
         }
 
         if(!didInstr)
         { i->setInst(tr("(no instrument)")); }
+        if(!didName)
+        { i->setName(tr("Track %1","track number").arg(curTrack)); }
     }
     ignoreEvents = false;
     resizeColsToContents();
