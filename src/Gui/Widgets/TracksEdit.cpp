@@ -235,12 +235,10 @@ void TracksEdit::deleteCurTrack()
 
 void TracksEdit::updateTrackOn()
 {
-    bool isOneSolo = false;
-    int soloTrack = 0;
+    QList<int> soloTracks;
     foreach(TrackItem* itm,tracks()) {
-        if((itm->on() == tr("solo")) && !isOneSolo) {
-            isOneSolo = true;
-            soloTrack = itm->track();
+        if(itm->on() == tr("solo")) {
+            soloTracks.append(itm->track());
             piano->clearTrackColors(itm->track());
         }
         bool on = (itm->on() == tr("on"));
@@ -248,10 +246,10 @@ void TracksEdit::updateTrackOn()
         if(!on) { QtMidi::outStopAll(itm->voice()); }
     }
 
-    if(!isOneSolo) { return; }
+    if(soloTracks.size() < 1) { return; }
 
     foreach(int i,myTrackStatus.keys()) {
-        if(i == soloTrack) {
+        if(soloTracks.contains(i)) {
             myTrackStatus.insert(i,true);
             continue;
         }
