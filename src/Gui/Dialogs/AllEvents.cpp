@@ -95,19 +95,22 @@ AllEvents::AllEvents(QWidget *parent, QtMidiFile* f) :
     QProgressDialog dialog(parent);
     dialog.show();
     dialog.setWindowTitle(tr("Loading..."));
-    dialog.setLabelText(tr("Setting up \"All MIDI Events\" dialog..."));
+    dialog.setLabelText(tr("Creating list items..."));
     dialog.setMaximum(events.size());
     dialog.repaint();
 
     GuiMidiEvent* mI;
     for(int i = 0;i < events.size();i++) {
-        dialog.setValue(i);
+        if(i % 100) { dialog.setValue(i); }
+        if(i % 1000) { QApplication::processEvents(); }
         mI = new GuiMidiEvent(ui->eventsList);
         mI->init(events.at(i),&ins);
     }
 
-    ui->eventsList->setSortingEnabled(true);
+    dialog.setLabelText(tr("Sorting items..."));
+    QApplication::processEvents();
     ui->eventsList->sortItems(0,Qt::AscendingOrder);
+    ui->eventsList->setSortingEnabled(true);
     minColSize();
 
     dialog.hide();
