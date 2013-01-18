@@ -57,10 +57,14 @@ public:
     inline explicit GuiMidiEvent(QTreeWidget *p = 0)
         : QTreeWidgetItem(p) {}
 
-    void init(QtMidiEvent *e, SelectInstrument *ins);
+    void init(QtMidiEvent *ev, SelectInstrument *ins);
+    inline QtMidiEvent* event() { return e; }
 
 protected:
     bool operator<(const QTreeWidgetItem &other) const;
+
+private:
+    QtMidiEvent* e;
 };
 
 /****c* AllEvents.h/AllEvents
@@ -81,6 +85,7 @@ public:
     
 private slots:
     void on_delCertEvBtn_clicked();
+    void updateFilters();
 
 private:
     Ui::AllEvents *ui;

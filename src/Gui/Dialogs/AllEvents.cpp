@@ -31,14 +31,15 @@
 #include <QProgressDialog>
 #include <QMessageBox>
 
-void GuiMidiEvent::init(QtMidiEvent *e, SelectInstrument* ins)
+void GuiMidiEvent::init(QtMidiEvent *ev, SelectInstrument* ins)
 {
-    setText(0,QString::number(e->tick())); // Tick
-    setText(1,QString::number(e->voice())); // Voice
-    setText(2,QString::number(e->note())); // Note
-    setText(3,QString::number(e->velocity())); // Velocity
+    e = ev;
+    setText(0,QString::number(ev->tick())); // Tick
+    setText(1,QString::number(ev->voice())); // Voice
+    setText(2,QString::number(ev->note())); // Note
+    setText(3,QString::number(ev->velocity())); // Velocity
 
-    switch(e->type()) {
+    switch(ev->type()) {
     case QtMidiEvent::NoteOn:
         setText(4,QObject::tr("note on")); break;
     case QtMidiEvent::NoteOff:
@@ -66,13 +67,13 @@ void GuiMidiEvent::init(QtMidiEvent *e, SelectInstrument* ins)
     default: break;
     }
 
-    if(e->type() == QtMidiEvent::Meta_Tempo) {
-        setText(5,QString::number(e->tempo()));
-    } else if(e->type() == QtMidiEvent::ControlChange) {
-        ins->setInsNum(e->number());
-        setText(5,QString("%1 (%2)").arg(e->number()).arg(ins->insName()));
+    if(ev->type() == QtMidiEvent::Meta_Tempo) {
+        setText(5,QString::number(ev->tempo()));
+    } else if(ev->type() == QtMidiEvent::ControlChange) {
+        ins->setInsNum(ev->number());
+        setText(5,QString("%1 (%2)").arg(ev->number()).arg(ins->insName()));
     } else {
-        setText(5,QString::fromAscii(e->data()));
+        setText(5,QString::fromAscii(ev->data()));
     }
 }
 
@@ -87,6 +88,7 @@ AllEvents::AllEvents(QWidget *parent, QtMidiFile* f) :
     QDialog(parent), ui(new Ui::AllEvents)
 {
     ui->setupUi(this);
+    ui->progBar->hide();
     if(!f) { return; }
 
     SelectInstrument ins;
@@ -113,6 +115,13 @@ AllEvents::AllEvents(QWidget *parent, QtMidiFile* f) :
     ui->eventsList->setSortingEnabled(true);
     minColSize();
 
+    connect(ui->noteOnChk,SIGNAL(toggled(bool)),this,SLOT(updateFilters()));
+    connect(ui->noteOffChk,SIGNAL(toggled(bool)),this,SLOT(updateFilters()));
+    connect(ui->programChk,SIGNAL(toggled(bool)),this,SLOT(updateFilters()));
+    connect(ui->controllerChk,SIGNAL(toggled(bool)),this,SLOT(updateFilters()));
+    connect(ui->metaChk,SIGNAL(toggled(bool)),this,SLOT(updateFilters()));
+    connect(ui->otherChk,SIGNAL(toggled(bool)),this,SLOT(updateFilters()));
+
     dialog.hide();
 }
 
@@ -125,6 +134,42 @@ void AllEvents::minColSize()
 {
     for(int i = 0; i < ui->eventsList->columnCount(); i++)
     { ui->eventsList->resizeColumnToContents(i); }
+}
+
+void AllEvents::updateFilters()
+{
+    bool noteOn = !ui->noteOnChk->isChecked();
+    bool noteOff = !ui->noteOffChk->isChecked();
+    bool program = !ui->programChk->isChecked();
+    bool control = !ui->controllerChk->isChecked();
+    bool meta = !ui->metaChk->isChecked();
+    bool other = !ui->otherChk->isChecked();
+
+    ui->progBar->show();
+    ui->progBar->setValue(0);
+    ui->progBar->setMaximum(ui->eventsList->topLevelItemCount());
+
+    for(int at = 0; at < ui->eventsList->topLevelItemCount(); at++) {
+        if(at % 100) { ui->progBar->setValue(at); }
+        if(at % 1000) { ui->progBar->repaint(); }
+
+        GuiMidiEvent* i = static_cast<GuiMidiEvent*>(ui->eventsList->topLevelItem(at));
+        switch(i->event()->type()) {
+        case QtMidiEvent::NoteOn:
+            i->setHidden(noteOn); break;
+        case QtMidiEvent::NoteOff:
+            i->setHidden(noteOff); break;
+        case QtMidiEvent::ControlChange:
+            i->setHidden(control); break;
+        case QtMidiEvent::ProgramChange:
+            i->setHidden(program); break;
+        case QtMidiEvent::Meta:
+            i->setHidden(meta); break;
+        default: i->setHidden(other); break;
+        }
+    }
+
+    ui->progBar->hide();
 }
 
 void AllEvents::on_delCertEvBtn_clicked()
