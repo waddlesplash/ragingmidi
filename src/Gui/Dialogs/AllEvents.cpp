@@ -25,63 +25,116 @@
 #include "AllEvents.h"
 #include "ui_AllEvents.h"
 
-void GuiMidiEvent::init(QtMidiEvent *e)
+#include "../Selectors/SelectInstrument.h"
+
+#include <QInputDialog>
+#include <QProgressDialog>
+#include <QMessageBox>
+
+void GuiMidiEvent::init(QtMidiEvent *e, SelectInstrument* ins)
 {
     setText(0,QString::number(e->tick())); // Tick
     setText(1,QString::number(e->voice())); // Voice
     setText(2,QString::number(e->note())); // Note
     setText(3,QString::number(e->velocity())); // Velocity
-    setText(4,"[TODO]"); // TODO: Length
 
     switch(e->type()) {
     case QtMidiEvent::NoteOn:
-        setText(5,QObject::tr("note on")); break;
+        setText(4,QObject::tr("note on")); break;
     case QtMidiEvent::NoteOff:
-        setText(5,QObject::tr("note off")); break;
+        setText(4,QObject::tr("note off")); break;
     case QtMidiEvent::KeyPressure:
-        setText(5,QObject::tr("key press.","key pressure")); break;
+        setText(4,QObject::tr("key press.","key pressure")); break;
     case QtMidiEvent::ChannelPressure:
-        setText(5,QObject::tr("chan. press.","channel pressure")); break;
+        setText(4,QObject::tr("chan. press.","channel pressure")); break;
     case QtMidiEvent::ControlChange:
-        setText(5,QObject::tr("control")); break;
+        setText(4,QObject::tr("control")); break;
     case QtMidiEvent::ProgramChange:
-        setText(5,QObject::tr("program")); break;
+        setText(4,QObject::tr("program")); break;
     case QtMidiEvent::PitchWheel:
-        setText(5,QObject::tr("pitch wheel")); break;
+        setText(4,QObject::tr("pitch wheel")); break;
     case QtMidiEvent::Meta:
-        setText(5,QObject::tr("meta")); break;
+        setText(4,QObject::tr("meta")); break;
     case QtMidiEvent::Meta_Lyric:
-        setText(5,QObject::tr("meta/lyric")); break;
+        setText(4,QObject::tr("meta/lyric")); break;
     case QtMidiEvent::Meta_Tempo:
-        setText(5,QObject::tr("meta/tempo")); break;
+        setText(4,QObject::tr("tempo")); break;
     case QtMidiEvent::Meta_TimeSignature:
-        setText(5,QObject::tr("meta/time sign.","meta/time signature")); break;
+        setText(4,QObject::tr("meta/time sig.","meta/time signature")); break;
     case QtMidiEvent::SysEx:
-        setText(5,QObject::tr("sys. ex.","system exclusive")); break;
+        setText(4,QObject::tr("sys. ex.","system exclusive")); break;
     default: break;
     }
 
-    setText(6,e->data());
+    if(e->type() == QtMidiEvent::Meta_Tempo) {
+        setText(5,QString::number(e->tempo()));
+    } else if(e->type() == QtMidiEvent::ControlChange) {
+        ins->setInsNum(e->number());
+        setText(5,QString("%1 (%2)").arg(e->number()).arg(ins->insName()));
+    } else {
+        setText(5,QString::fromAscii(e->data()));
+    }
+}
+
+bool GuiMidiEvent::operator<(const QTreeWidgetItem &other) const
+{
+    int column = treeWidget()->sortColumn();
+    if(column != 0) { return QTreeWidgetItem::operator<(other); }
+    return text(column).toInt() < other.text(column).toInt();
 }
 
 AllEvents::AllEvents(QWidget *parent, QtMidiFile* f) :
     QDialog(parent), ui(new Ui::AllEvents)
 {
     ui->setupUi(this);
-    ui->groupBox->hide();
     if(!f) { return; }
 
-    GuiMidiEvent* i;
-    foreach(QtMidiEvent*e, f->events()) {
-        i = new GuiMidiEvent(ui->treeWidget);
-        i->init(e);
+    SelectInstrument ins;
+    QList<QtMidiEvent*> events = f->events();
+
+    QProgressDialog dialog(parent);
+    dialog.show();
+    dialog.setWindowTitle(tr("Loading..."));
+    dialog.setLabelText(tr("Setting up \"All MIDI Events\" dialog..."));
+    dialog.setMaximum(events.size());
+    dialog.repaint();
+
+    GuiMidiEvent* mI;
+    for(int i = 0;i < events.size();i++) {
+        dialog.setValue(i);
+        mI = new GuiMidiEvent(ui->eventsList);
+        mI->init(events.at(i),&ins);
     }
 
-    ui->treeWidget->setSortingEnabled(true);
-    ui->treeWidget->sortItems(0,Qt::AscendingOrder);
+    ui->eventsList->setSortingEnabled(true);
+    ui->eventsList->sortItems(0,Qt::AscendingOrder);
+    minColSize();
+
+    dialog.hide();
 }
 
 AllEvents::~AllEvents()
 {
     delete ui;
+}
+
+void AllEvents::minColSize()
+{
+    for(int i = 0; i < ui->eventsList->columnCount(); i++)
+    { ui->eventsList->resizeColumnToContents(i); }
+}
+
+void AllEvents::on_delCertEvBtn_clicked()
+{
+    QStringList items;
+    items.append(tr("pitch wheel"));
+    QString result = QInputDialog::getItem(this,tr("Delete certain events"),
+                                           tr("Type of events to delete:"),
+                                           items,0,false);
+    int res = QMessageBox::warning(this,tr("Warning!"),
+                                   tr("Are you SURE you want to delete these events?<br>This CANNOT be undone!"),
+                                   QMessageBox::Ok,QMessageBox::Cancel);
+    if(res == QMessageBox::Ok) {
+        QMessageBox::information(this,"","TODO: actually DELETE events!!");
+    }
 }

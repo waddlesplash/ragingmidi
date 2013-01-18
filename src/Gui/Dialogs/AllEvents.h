@@ -36,9 +36,11 @@
 #include <QTreeWidget>
 #include <QtMidiFile.h>
 
+// Definitions so we don't have to #include stuff
 namespace Ui {
 class AllEvents;
 }
+class SelectInstrument;
 
 /****c* AllEvents.h/GuiMidiEvent
  * SYNOPSIS
@@ -55,7 +57,10 @@ public:
     inline explicit GuiMidiEvent(QTreeWidget *p = 0)
         : QTreeWidgetItem(p) {}
 
-    void init(QtMidiEvent *e);
+    void init(QtMidiEvent *e, SelectInstrument *ins);
+
+protected:
+    bool operator<(const QTreeWidgetItem &other) const;
 };
 
 /****c* AllEvents.h/AllEvents
@@ -74,8 +79,13 @@ public:
     explicit AllEvents(QWidget *parent = 0, QtMidiFile *f = 0);
     ~AllEvents();
     
+private slots:
+    void on_delCertEvBtn_clicked();
+
 private:
     Ui::AllEvents *ui;
+
+    void minColSize();
 };
 
 #endif // ALLEVENTS_H
