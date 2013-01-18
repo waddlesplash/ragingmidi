@@ -73,7 +73,6 @@ protected:
     
 private slots:
     void somethingChanged();
-    void setSongTick(qint32 tick);
 
     void on_actionOpen_triggered();
     void on_actionSave_triggered();

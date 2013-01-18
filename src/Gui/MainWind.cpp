@@ -79,7 +79,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
 
     // Connections
     connect(ui->tracksEdit,SIGNAL(somethingChanged()),this,SLOT(somethingChanged()));
-    connect(ui->timeEdit,SIGNAL(tickChanged(qint32)),this,SLOT(setSongTick(qint32)));
+    connect(ui->timeEdit,SIGNAL(tickChanged(int)),ui->songPosSlider,SLOT(setValue(int)));
 
     // Final UI setup
     this->show();
@@ -152,11 +152,6 @@ void MainWind::closeEvent(QCloseEvent *e)
 void MainWind::somethingChanged()
 {
     this->setWindowModified(true);
-}
-
-void MainWind::setSongTick(qint32 tick)
-{
-    ui->songPosSlider->setValue(tick);
 }
 
 void MainWind::on_actionOpen_triggered()

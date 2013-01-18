@@ -65,7 +65,7 @@ public:
     qint32 tick();
 
 signals:
-    void tickChanged(qint32 tick);
+    void tickChanged(int tick);
 
 protected:
     void mouseReleaseEvent(QMouseEvent *e);
