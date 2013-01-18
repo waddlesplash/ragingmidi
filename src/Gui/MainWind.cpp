@@ -69,6 +69,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     QWidget* spacer = new QWidget();
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ui->playToolbar->addWidget(spacer);
+    ui->playToolbar->addSeparator();
     ui->playToolbar->addWidget(ui->timeEdit);
 
     // Variables

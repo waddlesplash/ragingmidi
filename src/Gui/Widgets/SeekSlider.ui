@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>SeekSlider</class>
  <widget class="QSlider" name="SeekSlider">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>200</width>
-    <height>19</height>
-   </rect>
-  </property>
   <property name="maximumSize">
    <size>
     <width>200</width>
@@ -22,7 +14,8 @@
 QSlider::groove:horizontal {
 	border: 1px solid #bbb;
 	background: white;
-	height: 10px;
+	margin-top: 3px;
+	margin-bottom: 3px;
 	border-radius: 4px;
 }
 
@@ -32,14 +25,16 @@ QSlider::sub-page:horizontal {
 	background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,
 		stop: 0 #bbf, stop: 1 #55f);
 	border: 1px solid #777;
-	height: 10px;
+	margin-top: 3px;
+	margin-bottom: 3px;
 	border-radius: 4px;
 }
 
 QSlider::add-page:horizontal {
 	background: #fff;
 	border: 1px solid #777;
-	height: 10px;
+	margin-top: 3px;
+	margin-bottom: 3px;
 	border-radius: 4px;
 }
 
