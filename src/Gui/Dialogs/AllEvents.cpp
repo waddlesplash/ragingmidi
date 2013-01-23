@@ -73,7 +73,7 @@ void GuiMidiEvent::init(QtMidiEvent *ev, SelectInstrument* ins)
         ins->setInsNum(ev->number());
         setText(5,QString("%1 (%2)").arg(ev->number()).arg(ins->insName()));
     } else {
-        setText(5,QString::fromAscii(ev->data()));
+        setText(5,QString::fromUtf8(ev->data()));
     }
 }
 

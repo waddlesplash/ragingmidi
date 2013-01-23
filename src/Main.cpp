@@ -29,8 +29,7 @@
  ******
  */
 
-#include <QtGui/QApplication>
-#include <QtGui/QPlastiqueStyle>
+#include <QApplication>
 #include "Gui/MainWind.h"
 
 int main(int argc, char *argv[])

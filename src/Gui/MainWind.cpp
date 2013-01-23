@@ -31,6 +31,10 @@
 #include <QFile>
 #include <QtMidi.h>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#   include <QStandardPaths>
+#endif
+
 #include "Selectors/SelectInstrument.h"
 #include "Selectors/SelectOutput.h"
 #include "Dialogs/AllEvents.h"
@@ -169,7 +173,11 @@ void MainWind::on_actionOpen_triggered()
         }
     }
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
     QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+#else
+    QVariant s = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+#endif
     QString f = QFileDialog::getOpenFileName(this,tr("Open file..."),
                                              appSettings->value("LastFileDlgLoc",s).toString(),
                                              tr("MIDI files (*.mid *.midi)"));
@@ -212,7 +220,11 @@ void MainWind::on_actionSave_triggered()
 }
 void MainWind::on_actionSaveAs_triggered()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
     QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+#else
+    QVariant s = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+#endif
     QString f = QFileDialog::getSaveFileName(this,tr("Save file..."),
                                              appSettings->value("LastFileDlgLoc",s).toString(),
                                              tr("MIDI files (*.mid *.midi)"));
