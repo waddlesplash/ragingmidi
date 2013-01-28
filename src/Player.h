@@ -34,7 +34,7 @@
 
 #include <QThread>
 
-#include <QtMidiFile.h>
+#include <QMidiFile.h>
 #include "Gui/Widgets/VirtualPiano.h"
 
 /****c* Player.h/Player
@@ -52,7 +52,7 @@ class Player : public QThread
 {
     Q_OBJECT
 public:
-    Player(QtMidiFile* fil, VirtualPiano* p, qint32 tick = 0);
+    Player(QMidiFile* fil, VirtualPiano* p, qint32 tick = 0);
     inline ~Player() {}
 
     inline void stop() { doStop = true; }
@@ -64,8 +64,8 @@ signals:
     void tickChanged(qint32 tick);
 
 private:
-    QtMidiEvent* e;
-    QtMidiFile* f;
+    QMidiEvent* e;
+    QMidiFile* f;
     VirtualPiano* piano;
 
     bool doStop;

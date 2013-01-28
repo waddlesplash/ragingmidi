@@ -38,7 +38,7 @@
 #include <QMap>
 #include <QSettings>
 
-#include <QtMidiFile.h>
+#include <QMidiFile.h>
 #include "Widgets/SeekSlider.h"
 #include "../Player.h"
 
@@ -101,7 +101,7 @@ private:
     Ui::MainWind *ui;
     bool initOK;
 
-    QtMidiFile* midiFile;
+    QMidiFile* midiFile;
     Player* player;
     QSettings* appSettings;
     QString midiFileLoc;

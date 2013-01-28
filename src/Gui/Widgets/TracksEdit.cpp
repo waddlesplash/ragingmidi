@@ -27,7 +27,7 @@
 
 #include <QColor>
 #include <QMessageBox>
-#include <QtMidi.h>
+#include <QMidi.h>
 
 #include "../Selectors/SelectInstrument.h"
 
@@ -123,9 +123,9 @@ void TracksEdit::trackItem_volChanged(int v)
     int trk = sl->track();
     int vel = 127.0*(v/100.0);
     int oldVel = -1;
-    foreach(QtMidiEvent* e, midiFile->eventsForTrack(trk))
+    foreach(QMidiEvent* e, midiFile->eventsForTrack(trk))
     {
-        if(e->type() != QtMidiEvent::NoteOn) { continue; }
+        if(e->type() != QMidiEvent::NoteOn) { continue; }
         if(oldVel == -1) { oldVel = e->velocity(); continue; }
         if(oldVel != e->velocity()) {
             int ret = QMessageBox::warning(this->parentWidget(),tr("Different volumes!"),
@@ -136,9 +136,9 @@ void TracksEdit::trackItem_volChanged(int v)
             else { sl->revert(); return; }
         }
     }
-    foreach(QtMidiEvent* e, midiFile->eventsForTrack(trk))
+    foreach(QMidiEvent* e, midiFile->eventsForTrack(trk))
     {
-        if(e->type() != QtMidiEvent::NoteOn) { continue; }
+        if(e->type() != QMidiEvent::NoteOn) { continue; }
         e->setVelocity(vel);
     }
     emit somethingChanged();
@@ -168,7 +168,7 @@ void TracksEdit::init(VirtualPiano* p)
     piano = p;
 }
 
-void TracksEdit::setupTracks(QtMidiFile *f)
+void TracksEdit::setupTracks(QMidiFile *f)
 {
     ignoreEvents = true;
     midiFile = f;
@@ -178,29 +178,29 @@ void TracksEdit::setupTracks(QtMidiFile *f)
         TrackItem* i = this->createTrack(curTrack);
 
         bool didInstr = false, didVoice = false, didName = false, didVol = false;
-        foreach(QtMidiEvent* e, midiFile->eventsForTrack(curTrack))
+        foreach(QMidiEvent* e, midiFile->eventsForTrack(curTrack))
         {
-            if(!didVoice && e->type() == QtMidiEvent::NoteOn)
+            if(!didVoice && e->type() == QMidiEvent::NoteOn)
             {
                 i->setVoice(e->voice());
                 if(e->voice() == 9) { i->setInst(tr("Drums")); didInstr = true; }
                 didVoice = true;
             }
-            if(!didVol && e->type() == QtMidiEvent::NoteOn)
+            if(!didVol && e->type() == QMidiEvent::NoteOn)
             {
                 i->setVol((e->velocity()/127.0)*100);
                 didVol = true;
             }
-            else if(!didInstr && e->type() == QtMidiEvent::ProgramChange)
+            else if(!didInstr && e->type() == QMidiEvent::ProgramChange)
             {
                 int instr = e->number();
                 SelectInstrument sel(this);
                 sel.setInsNum(instr);
                 i->setInst(sel.insName());
-                QtMidi::outSetInstr(e->voice(),e->number());
+                QMidi::outSetInstr(e->voice(),e->number());
                 didInstr = true;
             }
-            else if(!didName && (e->type() == QtMidiEvent::Meta) &&
+            else if(!didName && (e->type() == QMidiEvent::Meta) &&
                     (e->number() == 0x03))
             { i->setName(e->data()); didName = true; } // Name
 
@@ -225,7 +225,7 @@ void TracksEdit::deleteCurTrack()
 
     int trackNum = i->track();
     i->~QTreeWidgetItem();
-    foreach(QtMidiEvent*e,midiFile->eventsForTrack(trackNum))
+    foreach(QMidiEvent*e,midiFile->eventsForTrack(trackNum))
     {
         midiFile->removeEvent(e);
         delete e;
@@ -243,7 +243,7 @@ void TracksEdit::updateTrackOn()
         }
         bool on = (itm->on() == tr("on"));
         myTrackStatus.insert(itm->track(),on);
-        if(!on) { QtMidi::outStopAll(itm->voice()); }
+        if(!on) { QMidi::outStopAll(itm->voice()); }
     }
 
     if(soloTracks.size() < 1) { return; }
@@ -255,7 +255,7 @@ void TracksEdit::updateTrackOn()
         }
         myTrackStatus.insert(i,false);
     }
-    QtMidi::outStopAll();
+    QMidi::outStopAll();
     piano->clearTrackColors();
 }
 
@@ -276,13 +276,13 @@ void TracksEdit::tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column)
             itm->setInst(ins->insName());
             int insNum = ins->insNum();
             bool didChange = false;
-            foreach(QtMidiEvent*e,midiFile->eventsForTrack(itm->track())) {
-                if (e->type() == QtMidiEvent::ProgramChange) {
+            foreach(QMidiEvent*e,midiFile->eventsForTrack(itm->track())) {
+                if (e->type() == QMidiEvent::ProgramChange) {
                     didChange = (e->number() != insNum) || didChange;
                     e->setNumber(insNum);
                 }
             }
-            QtMidi::outSetInstr(itm->voice(),ins->insNum());
+            QMidi::outSetInstr(itm->voice(),ins->insNum());
             if(didChange) { emit somethingChanged(); }
         }
     }
@@ -319,9 +319,9 @@ void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
     TrackItem* itm = static_cast<TrackItem*>(item);
     if(column == TrackItem::Name)
     {
-        foreach(QtMidiEvent* e, midiFile->eventsForTrack(itm->track()))
+        foreach(QMidiEvent* e, midiFile->eventsForTrack(itm->track()))
         {
-            if((e->type() == QtMidiEvent::Meta) &&
+            if((e->type() == QMidiEvent::Meta) &&
                (e->number() == 0x03) &&
                (e->data() != itm->name().toUtf8()))
             {

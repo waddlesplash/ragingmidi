@@ -25,7 +25,7 @@
 #include "SelectOutput.h"
 #include "ui_SelectOutput.h"
 
-#include <QtMidi.h>
+#include <QMidi.h>
 #include <QStringList>
 #include <QPushButton>
 
@@ -91,7 +91,7 @@ void SelectOutput::on_midiOutNames_itemDoubleClicked(QTreeWidgetItem *, int)
 void SelectOutput::on_refreshBtn_clicked()
 {
     ui->midiOutNames->clear();
-    QMap<QString,QString> outDev = QtMidi::outDeviceNames();
+    QMap<QString,QString> outDev = QMidi::outDeviceNames();
     QStringList ids = outDev.keys();
     QTreeWidgetItem* newItem;
     foreach(QString id,ids)

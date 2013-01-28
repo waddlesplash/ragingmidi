@@ -23,12 +23,12 @@
  */
 
 #include <QElapsedTimer>
-#include <QtMidi.h>
+#include <QMidi.h>
 
 #include "Player.h"
 #include "Gui/MainWind.h"
 
-Player::Player(QtMidiFile* fil, VirtualPiano* p, qint32 tick)
+Player::Player(QMidiFile* fil, VirtualPiano* p, qint32 tick)
     : QThread(0)
 {
     f = fil;
@@ -42,22 +42,22 @@ void Player::handleEvent()
     if((MainWind::trackStatus->value(e->track(),true) == false) && e->isNoteEvent())
     { return; }
 
-    if (e->type() == QtMidiEvent::SysEx) { // TODO: sysex
+    if (e->type() == QMidiEvent::SysEx) { // TODO: sysex
     } else {
         qint32 message = e->message();
-        QtMidi::outSendMsg(message);
+        QMidi::outSendMsg(message);
     }
 
     // Update the piano, pianoroll, and slider
-    if(e->type() == QtMidiEvent::NoteOn) {
+    if(e->type() == QMidiEvent::NoteOn) {
         piano->key(e->note())->addTrackColor(e->track());
         if(MainWind::playLocSilder->doUpdate()) {
             MainWind::playLocSilder->setValue(e->tick());
         }
         emit tickChanged(e->tick());
-    } else if(e->type() == QtMidiEvent::NoteOff) {
+    } else if(e->type() == QMidiEvent::NoteOff) {
         piano->key(e->note())->removeTrackColor(e->track());
-    } else if(e->type() == QtMidiEvent::ControlChange) {
+    } else if(e->type() == QMidiEvent::ControlChange) {
         piano->clearTrackColors(e->track());
     }
 }
@@ -71,7 +71,7 @@ void Player::run()
     foreach(e,f->events()) {
         if(e->isNoteEvent() && (e->tick() < sTick)) { continue; }
 
-        if(e->type() != QtMidiEvent::Meta) {
+        if(e->type() != QMidiEvent::Meta) {
             qint64 event_time = (f->timeFromTick(e->tick())-sTime) * 1000;
 
             qint32 waitTime = event_time - t.elapsed();

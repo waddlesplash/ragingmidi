@@ -29,7 +29,7 @@
 #include <QMouseEvent>
 #include <QLabel>
 
-#include <QtMidiFile.h>
+#include <QMidiFile.h>
 
 /****h* RagingMidi/TimeEdit.h
  * PURPOSE
@@ -58,7 +58,7 @@ public:
     explicit TimeEdit(QWidget *parent = 0);
     ~TimeEdit();
 
-    inline void setMidiFile(QtMidiFile* f) { file = f; setTick(0); }
+    inline void setMidiFile(QMidiFile* f) { file = f; setTick(0); }
 
     /* 2nd arg is "don't update Time Editor widget */
     void setTick(qint32 tick, bool dontUpdateTEW = false);
@@ -75,7 +75,7 @@ private slots:
 
 private:
     Ui::TimeEdit *ui;
-    QtMidiFile* file;
+    QMidiFile* file;
 };
 
 #endif // TIMEEDIT_H

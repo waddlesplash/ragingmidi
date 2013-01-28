@@ -25,7 +25,7 @@
 #include "AboutDlg.h"
 #include "ui_AboutDlg.h"
 
-#include "../config.h"
+#include "../../config.h"
 
 #include <QDesktopServices>
 #include <QFile>

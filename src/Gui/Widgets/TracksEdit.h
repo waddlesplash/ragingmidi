@@ -34,7 +34,7 @@
  */
 
 #include <QTreeWidget>
-#include <QtMidiFile.h>
+#include <QMidiFile.h>
 #include <QStringList>
 #include <QSlider>
 #include <QMap>
@@ -157,7 +157,7 @@ public:
     QMap<int,bool>* trackStatus() { return &myTrackStatus; }
 
     void init(VirtualPiano* p);
-    void setupTracks(QtMidiFile* f);
+    void setupTracks(QMidiFile* f);
 
     TrackItem* createTrack(int trackNum);
     QList<TrackItem*> tracks();
@@ -181,7 +181,7 @@ private:
     QMap<int,bool> myTrackStatus;
     bool ignoreEvents;
 
-    QtMidiFile *midiFile;
+    QMidiFile *midiFile;
     VirtualPiano *piano;
     QStringList colorNames;
 

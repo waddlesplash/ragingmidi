@@ -15,7 +15,7 @@ win32 {
 }
 !win32 { TARGET = ragingmidi }
 
-include(QtMidi/QtMidi.pri)
+include(lib/QMidi/QMidi.pri)
 
 SOURCES += Gui/MainWind.cpp \
     Main.cpp \

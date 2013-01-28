@@ -121,18 +121,18 @@ void PianoRoll::deleteLine()
     line = 0;
 }
 
-void PianoRoll::initEditor(QtMidiFile* f)
+void PianoRoll::initEditor(QMidiFile* f)
 {
     scene()->clear();
     file = f;
     PianoRollEvent* edEv = 0;
-    QtMidiEvent* noteOn = 0;
+    QMidiEvent* noteOn = 0;
 
-    QMap<int,QtMidiEvent*> lastNoteOn;
+    QMap<int,QMidiEvent*> lastNoteOn;
 
-    foreach(QtMidiEvent*e, file->events()) {
+    foreach(QMidiEvent*e, file->events()) {
         if(e->isNoteEvent()) {
-            if(e->type() == QtMidiEvent::NoteOff) {
+            if(e->type() == QMidiEvent::NoteOff) {
                 edEv = new PianoRollEvent();
                 edEv->setColor(MainWind::trackColors->value(e->track()));
                 noteOn = lastNoteOn.value(e->note(),0);

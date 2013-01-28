@@ -29,7 +29,7 @@
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QFile>
-#include <QtMidi.h>
+#include <QMidi.h>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 #   include <QStandardPaths>
@@ -92,7 +92,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     // Open MIDI out
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted) {
-        QtMidi::initMidiOut(selOut.midiOutId());
+        QMidi::initMidiOut(selOut.midiOutId());
     } else {
         initOK = false;
         return;
@@ -110,7 +110,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
 MainWind::~MainWind()
 {
     delete ui;
-    if(initOK) { QtMidi::closeMidiOut(); }
+    if(initOK) { QMidi::closeMidiOut(); }
 }
 
 int MainWind::confirmUnsaved()
@@ -188,7 +188,7 @@ void MainWind::openMidiFile(QString filename)
 {
     if(player) { on_actionStop_triggered(); }
     if(midiFile) { delete midiFile; }
-    midiFile = new QtMidiFile();
+    midiFile = new QMidiFile();
     midiFile->load(filename);
 
     ui->tracksEdit->setupTracks(midiFile);
@@ -250,8 +250,8 @@ void MainWind::on_actionTranspose_triggered()
         ui->statusBar->showMessage(tr("Transposing..."));
         this->setEnabled(false);
         foreach(int track,tracks) {
-            QList<QtMidiEvent*> evn = midiFile->eventsForTrack(track);
-            foreach(QtMidiEvent* e, evn) {
+            QList<QMidiEvent*> evn = midiFile->eventsForTrack(track);
+            foreach(QMidiEvent* e, evn) {
                 if(e->isNoteEvent()) {
                     int n = e->note()+steps;
                     if(n < 0) { n = 0; }
@@ -300,7 +300,7 @@ void MainWind::on_actionStop_triggered()
     player->wait();
     delete player;
     player = 0;
-    QtMidi::outStopAll();
+    QMidi::outStopAll();
     ui->piano->clearTrackColors();
     ui->pianoRoll->deleteLine();
 }
@@ -331,8 +331,8 @@ void MainWind::on_actionDeviceReconnect_triggered()
 {
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted) {
-        QtMidi::closeMidiOut();
-        QtMidi::initMidiOut(selOut.midiOutId());
+        QMidi::closeMidiOut();
+        QMidi::initMidiOut(selOut.midiOutId());
     }
 }
 

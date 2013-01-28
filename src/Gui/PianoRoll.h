@@ -32,7 +32,7 @@
 #include <QContextMenuEvent>
 #include <QPointF>
 
-#include <QtMidiFile.h>
+#include <QMidiFile.h>
 
 /****h* RagingMidi/PianoRoll.h
  * PURPOSE
@@ -86,7 +86,7 @@ public:
     inline void setSize(qreal x, qreal y, qreal w, qreal h)
     { this->setPos(x,y); this->setRect(0,0,w,h); }
 
-    inline void setNoteOnAndOff(QtMidiEvent* noteOn, QtMidiEvent* noteOff)
+    inline void setNoteOnAndOff(QMidiEvent* noteOn, QMidiEvent* noteOff)
     { myNoteOn = noteOn; myNoteOff = noteOff; }
 
     inline void setColor(QColor c) { myColor = c; }
@@ -96,8 +96,8 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *e);
 
 private:
-    QtMidiEvent* myNoteOn;
-    QtMidiEvent* myNoteOff;
+    QMidiEvent* myNoteOn;
+    QMidiEvent* myNoteOff;
     QColor myColor;
 };
 
@@ -119,7 +119,7 @@ public:
     explicit PianoRoll(QWidget *parent = 0);
     ~PianoRoll();
 
-    void initEditor(QtMidiFile* f);
+    void initEditor(QMidiFile* f);
 
     PianoRollLine* initLine(qint32 tick);
     void deleteLine();
@@ -130,7 +130,7 @@ protected:
     
 private:
     Ui::PianoRoll *ui;
-    QtMidiFile* file;
+    QMidiFile* file;
 
     PianoRollLine* line;
 

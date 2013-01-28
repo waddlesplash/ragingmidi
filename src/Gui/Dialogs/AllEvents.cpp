@@ -31,7 +31,7 @@
 #include <QProgressDialog>
 #include <QMessageBox>
 
-void GuiMidiEvent::init(QtMidiEvent *ev, SelectInstrument* ins)
+void GuiMidiEvent::init(QMidiEvent *ev, SelectInstrument* ins)
 {
     e = ev;
     setText(0,QString::number(ev->tick())); // Tick
@@ -40,36 +40,36 @@ void GuiMidiEvent::init(QtMidiEvent *ev, SelectInstrument* ins)
     setText(3,QString::number(ev->velocity())); // Velocity
 
     switch(ev->type()) {
-    case QtMidiEvent::NoteOn:
+    case QMidiEvent::NoteOn:
         setText(4,QObject::tr("note on")); break;
-    case QtMidiEvent::NoteOff:
+    case QMidiEvent::NoteOff:
         setText(4,QObject::tr("note off")); break;
-    case QtMidiEvent::KeyPressure:
+    case QMidiEvent::KeyPressure:
         setText(4,QObject::tr("key press.","key pressure")); break;
-    case QtMidiEvent::ChannelPressure:
+    case QMidiEvent::ChannelPressure:
         setText(4,QObject::tr("chan. press.","channel pressure")); break;
-    case QtMidiEvent::ControlChange:
+    case QMidiEvent::ControlChange:
         setText(4,QObject::tr("control")); break;
-    case QtMidiEvent::ProgramChange:
+    case QMidiEvent::ProgramChange:
         setText(4,QObject::tr("program")); break;
-    case QtMidiEvent::PitchWheel:
+    case QMidiEvent::PitchWheel:
         setText(4,QObject::tr("pitch wheel")); break;
-    case QtMidiEvent::Meta:
+    case QMidiEvent::Meta:
         setText(4,QObject::tr("meta")); break;
-    case QtMidiEvent::Meta_Lyric:
+    case QMidiEvent::Meta_Lyric:
         setText(4,QObject::tr("meta/lyric")); break;
-    case QtMidiEvent::Meta_Tempo:
+    case QMidiEvent::Meta_Tempo:
         setText(4,QObject::tr("tempo")); break;
-    case QtMidiEvent::Meta_TimeSignature:
+    case QMidiEvent::Meta_TimeSignature:
         setText(4,QObject::tr("meta/time sig.","meta/time signature")); break;
-    case QtMidiEvent::SysEx:
+    case QMidiEvent::SysEx:
         setText(4,QObject::tr("sys. ex.","system exclusive")); break;
     default: break;
     }
 
-    if(ev->type() == QtMidiEvent::Meta_Tempo) {
+    if(ev->type() == QMidiEvent::Meta_Tempo) {
         setText(5,QString::number(ev->tempo()));
-    } else if(ev->type() == QtMidiEvent::ControlChange) {
+    } else if(ev->type() == QMidiEvent::ControlChange) {
         ins->setInsNum(ev->number());
         setText(5,QString("%1 (%2)").arg(ev->number()).arg(ins->insName()));
     } else {
@@ -84,7 +84,7 @@ bool GuiMidiEvent::operator<(const QTreeWidgetItem &other) const
     return text(column).toInt() < other.text(column).toInt();
 }
 
-AllEvents::AllEvents(QWidget *parent, QtMidiFile* f) :
+AllEvents::AllEvents(QWidget *parent, QMidiFile* f) :
     QDialog(parent), ui(new Ui::AllEvents)
 {
     ui->setupUi(this);
@@ -92,7 +92,7 @@ AllEvents::AllEvents(QWidget *parent, QtMidiFile* f) :
     if(!f) { return; }
 
     SelectInstrument ins;
-    QList<QtMidiEvent*> events = f->events();
+    QList<QMidiEvent*> events = f->events();
 
     QProgressDialog dialog(parent);
     dialog.show();
@@ -155,15 +155,15 @@ void AllEvents::updateFilters()
 
         GuiMidiEvent* i = static_cast<GuiMidiEvent*>(ui->eventsList->topLevelItem(at));
         switch(i->event()->type()) {
-        case QtMidiEvent::NoteOn:
+        case QMidiEvent::NoteOn:
             i->setHidden(noteOn); break;
-        case QtMidiEvent::NoteOff:
+        case QMidiEvent::NoteOff:
             i->setHidden(noteOff); break;
-        case QtMidiEvent::ControlChange:
+        case QMidiEvent::ControlChange:
             i->setHidden(control); break;
-        case QtMidiEvent::ProgramChange:
+        case QMidiEvent::ProgramChange:
             i->setHidden(program); break;
-        case QtMidiEvent::Meta:
+        case QMidiEvent::Meta:
             i->setHidden(meta); break;
         default: i->setHidden(other); break;
         }

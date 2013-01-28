@@ -34,7 +34,7 @@
 
 #include <QDialog>
 #include <QTreeWidget>
-#include <QtMidiFile.h>
+#include <QMidiFile.h>
 
 // Definitions so we don't have to #include stuff
 namespace Ui {
@@ -57,14 +57,14 @@ public:
     inline explicit GuiMidiEvent(QTreeWidget *p = 0)
         : QTreeWidgetItem(p) {}
 
-    void init(QtMidiEvent *ev, SelectInstrument *ins);
-    inline QtMidiEvent* event() { return e; }
+    void init(QMidiEvent *ev, SelectInstrument *ins);
+    inline QMidiEvent* event() { return e; }
 
 protected:
     bool operator<(const QTreeWidgetItem &other) const;
 
 private:
-    QtMidiEvent* e;
+    QMidiEvent* e;
 };
 
 /****c* AllEvents.h/AllEvents
@@ -80,7 +80,7 @@ class AllEvents : public QDialog
 {
     Q_OBJECT
 public:
-    explicit AllEvents(QWidget *parent = 0, QtMidiFile *f = 0);
+    explicit AllEvents(QWidget *parent = 0, QMidiFile *f = 0);
     ~AllEvents();
     
 private slots:
