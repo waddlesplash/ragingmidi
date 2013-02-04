@@ -107,6 +107,7 @@ AllEvents::AllEvents(QWidget *parent, QMidiFile* f) :
         if(i % 1000) { QApplication::processEvents(); }
         mI = new GuiMidiEvent(ui->eventsList);
         mI->init(events.at(i),&ins);
+        listItems.append(mI);
     }
 
     dialog.setLabelText(tr("Sorting items..."));
@@ -147,13 +148,13 @@ void AllEvents::updateFilters()
 
     ui->progBar->show();
     ui->progBar->setValue(0);
-    ui->progBar->setMaximum(ui->eventsList->topLevelItemCount());
+    ui->progBar->setMaximum(listItems.size());
 
-    for(int at = 0; at < ui->eventsList->topLevelItemCount(); at++) {
+    for(int at = 0; at < listItems.size(); at++) {
         if(at % 100) { ui->progBar->setValue(at); }
         if(at % 1000) { ui->progBar->repaint(); }
 
-        GuiMidiEvent* i = static_cast<GuiMidiEvent*>(ui->eventsList->topLevelItem(at));
+        GuiMidiEvent* i = listItems.at(at);
         switch(i->event()->type()) {
         case QMidiEvent::NoteOn:
             i->setHidden(noteOn); break;

@@ -34,6 +34,7 @@
 
 #include <QDialog>
 #include <QTreeWidget>
+#include <QList>
 #include <QMidiFile.h>
 
 // Definitions so we don't have to #include stuff
@@ -89,6 +90,7 @@ private slots:
 
 private:
     Ui::AllEvents *ui;
+    QList<GuiMidiEvent*> listItems;
 
     void minColSize();
 };
