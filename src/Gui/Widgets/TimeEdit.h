@@ -58,7 +58,7 @@ public:
     explicit TimeEdit(QWidget *parent = 0);
     ~TimeEdit();
 
-    inline void setMidiFile(QMidiFile* f) { file = f; setTick(0); }
+    void setMidiFile(QMidiFile* f);
 
     /* 2nd arg is "don't update Time Editor widget */
     void setTick(qint32 tick, bool dontUpdateTEW = false);

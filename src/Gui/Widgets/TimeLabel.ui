@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TimeLabel</class>
+ <widget class="QLabel" name="TimeLabel">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>44</width>
+    <height>13</height>
+   </rect>
+  </property>
+  <property name="text">
+   <string>0:00.000</string>
+  </property>
+  <property name="alignment">
+   <set>Qt::AlignCenter</set>
+  </property>
+  <property name="textInteractionFlags">
+   <set>Qt::TextBrowserInteraction</set>
+  </property>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

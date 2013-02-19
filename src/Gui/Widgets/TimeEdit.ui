@@ -19,22 +19,25 @@
   <property name="cursor">
    <cursorShape>PointingHandCursor</cursorShape>
   </property>
-  <property name="windowTitle">
-   <string>StackedWidget</string>
-  </property>
-  <property name="currentIndex">
-   <number>0</number>
-  </property>
   <widget class="QWidget" name="labelPage">
    <layout class="QGridLayout" name="gridLayout">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
      <number>0</number>
     </property>
     <property name="spacing">
      <number>0</number>
     </property>
     <item row="0" column="0">
-     <widget class="QLabel" name="curTimeLbl">
+     <widget class="TimeLabel" name="curTimeLbl">
       <property name="font">
        <font>
         <pointsize>20</pointsize>
@@ -44,19 +47,22 @@
        <string notr="true">background-color: rgb(0, 0, 0);
 color: rgb(0, 255, 0);</string>
       </property>
-      <property name="text">
-       <string notr="true">0:00.000</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
      </widget>
     </item>
    </layout>
   </widget>
   <widget class="QWidget" name="editPage">
    <layout class="QGridLayout" name="gridLayout_2">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
      <number>0</number>
     </property>
     <property name="spacing">
@@ -72,6 +78,13 @@ color: rgb(0, 255, 0);</string>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TimeLabel</class>
+   <extends>QLabel</extends>
+   <header>Gui/Widgets/TimeLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

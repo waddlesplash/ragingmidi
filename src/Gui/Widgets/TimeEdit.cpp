@@ -26,7 +26,6 @@
 #include "ui_TimeEdit.h"
 
 #include <QTime>
-#include <math.h> // for floor()
 
 TimeEdit::TimeEdit(QWidget *parent) :
     QStackedWidget(parent),
@@ -39,6 +38,13 @@ TimeEdit::TimeEdit(QWidget *parent) :
 TimeEdit::~TimeEdit()
 {
     delete ui;
+}
+
+void TimeEdit::setMidiFile(QMidiFile *f)
+{
+    file = f;
+    ui->curTimeLbl->setMidiFile(f);
+    setTick(0);
 }
 
 void TimeEdit::mouseReleaseEvent(QMouseEvent *e)
@@ -64,15 +70,9 @@ void TimeEdit::on_editorWidget_editingFinished()
 
 void TimeEdit::setTick(qint32 tick, bool dontUpdateTEW)
 {
-    if(!file) { return; }
-    float time = file->timeFromTick(tick);
-    int min = floor(time/60.0);
-    time -= min*60;
-    QString t("%1:%2");
-    t = t.arg(min).arg(time,6,'f',3,'0');
-    ui->curTimeLbl->setText(t);
+    ui->curTimeLbl->setTick(tick);
     if(dontUpdateTEW) { return; }
-    ui->editorWidget->setTime(QTime::fromString(t,"m:ss.zzz"));
+    ui->editorWidget->setTime(QTime::fromString(ui->curTimeLbl->text(),"m:ss.zzz"));
 }
 qint32 TimeEdit::tick()
 {
