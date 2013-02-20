@@ -50,7 +50,9 @@ public:
     explicit SeekSlider(QWidget *parent = 0);
     ~SeekSlider();
 
-    inline bool doUpdate() { return enableUpdate; }
+public slots:
+    inline void setValue(int v)
+    { if(enableUpdate) { QSlider::setValue(v); } }
 
 protected:
     inline void mousePressEvent(QMouseEvent *e)

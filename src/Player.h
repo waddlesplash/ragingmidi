@@ -62,6 +62,9 @@ protected:
 
 signals:
     void tickChanged(qint32 tick);
+    void addTrackColor(int note, int track);
+    void removeTrackColor(int note, int track);
+    void clearTrackColors(int track);
 
 private:
     QMidiEvent* e;
@@ -69,10 +72,8 @@ private:
     VirtualPiano* piano;
 
     bool doStop;
-
     qint32 sTick; /* start tick */
 
-private slots:
     void handleEvent();
 };
 

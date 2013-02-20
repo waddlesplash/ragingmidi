@@ -112,11 +112,14 @@ public:
     explicit VirtualPiano(QWidget *parent = 0);
 
     inline VirtualPianoKey* key(int num) { return keys.value(num); }
-
     void clearTrackColors();
-    void clearTrackColors(int track);
 
     static int voiceToUse;
+
+public slots:
+    void addTrackColor(int note, int track);
+    void removeTrackColor(int note, int track);
+    void clearTrackColors(int track);
     
 private:
     QMap<int,VirtualPianoKey*> keys;

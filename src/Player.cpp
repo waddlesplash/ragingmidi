@@ -42,7 +42,7 @@ void Player::handleEvent()
     if((MainWind::trackStatus->value(e->track(),true) == false) && e->isNoteEvent())
     { return; }
 
-    if (e->type() == QMidiEvent::SysEx) { // TODO: sysex
+    if(e->type() == QMidiEvent::SysEx) { // TODO: sysex
     } else {
         qint32 message = e->message();
         QMidi::outSendMsg(message);
@@ -50,15 +50,12 @@ void Player::handleEvent()
 
     // Update the piano, pianoroll, and slider
     if(e->type() == QMidiEvent::NoteOn) {
-        piano->key(e->note())->addTrackColor(e->track());
-        if(MainWind::playLocSilder->doUpdate()) {
-            MainWind::playLocSilder->setValue(e->tick());
-        }
+        emit addTrackColor(e->note(),e->track());
         emit tickChanged(e->tick());
     } else if(e->type() == QMidiEvent::NoteOff) {
-        piano->key(e->note())->removeTrackColor(e->track());
+        emit removeTrackColor(e->note(),e->track());
     } else if(e->type() == QMidiEvent::ControlChange) {
-        piano->clearTrackColors(e->track());
+        emit clearTrackColors(e->track());
     }
 }
 

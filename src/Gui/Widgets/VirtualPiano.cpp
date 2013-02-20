@@ -208,6 +208,16 @@ void VirtualPiano::addBlackKey(QGraphicsScene *scene, QString noteName)
     curKey += 1;
 }
 
+void VirtualPiano::addTrackColor(int note, int track)
+{
+    this->key(note)->addTrackColor(track);
+}
+
+void VirtualPiano::removeTrackColor(int note, int track)
+{
+    this->key(note)->removeTrackColor(track);
+}
+
 void VirtualPiano::clearTrackColors()
 {
     foreach(VirtualPianoKey*key,keys.values())

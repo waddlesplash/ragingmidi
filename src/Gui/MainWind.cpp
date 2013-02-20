@@ -291,6 +291,11 @@ void MainWind::on_actionPlay_triggered()
 
     connect(player,SIGNAL(tickChanged(qint32)),
             ui->pianoRoll->initLine(ui->songPosSlider->value()),SLOT(setTick(qint32)));
+    connect(player,SIGNAL(tickChanged(qint32)),ui->songPosSlider,SLOT(setValue(int)));
+
+    connect(player,SIGNAL(addTrackColor(int,int)),ui->piano,SLOT(addTrackColor(int,int)));
+    connect(player,SIGNAL(removeTrackColor(int,int)),ui->piano,SLOT(removeTrackColor(int,int)));
+    connect(player,SIGNAL(clearTrackColors(int)),ui->piano,SLOT(clearTrackColors(int)));
 }
 void MainWind::on_actionStop_triggered()
 {
