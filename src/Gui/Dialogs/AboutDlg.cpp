@@ -54,7 +54,7 @@ AboutDlg::AboutDlg(QWidget *parent) :
     QString arch = tr("%1-bit","32-bit or 64-bit").arg(size);
     ui->archLbl->setText(arch);
 
-    ui->textBrowser->setText(tr("<u><b>Created By</b></u><br />"
+    ui->authorsText->setText(tr("<u><b>Created By</b></u><br />"
                                 "<a href=\"https://github.com/waddlesplash\"><u>@waddlesplash</u></a><br />"
                                 "<br />"
                                 "<u><b>Contributors</b></u><br />"
@@ -69,7 +69,7 @@ AboutDlg::~AboutDlg()
     delete ui;
 }
 
-void AboutDlg::on_textBrowser_anchorClicked(const QUrl &arg1)
+void AboutDlg::on_authorsText_anchorClicked(const QUrl &arg1)
 {
     QDesktopServices::openUrl(arg1);
 }
