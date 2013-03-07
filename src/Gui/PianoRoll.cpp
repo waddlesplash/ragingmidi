@@ -39,7 +39,7 @@ PianoRollLine::PianoRollLine(QObject* parent, QGraphicsScene* s)
     : QObject(parent), QGraphicsRectItem(0)
 {
     setBrush(Qt::black);
-    setRect(0,0,1,s->height()-5);
+    setRect(0,0,1,127*7);
 }
 
 void PianoRollLine::setTick(qint32 tick)
