@@ -57,7 +57,7 @@ class PianoRollLine : public QObject, QGraphicsRectItem
 {
     Q_OBJECT
 public:
-    PianoRollLine(QObject* parent, QGraphicsScene* s);
+    PianoRollLine(QObject* parent = 0);
 
 public slots:
     void setTick(qint32 tick);

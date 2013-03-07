@@ -32,10 +32,9 @@
 #endif
 
 #include <QMenu>
-#include <QtDebug>
 #include <math.h> // for pow()
 
-PianoRollLine::PianoRollLine(QObject* parent, QGraphicsScene* s)
+PianoRollLine::PianoRollLine(QObject* parent)
     : QObject(parent), QGraphicsRectItem(0)
 {
     setBrush(Qt::black);
@@ -108,7 +107,7 @@ PianoRoll::~PianoRoll()
 
 PianoRollLine* PianoRoll::initLine(qint32 tick)
 {
-    line = new PianoRollLine(this,scene());
+    line = new PianoRollLine(this);
     line->setTick(tick);
     scene()->addItem((QGraphicsItem*)line);
     return line;

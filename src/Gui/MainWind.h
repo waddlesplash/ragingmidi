@@ -66,7 +66,6 @@ public:
 
     static QMap<int,QColor>* trackColors;
     static QMap<int,bool>* trackStatus;
-    static SeekSlider* playLocSilder;
 
 protected:
     void closeEvent(QCloseEvent *e);

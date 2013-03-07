@@ -43,7 +43,6 @@
 
 QMap<int,QColor>* MainWind::trackColors;
 QMap<int,bool>* MainWind::trackStatus;
-SeekSlider* MainWind::playLocSilder;
 
 MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     QMainWindow(parent),
@@ -68,7 +67,6 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
 
     ui->playToolbar->insertWidget(ui->actionTEMP,ui->songPosSlider);
     ui->playToolbar->removeAction(ui->actionTEMP);
-    playLocSilder = ui->songPosSlider;
 
     QWidget* spacer = new QWidget();
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -284,7 +282,7 @@ void MainWind::on_actionPlay_triggered()
     if(!midiFile) { return; }
     if(player) { return; }
 
-    player = new Player(midiFile,ui->piano,ui->songPosSlider->value());
+    player = new Player(midiFile,ui->songPosSlider->value());
     player->moveToThread(player);
     connect(player,SIGNAL(finished()),this,SLOT(on_actionStop_triggered()));
     player->start();

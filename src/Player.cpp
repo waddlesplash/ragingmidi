@@ -28,11 +28,10 @@
 #include "Player.h"
 #include "Gui/MainWind.h"
 
-Player::Player(QMidiFile* fil, VirtualPiano* p, qint32 tick)
+Player::Player(QMidiFile* fil, qint32 tick)
     : QThread(0)
 {
     f = fil;
-    piano = p;
     doStop = false;
     sTick = tick;
 }
