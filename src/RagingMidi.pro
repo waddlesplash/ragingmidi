@@ -5,8 +5,13 @@
 #-------------------------------------------------
 
 CONFIG += qt
-QT  += core gui opengl
+QT  += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+contains(QT_CONFIG, opengl) | contains(QT_CONFIG, opengles2) {
+   QT += opengl
+} else {
+   DEFINES += QT_NO_OPENGL
+}
 
 TEMPLATE = app
 win32 {
