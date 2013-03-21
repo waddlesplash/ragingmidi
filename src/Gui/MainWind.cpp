@@ -27,12 +27,13 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QDesktopServices>
 #include <QFile>
 #include <QMidi.h>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 #   include <QStandardPaths>
+#else
+#   include <QDesktopServices>
 #endif
 
 #include "Selectors/SelectInstrument.h"
