@@ -348,3 +348,8 @@ void MainWind::on_actionAboutQt_triggered()
 {
     QApplication::aboutQt();
 }
+
+void MainWind::on_actionQuit_triggered()
+{
+    QApplication::exit();
+}

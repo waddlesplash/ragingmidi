@@ -95,6 +95,7 @@ private slots:
 
     void on_actionAbout_triggered();
     void on_actionAboutQt_triggered();
+    void on_actionQuit_triggered();
 
 private:
     Ui::MainWind *ui;
