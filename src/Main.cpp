@@ -34,7 +34,9 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication::addLibraryPath(QCoreApplication::applicationDirPath() + "/plugins");
+#ifdef Q_OS_WIN
+    QApplication::addLibraryPath(QApplication::applicationDirPath() + "/plugins");
+#endif
     QApplication a(argc, argv);
 
     MainWind w(argc,argv);
