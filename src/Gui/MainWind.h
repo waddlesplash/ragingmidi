@@ -87,7 +87,6 @@ private slots:
     void on_actionRewind_triggered();
 
     void on_songPosSlider_sliderReleased();
-    void on_songPosSlider_valueChanged(int value);
 
     void on_actionViewAllEvents_triggered();
 

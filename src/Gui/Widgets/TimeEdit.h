@@ -53,16 +53,16 @@ class TimeEdit : public QStackedWidget
  */
 {
     Q_OBJECT
-    
 public:
     explicit TimeEdit(QWidget *parent = 0);
     ~TimeEdit();
 
     void setMidiFile(QMidiFile* f);
+    qint32 tick();
 
+public slots:
     /* 2nd arg is "don't update Time Editor widget */
     void setTick(qint32 tick, bool dontUpdateTEW = false);
-    qint32 tick();
 
 signals:
     void tickChanged(int tick);

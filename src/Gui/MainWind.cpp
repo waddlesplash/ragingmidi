@@ -82,6 +82,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     // Connections
     connect(ui->tracksEdit,SIGNAL(somethingChanged()),this,SLOT(somethingChanged()));
     connect(ui->timeEdit,SIGNAL(tickChanged(int)),ui->songPosSlider,SLOT(setValue(int)));
+    connect(ui->songPosSlider,SIGNAL(valueChanged(int)),ui->timeEdit,SLOT(setTick(qint32)));
 
     // Final UI setup
     this->show();
@@ -319,10 +320,6 @@ void MainWind::on_songPosSlider_sliderReleased()
     on_actionStop_triggered();
     on_actionPlay_triggered();
 */}
-void MainWind::on_songPosSlider_valueChanged(int value)
-{
-    ui->timeEdit->setTick(value);
-}
 
 void MainWind::on_actionViewAllEvents_triggered()
 {
