@@ -147,9 +147,11 @@ void VirtualPianoKey::removeTrackColor(int track)
 VirtualPiano::VirtualPiano(QWidget *parent) :
     QGraphicsView(parent)
 {
+    connect(MainWind::settings,SIGNAL(somethingChanged(QString)),this,SLOT(handleChange(QString)));
     this->setMinimumHeight(80);
+
 #ifndef QT_NO_OPENGL
-    this->setViewport(new QGLWidget());
+    if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget()); }
 #endif
 
     QGraphicsScene* scene = new QGraphicsScene(this);
@@ -173,8 +175,7 @@ VirtualPiano::VirtualPiano(QWidget *parent) :
         addBlackKey(scene,"A#"); // or Bb
         addWhiteKey(scene,"B");
     }
-    // The last octave has 4
-    // less keys.
+    // The last octave has 4 less keys.
     addWhiteKey(scene,"C");
     addBlackKey(scene,"C#"); // or Db
     addWhiteKey(scene,"D");
@@ -185,6 +186,16 @@ VirtualPiano::VirtualPiano(QWidget *parent) :
     addWhiteKey(scene,"G");
 
     voiceToUse = 0;
+}
+
+void VirtualPiano::handleChange(QString a)
+{
+#ifndef QT_NO_OPENGL
+    if(a == "HWA") {
+        if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget()); }
+        else { this->setViewport(new QWidget()); }
+    }
+#endif
 }
 
 void VirtualPiano::addWhiteKey(QGraphicsScene* scene, QString noteName)

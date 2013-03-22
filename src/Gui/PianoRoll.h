@@ -127,6 +127,9 @@ public:
 protected:
     void wheelEvent(QWheelEvent* event);
     void contextMenuEvent(QContextMenuEvent *event);
+
+private slots:
+    void handleChange(QString a);
     
 private:
     Ui::PianoRoll *ui;

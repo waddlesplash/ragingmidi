@@ -120,6 +120,9 @@ public slots:
     void addTrackColor(int note, int track);
     void removeTrackColor(int note, int track);
     void clearTrackColors(int track);
+
+private slots:
+    void handleChange(QString a);
     
 private:
     QMap<int,VirtualPianoKey*> keys;

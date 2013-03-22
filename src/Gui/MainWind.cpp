@@ -30,28 +30,24 @@
 #include <QFile>
 #include <QMidi.h>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-#   include <QStandardPaths>
-#else
-#   include <QDesktopServices>
-#endif
-
 #include "Selectors/SelectInstrument.h"
 #include "Selectors/SelectOutput.h"
 #include "Dialogs/AllEvents.h"
 #include "Dialogs/TransposeDlg.h"
 #include "Dialogs/AboutDlg.h"
+#include "Dialogs/Preferences.h"
 
 QMap<int,QColor>* MainWind::trackColors;
 QMap<int,bool>* MainWind::trackStatus;
+Settings* MainWind::settings;
 
 MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWind)
 {
     // Important stuff
+    settings = new Settings(); // This first because some UI stuff calls it
     ui->setupUi(this);
-    appSettings = new QSettings("waddlesplash","ragingmidi");
 
     // Icon setup
     ui->actionOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
@@ -110,6 +106,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
 MainWind::~MainWind()
 {
     delete ui;
+    delete settings;
     if(initOK) { QMidi::closeMidiOut(); }
 }
 
@@ -151,6 +148,7 @@ void MainWind::closeEvent(QCloseEvent *e)
     } else {
         e->accept();
     }
+    settings->save();
 }
 
 void MainWind::somethingChanged()
@@ -173,13 +171,8 @@ void MainWind::on_actionOpen_triggered()
         }
     }
 
-#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-    QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
-#else
-    QVariant s = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-#endif
     QString f = QFileDialog::getOpenFileName(this,tr("Open file..."),
-                                             appSettings->value("LastFileDlgLoc",s).toString(),
+                                             settings->getFileDlgLoc(),
                                              tr("MIDI files (*.mid *.midi)"));
     if(!f.isEmpty()) { openMidiFile(f); }
     else { return; }
@@ -201,7 +194,7 @@ void MainWind::openMidiFile(QString filename)
 
     // update stuff
     QFileInfo i(filename);
-    appSettings->setValue("LastFileDlgLoc",i.absoluteDir().path());
+    settings->setFileDlgLoc(i.absoluteDir().path());
     midiFileLoc = filename;
     this->setWindowModified(false);
     this->setWindowTitle(tr("%1[*] - Raging MIDI","%1 = filename").arg(i.fileName()));
@@ -220,19 +213,14 @@ void MainWind::on_actionSave_triggered()
 }
 void MainWind::on_actionSaveAs_triggered()
 {
-#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-    QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
-#else
-    QVariant s = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-#endif
     QString f = QFileDialog::getSaveFileName(this,tr("Save file..."),
-                                             appSettings->value("LastFileDlgLoc",s).toString(),
+                                             settings->getFileDlgLoc(),
                                              tr("MIDI files (*.mid *.midi)"));
     if(!f.isEmpty()) { midiFile->save(f); }
     else { return; }
 
     QFileInfo i(f);
-    appSettings->setValue("LastFileDlgLoc",i.absoluteDir().path());
+    settings->setFileDlgLoc(i.absoluteDir().path());
     midiFileLoc = f;
     this->setWindowModified(false);
     this->setWindowTitle(tr("%1[*] - Raging MIDI","%1 = filename").arg(i.fileName()));
@@ -265,6 +253,11 @@ void MainWind::on_actionTranspose_triggered()
         somethingChanged();
         ui->statusBar->clearMessage();
     }
+}
+void MainWind::on_actionPreferences_triggered()
+{
+    Preferences p;
+    p.exec();
 }
 
 void MainWind::on_actionTrackAdd_triggered()

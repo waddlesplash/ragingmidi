@@ -35,7 +35,9 @@ SOURCES += Gui/MainWind.cpp \
     Gui/Dialogs/TransposeDlg.cpp \
     Gui/Widgets/TracksEdit.cpp \
     Gui/Widgets/TimeEdit.cpp \
-    Gui/Widgets/TimeLabel.cpp
+    Gui/Widgets/TimeLabel.cpp \
+    Gui/Dialogs/Preferences.cpp \
+    Settings.cpp
 
 HEADERS  += Gui/MainWind.h \
     Gui/Selectors/SelectInstrument.h \
@@ -50,7 +52,9 @@ HEADERS  += Gui/MainWind.h \
     Gui/Dialogs/TransposeDlg.h \
     Gui/Widgets/TracksEdit.h \
     Gui/Widgets/TimeEdit.h \
-    Gui/Widgets/TimeLabel.h
+    Gui/Widgets/TimeLabel.h \
+    Gui/Dialogs/Preferences.h \
+    Settings.h
 
 FORMS    += Gui/MainWind.ui \
     Gui/Selectors/SelectInstrument.ui \
@@ -62,7 +66,8 @@ FORMS    += Gui/MainWind.ui \
     Gui/Dialogs/TransposeDlg.ui \
     Gui/Widgets/TracksEdit.ui \
     Gui/Widgets/TimeEdit.ui \
-    Gui/Widgets/TimeLabel.ui
+    Gui/Widgets/TimeLabel.ui \
+    Gui/Dialogs/Preferences.ui
 
 RESOURCES += Resources/Resources.qrc
 

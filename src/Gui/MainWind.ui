@@ -73,6 +73,8 @@
      <string>Edit</string>
     </property>
     <addaction name="actionTranspose"/>
+    <addaction name="separator"/>
+    <addaction name="actionPreferences"/>
    </widget>
    <widget class="QMenu" name="menuTrack">
     <property name="title">
@@ -200,6 +202,11 @@
   <action name="actionQuit">
    <property name="text">
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences...</string>
    </property>
   </action>
  </widget>

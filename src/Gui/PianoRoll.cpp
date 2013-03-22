@@ -88,9 +88,10 @@ PianoRoll::PianoRoll(QWidget *parent) :
     ui(new Ui::PianoRoll)
 {
     ui->setupUi(this);
+    connect(MainWind::settings,SIGNAL(somethingChanged(QString)),this,SLOT(handleChange(QString)));
 
 #ifndef QT_NO_OPENGL
-    this->setViewport(new QGLWidget());
+    if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget()); }
 #endif
 
     this->setScene(new QGraphicsScene(this));
@@ -103,6 +104,16 @@ PianoRoll::PianoRoll(QWidget *parent) :
 PianoRoll::~PianoRoll()
 {
     delete ui;
+}
+
+void PianoRoll::handleChange(QString a)
+{
+#ifndef QT_NO_OPENGL
+    if(a == "HWA") {
+        if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget()); }
+        else { this->setViewport(new QWidget()); }
+    }
+#endif
 }
 
 PianoRollLine* PianoRoll::initLine(qint32 tick)

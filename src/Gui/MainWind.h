@@ -41,6 +41,7 @@
 #include <QMidiFile.h>
 #include "Widgets/SeekSlider.h"
 #include "../Player.h"
+#include "../Settings.h"
 
 namespace Ui {
 class MainWind;
@@ -66,6 +67,7 @@ public:
 
     static QMap<int,QColor>* trackColors;
     static QMap<int,bool>* trackStatus;
+    static Settings* settings;
 
 protected:
     void closeEvent(QCloseEvent *e);
@@ -78,6 +80,7 @@ private slots:
     void on_actionSaveAs_triggered();
 
     void on_actionTranspose_triggered();
+    void on_actionPreferences_triggered();
 
     void on_actionTrackAdd_triggered();
     void on_actionTrackRemove_triggered();
@@ -102,7 +105,6 @@ private:
 
     QMidiFile* midiFile;
     Player* player;
-    QSettings* appSettings;
     QString midiFileLoc;
 
     void openMidiFile(QString filename);
