@@ -7,3 +7,4 @@ Makefile*
 docs
 binary
 dist
+/src/Resources/REVISION.txt
