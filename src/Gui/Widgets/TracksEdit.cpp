@@ -58,8 +58,9 @@ TrackItem::TrackItem(QTreeWidget *tree, int track)
 
     balSL = new TrackSlider(this->treeWidget());
     balSL->setTracking(false);
-    balSL->setMinimum(-50);
-    balSL->setMaximum(50);
+    balSL->setMinimum(0);
+    balSL->setMaximum(127);
+    balSL->setValue(64); // but its 0-127, not 128
     this->treeWidget()->setItemWidget(this,Bal,balSL);
 }
 
@@ -150,12 +151,11 @@ void TracksEdit::trackItem_balChanged(int b)
     if(!sl) { return; }
 
     int trk = sl->track();
-    int val = 0x40 + (b * 0x3f)/50;
     int oldVal = -1;
     foreach(QMidiEvent* e, midiFile->eventsForTrack(trk))
     {
         if((e->type() != QMidiEvent::ControlChange) ||
-                (e->number() != /*Coarse pan */10)) { continue; }
+                (e->number() != /* coarse pan */10)) { continue; }
 
         if(oldVal == -1) { oldVal = e->value(); continue; }
         if(oldVal != e->value()) {
@@ -171,16 +171,16 @@ void TracksEdit::trackItem_balChanged(int b)
     foreach(QMidiEvent* e, midiFile->eventsForTrack(trk))
     {
         if((e->type() != QMidiEvent::ControlChange) ||
-                (e->number() != /*Coarse pan */10)) { continue; }
-        e->setValue(val);
+                (e->number() != /* coarse pan */10)) { continue; }
+        e->setValue(b);
         bChanged = true;
     }
 
     int voice = this->tracks().at(trk)->voice();
     if (!bChanged) {
-        midiFile->createControlChangeEvent(trk, 0, voice, /* Coarse Pan */10, val);
+        midiFile->createControlChangeEvent(trk, 0, voice, /* Coarse Pan */10, b);
     }
-    QMidi::outControlChange(voice, /* Coarse Pan */10, val);
+    QMidi::outControlChange(voice, /* Coarse Pan */10, b);
     emit somethingChanged();
 }
 
@@ -209,7 +209,8 @@ void TracksEdit::setupTracks(QMidiFile *f)
     {
         TrackItem* i = this->createTrack(curTrack);
 
-        bool didInstr = false, didVoice = false, didName = false, didVol = false;
+        bool didInstr = false, didVoice = false, didName = false, didVol = false,
+                didBal = false;
         foreach(QMidiEvent* e, midiFile->eventsForTrack(curTrack))
         {
             if(!didVoice && e->type() == QMidiEvent::NoteOn)
@@ -232,17 +233,26 @@ void TracksEdit::setupTracks(QMidiFile *f)
                 QMidi::outSetInstr(e->voice(),e->number());
                 didInstr = true;
             }
+            else if((e->type() == QMidiEvent::ControlChange) ||
+                    (e->number() == /* Coarse Pan */10))
+            {
+                QMidi::outControlChange(e->voice(), /* Coarse Pan */10, e->value());
+                i->setBal(e->value());
+                didBal = true;
+            }
             else if(!didName && (e->type() == QMidiEvent::Meta) &&
                     (e->number() == 0x03))
             { i->setName(e->data()); didName = true; } // Name
 
-            if(didInstr && didVoice && didName) { break; }
+            if(didInstr && didVoice && didName && didBal) { break; }
         }
 
         if(!didInstr)
         { i->setInst(tr("(no instrument)")); }
         if(!didName)
         { i->setName(tr("Track %1","track number").arg(curTrack)); }
+        if(!didBal && didVoice)
+        { QMidi::outControlChange(i->voice(), /* Coarse Pan */10, 64); }
     }
     ignoreEvents = false;
     resizeColsToContents();
