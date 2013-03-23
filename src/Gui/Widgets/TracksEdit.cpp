@@ -145,18 +145,18 @@ void TracksEdit::trackItem_volChanged(int v)
 }
 void TracksEdit::trackItem_balChanged(int b)
 {
-	if(ignoreEvents) { return; }
+    if(ignoreEvents) { return; }
     TrackSlider* sl = qobject_cast<TrackSlider*>(sender());
     if(!sl) { return; }
 
     int trk = sl->track();
-    int val = 0x40 + (b * 0x3f)/50; 
+    int val = 0x40 + (b * 0x3f)/50;
     int oldVal = -1;
     foreach(QMidiEvent* e, midiFile->eventsForTrack(trk))
     {
         if((e->type() != QMidiEvent::ControlChange) ||
-		   (e->number() != /*Coarse pan */10)) { continue; }
-		 
+                (e->number() != /*Coarse pan */10)) { continue; }
+
         if(oldVal == -1) { oldVal = e->value(); continue; }
         if(oldVal != e->value()) {
             int ret = QMessageBox::warning(this->parentWidget(),tr("Different Balance!"),
@@ -167,17 +167,17 @@ void TracksEdit::trackItem_balChanged(int b)
             else { sl->revert(); return; }
         }
     }
-	bool bChanged = false;
+    bool bChanged = false;
     foreach(QMidiEvent* e, midiFile->eventsForTrack(trk))
     {
         if((e->type() != QMidiEvent::ControlChange) ||
-		   (e->number() != /*Coarse pan */10)) { continue; }
+                (e->number() != /*Coarse pan */10)) { continue; }
         e->setValue(val);
-		bChanged = true;
+        bChanged = true;
     }
-	if (!bChanged) {
-		midiFile->createControlChangeEvent(trk, 0, this->tracks().at(trk)->voice(), /* Coarse Pan */10, val);
-	}
+    if (!bChanged) {
+        midiFile->createControlChangeEvent(trk, 0, this->tracks().at(trk)->voice(), /* Coarse Pan */10, val);
+    }
     QMidi::outSendMsg((0xb0 + this->tracks().at(trk)->voice())|(10<<8)|(val<<16));
     emit somethingChanged();
 }
