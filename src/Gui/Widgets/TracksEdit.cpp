@@ -175,10 +175,12 @@ void TracksEdit::trackItem_balChanged(int b)
         e->setValue(val);
         bChanged = true;
     }
+
+    int voice = this->tracks().at(trk)->voice();
     if (!bChanged) {
-        midiFile->createControlChangeEvent(trk, 0, this->tracks().at(trk)->voice(), /* Coarse Pan */10, val);
+        midiFile->createControlChangeEvent(trk, 0, voice, /* Coarse Pan */10, val);
     }
-    QMidi::outSendMsg((0xb0 + this->tracks().at(trk)->voice())|(10<<8)|(val<<16));
+    QMidi::outControlChange(voice, /* Coarse Pan */10, val);
     emit somethingChanged();
 }
 
