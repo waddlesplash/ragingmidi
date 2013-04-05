@@ -92,21 +92,21 @@ AllEvents::AllEvents(QWidget *parent, QMidiFile* f) :
     if(!f) { return; }
 
     SelectInstrument ins;
-    QList<QMidiEvent*> events = f->events();
+    QList<QMidiEvent*>* events = f->events();
 
     QProgressDialog dialog(parent);
     dialog.show();
     dialog.setWindowTitle(tr("Loading..."));
     dialog.setLabelText(tr("Creating list items..."));
-    dialog.setMaximum(events.size());
+    dialog.setMaximum(events->size());
     dialog.repaint();
 
     GuiMidiEvent* mI;
-    for(int i = 0;i < events.size();i++) {
+    for(int i = 0;i < events->size();i++) {
         if(i % 100) { dialog.setValue(i); }
         if(i % 1000) { QApplication::processEvents(); }
         mI = new GuiMidiEvent(ui->eventsList);
-        mI->init(events.at(i),&ins);
+        mI->init(events->at(i),&ins);
         listItems.append(mI);
     }
 

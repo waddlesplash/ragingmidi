@@ -64,7 +64,10 @@ void Player::run()
     if(sTick) { sTime = f->timeFromTick(sTick); }
     QElapsedTimer t;
     t.start();
-    foreach(e,f->events()) {
+
+    QList<QMidiEvent*>* events = f->events();
+    for(int i = 0;i<events->count(); i++) {
+        e = events->at(i);
         if(e->isNoteEvent() && (e->tick() < sTick)) { continue; }
 
         if(e->type() != QMidiEvent::Meta) {

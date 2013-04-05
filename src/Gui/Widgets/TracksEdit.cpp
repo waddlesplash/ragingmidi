@@ -44,6 +44,13 @@ void TrackSlider::revert()
     blockSignals(false);
 }
 
+void TrackPreview::tickChanged(int t)
+{
+    if(curTick == t) { return; }
+    curTick = t;
+    repaint();
+}
+
 #define SCALE_FACTOR 32 // 1/32nd actual size
 void TrackPreview::paintEvent(QPaintEvent *)
 {
@@ -62,7 +69,9 @@ void TrackPreview::paintEvent(QPaintEvent *)
     p.drawRect(x,0,2,h);
     p.setPen(Qt::black);
 
-    foreach(QMidiEvent* e, file->events()) {
+    QList<QMidiEvent*>* events = file->events();
+    for(int i = 0;i<events->count(); i++) {
+        QMidiEvent* e = events->at(i);
         if((e->tick() < startTick) ||
                 (e->type() != QMidiEvent::NoteOn) ||
                 (e->track() != trackNum)) { continue; }
@@ -287,6 +296,8 @@ void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)
         TrackPreview* trPrev = new TrackPreview(this,i->track(),f);
         this->setItemWidget(i,TrackItem::Preview,trPrev);
         connect(songPosSlider,SIGNAL(valueChanged(int)),
+                trPrev,SLOT(tickChanged(int)));
+        connect(songPosSlider,SIGNAL(sliderMoved(int)),
                 trPrev,SLOT(tickChanged(int)));
         trPrev->repaint();
     }

@@ -92,7 +92,7 @@ public:
     { setMinimumSize(QSize(300,20)); trackNum = track; file = f; curTick = 0; }
 
 public slots:
-    void tickChanged(int t) { curTick = t; repaint(); }
+    void tickChanged(int t);
 
 protected:
     void paintEvent(QPaintEvent *);

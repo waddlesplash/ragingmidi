@@ -140,7 +140,9 @@ void PianoRoll::initEditor(QMidiFile* f)
 
     QMap<int,QMidiEvent*> lastNoteOn;
 
-    foreach(QMidiEvent*e, file->events()) {
+    QList<QMidiEvent*>* events = file->events();
+    for(int i = 0;i<events->count(); i++) {
+        QMidiEvent* e = events->at(i);
         if(e->isNoteEvent()) {
             if(e->type() == QMidiEvent::NoteOff) {
                 edEv = new PianoRollEvent();
