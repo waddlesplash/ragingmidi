@@ -44,6 +44,36 @@ void TrackSlider::revert()
     blockSignals(false);
 }
 
+#define SCALE_FACTOR 32 // 1/32nd actual size
+void TrackPreview::paintEvent(QPaintEvent *)
+{
+    int w = size().width(), h = size().height();
+    QPainter p(this); p.setBrush(Qt::SolidPattern);
+    p.setPen(Qt::gray);
+    p.drawLine(0,0,w,0); // Top
+    // p.drawLine(0,h-1,w,h-1); // Bottom (don't need)
+    p.drawLine(0,0,0,h); // Left
+
+    int startTick = curTick-((w*SCALE_FACTOR)/2); // Scale is 1/4, but we want center
+    int endTick = curTick+((w*SCALE_FACTOR)/2);
+    if(startTick < 0) { endTick += startTick*-1; startTick = 0; }
+
+    qreal x = (curTick-startTick)/SCALE_FACTOR;
+    p.drawRect(x,0,2,h);
+    p.setPen(Qt::black);
+
+    foreach(QMidiEvent* e, file->events()) {
+        if((e->tick() < startTick) ||
+                (e->type() != QMidiEvent::NoteOn) ||
+                (e->track() != trackNum)) { continue; }
+        if(e->tick() > endTick) { return; }
+
+        qreal y = ((127.0-e->note())/127.0)*h;
+        if(y > h) { y = h; } if(y < 0) { y = 0; }
+        p.drawRect(QRectF((e->tick()-startTick)/SCALE_FACTOR,y,2,2));
+    }
+}
+
 TrackItem::TrackItem(QTreeWidget *tree, int track)
     : QTreeWidgetItem(tree)
 {
@@ -200,7 +230,7 @@ void TracksEdit::init(VirtualPiano* p)
     piano = p;
 }
 
-void TracksEdit::setupTracks(QMidiFile *f)
+void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)
 {
     ignoreEvents = true;
     midiFile = f;
@@ -253,6 +283,12 @@ void TracksEdit::setupTracks(QMidiFile *f)
         { i->setName(tr("Track %1","track number").arg(curTrack)); }
         if(!didBal && didVoice)
         { QMidi::outControlChange(i->voice(), /* Coarse Pan */10, 64); }
+
+        TrackPreview* trPrev = new TrackPreview(this,i->track(),f);
+        this->setItemWidget(i,TrackItem::Preview,trPrev);
+        connect(songPosSlider,SIGNAL(valueChanged(int)),
+                trPrev,SLOT(tickChanged(int)));
+        trPrev->repaint();
     }
     ignoreEvents = false;
     resizeColsToContents();

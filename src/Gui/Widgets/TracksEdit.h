@@ -34,10 +34,10 @@
  */
 
 #include <QTreeWidget>
-#include <QMidiFile.h>
-#include <QStringList>
 #include <QSlider>
+#include <QStringList>
 #include <QMap>
+#include <QMidiFile.h>
 
 #include "VirtualPiano.h"
 
@@ -75,6 +75,34 @@ private:
     int valToRevertTo;
 };
 
+/****c* TracksEdit.h/TrackPreview
+ * SYNOPSIS
+ */
+class TrackPreview : public QWidget
+/**
+ * DESCRIPTION
+ *   Subclass of QWidget that shows an overview
+ *   of the entire track.
+ ******
+ */
+{
+    Q_OBJECT
+public:
+    inline TrackPreview(QWidget* p = 0, int track = 0, QMidiFile* f = 0) : QWidget(p)
+    { setMinimumSize(QSize(300,20)); trackNum = track; file = f; curTick = 0; }
+
+public slots:
+    void tickChanged(int t) { curTick = t; repaint(); }
+
+protected:
+    void paintEvent(QPaintEvent *);
+
+private:
+    QMidiFile* file;
+    int curTick;
+    int trackNum;
+};
+
 /****c* TracksEdit.h/TrackItem
  * SYNOPSIS
  */
@@ -98,7 +126,8 @@ public:
         Inst = 5,
         Vol = 6,
         Bal = 7,
-        TrackNumber = 8
+        Preview = 8,
+        TrackNumber = 9
     };
 
     inline void setName(QString name) { setText(Name,name); }
@@ -157,7 +186,7 @@ public:
     QMap<int,bool>* trackStatus() { return &myTrackStatus; }
 
     void init(VirtualPiano* p);
-    void setupTracks(QMidiFile* f);
+    void setupTracks(QMidiFile* f, QSlider* songPosSlider);
 
     TrackItem* createTrack(int trackNum);
     QList<TrackItem*> tracks();

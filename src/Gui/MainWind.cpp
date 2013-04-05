@@ -184,7 +184,7 @@ void MainWind::openMidiFile(QString filename)
     midiFile = new QMidiFile();
     midiFile->load(filename);
 
-    ui->tracksEdit->setupTracks(midiFile);
+    ui->tracksEdit->setupTracks(midiFile,ui->songPosSlider);
     ui->songPosSlider->setValue(0);
     ui->timeEdit->setMidiFile(midiFile);
     ui->songPosSlider->setMaximum(midiFile->events().last()->tick());
