@@ -56,6 +56,8 @@ void TrackPreview::paintEvent(QPaintEvent *)
 {
     int w = size().width(), h = size().height();
     QPainter p(this); p.setBrush(Qt::SolidPattern);
+    QList<QMidiEvent*>* events = file->events();
+
     p.setPen(Qt::gray);
     p.drawLine(0,0,w,0); // Top
     // p.drawLine(0,h-1,w,h-1); // Bottom (don't need)
@@ -63,13 +65,16 @@ void TrackPreview::paintEvent(QPaintEvent *)
 
     int startTick = curTick-((w*SCALE_FACTOR)/2); // Scale is 1/4, but we want center
     int endTick = curTick+((w*SCALE_FACTOR)/2);
+    if(endTick > events->last()->tick()) {
+        endTick = events->last()->tick();
+        startTick = endTick - (w*SCALE_FACTOR);
+    }
     if(startTick < 0) { endTick += startTick*-1; startTick = 0; }
 
     qreal x = (curTick-startTick)/SCALE_FACTOR;
     p.drawRect(x,0,2,h);
     p.setPen(Qt::black);
 
-    QList<QMidiEvent*>* events = file->events();
     for(int i = 0;i<events->count(); i++) {
         QMidiEvent* e = events->at(i);
         if((e->tick() < startTick) ||
