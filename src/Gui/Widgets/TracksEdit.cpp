@@ -44,6 +44,15 @@ void TrackSlider::revert()
     blockSignals(false);
 }
 
+TrackPreview::TrackPreview(QWidget *parent, int track, QMidiFile *f)
+    : QWidget(parent)
+{
+    setMinimumSize(QSize(300,20));
+    trackNum = track;
+    file = f;
+    curTick = 0;
+}
+
 void TrackPreview::tickChanged(int t)
 {
     if(curTick == t) { return; }
@@ -52,10 +61,12 @@ void TrackPreview::tickChanged(int t)
 }
 
 #define SCALE_FACTOR 32 // 1/32nd actual size
-void TrackPreview::paintEvent(QPaintEvent *)
+void TrackPreview::paintEvent(QPaintEvent *event)
 {
+    QPainter p(this);
+    p.setBrush(Qt::SolidPattern);
+    p.setClipRegion(event->region());
     int w = size().width(), h = size().height();
-    QPainter p(this); p.setBrush(Qt::SolidPattern);
     QList<QMidiEvent*>* events = file->events();
 
     p.setPen(Qt::gray);

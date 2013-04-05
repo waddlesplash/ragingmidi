@@ -88,14 +88,13 @@ class TrackPreview : public QWidget
 {
     Q_OBJECT
 public:
-    inline TrackPreview(QWidget* p = 0, int track = 0, QMidiFile* f = 0) : QWidget(p)
-    { setMinimumSize(QSize(300,20)); trackNum = track; file = f; curTick = 0; }
+    TrackPreview(QWidget* parent = 0, int track = 0, QMidiFile* f = 0);
 
 public slots:
     void tickChanged(int t);
 
 protected:
-    void paintEvent(QPaintEvent *);
+    void paintEvent(QPaintEvent *event);
 
 private:
     QMidiFile* file;
