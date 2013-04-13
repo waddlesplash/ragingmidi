@@ -132,6 +132,7 @@ int MainWind::confirmUnsaved()
 
 void MainWind::closeEvent(QCloseEvent *e)
 {
+    if(player) { on_actionStop_triggered(); }
     if(this->isWindowModified()) {
         switch(confirmUnsaved()) {
         case QMessageBox::Save:
