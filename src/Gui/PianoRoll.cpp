@@ -39,10 +39,16 @@ PianoRollLine::PianoRollLine(QObject* parent)
 {
     setBrush(Qt::black);
     setRect(0,0,1,127*7);
+    oldTick = 0;
+    p = qobject_cast<QGraphicsView*>(parent);
 }
 
 void PianoRollLine::setTick(qint32 tick)
 {
+    if(tick == oldTick) { return; }
+    if(tick-oldTick < 50) { return; }
+    oldTick = tick;
+
     int x = this->x(), y = this->y(),
             w = rect().width(), h = rect().height();
 
@@ -50,8 +56,7 @@ void PianoRollLine::setTick(qint32 tick)
     if(!scene()) { return; }
     this->scene()->update(tick/2.0,0,1,scene()->height());
 
-    QGraphicsView *p = qobject_cast<QGraphicsView*>(parent());
-    p->ensureVisible(this,75,0-scene()->height());
+    p->ensureVisible(this,p->viewport()->width()/2,0-scene()->height());
 
     this->scene()->update(x,y,w,h);
 }
@@ -95,7 +100,6 @@ PianoRoll::PianoRoll(QWidget *parent) :
 #endif
 
     this->setScene(new QGraphicsScene(this));
-    this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
 
     file = 0;
     line = 0;

@@ -61,6 +61,10 @@ public:
 
 public slots:
     void setTick(qint32 tick);
+
+private:
+    qint32 oldTick;
+    QGraphicsView *p;
 };
 
 
