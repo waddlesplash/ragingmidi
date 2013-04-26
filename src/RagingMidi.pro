@@ -48,7 +48,7 @@ HEADERS  += Gui/MainWind.h \
     Gui/Dialogs/AllEvents.h \
     Gui/Widgets/SeekSlider.h \
     Gui/Dialogs/AboutDlg.h \
-    config.h \
+    globals.h \
     Gui/Dialogs/TransposeDlg.h \
     Gui/Widgets/TracksEdit.h \
     Gui/Widgets/TimeEdit.h \
