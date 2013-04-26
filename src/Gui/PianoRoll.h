@@ -26,6 +26,7 @@
 #define PIANOROLL_H
 
 #include <QGraphicsView>
+#include <QActionGroup>
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QWheelEvent>
@@ -67,45 +68,6 @@ private:
     QGraphicsView *p;
 };
 
-
-/****c* PianoRoll.h/PianoRollEvent
- * SYNOPSIS
- */
-class PianoRollEvent : public QGraphicsRectItem
-/**
- * DESCRIPTION
- *  Rectangle that shows the location of one pair of
- *  NoteOn and NoteOff events in the piano roll.
- ******
- */
-{
-public:
-    inline PianoRollEvent() : QGraphicsRectItem(0)
-    {
-        setFlag(QGraphicsItem::ItemIsFocusable);
-        setFlag(QGraphicsItem::ItemIsSelectable);
-        setFlag(QGraphicsItem::ItemIsMovable);
-    }
-
-    inline void setSize(qreal x, qreal y, qreal w, qreal h)
-    { this->setPos(x,y); this->setRect(0,0,w,h); }
-
-    inline void setNoteOnAndOff(QMidiEvent* noteOn, QMidiEvent* noteOff)
-    { myNoteOn = noteOn; myNoteOff = noteOff; }
-
-    inline void setColor(QColor c) { myColor = c; }
-
-protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *e);
-
-private:
-    QMidiEvent* myNoteOn;
-    QMidiEvent* myNoteOff;
-    QColor myColor;
-};
-
-
 /****c* PianoRoll.h/PianoRoll
  * SYNOPSIS
  */
@@ -120,6 +82,8 @@ class PianoRoll : public QGraphicsView
     Q_OBJECT
     
 public:
+    static bool canMoveItems;
+
     explicit PianoRoll(QWidget *parent = 0);
     ~PianoRoll();
 
@@ -134,14 +98,61 @@ protected:
 
 private slots:
     void handleChange(QString a);
+    void handleNoteChange();
+
+    void on_actionMoveTool_toggled(bool v);
+
+signals:
+    void somethingChanged();
     
 private:
     Ui::PianoRoll *ui;
     QMidiFile* file;
+    QActionGroup* tools;
 
     PianoRollLine* line;
 
     void zoom(qreal factor, QPointF centerPoint);
+};
+
+/****c* PianoRoll.h/PianoRollEvent
+ * SYNOPSIS
+ */
+class PianoRollEvent : public QObject, QGraphicsRectItem
+/**
+ * DESCRIPTION
+ *  Rectangle that shows the location of one pair of
+ *  NoteOn and NoteOff events in the piano roll.
+ ******
+ */
+{
+    Q_OBJECT
+
+public:
+    PianoRollEvent(QObject* p = 0);
+
+    inline void setSize(qreal x, qreal y, qreal w, qreal h)
+    { this->setPos(x,y); this->setRect(0,0,w,h); }
+
+    inline void setNoteOnAndOff(QMidiEvent* noteOn, QMidiEvent* noteOff)
+    { myNoteOn = noteOn; myNoteOff = noteOff; }
+
+    inline void setColor(QColor c) { myColor = c; }
+
+signals:
+    void somethingChanged();
+
+protected:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+
+    void mousePressEvent(QGraphicsSceneMouseEvent *e);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *e);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *e);
+
+private:
+    QMidiEvent* myNoteOn;
+    QMidiEvent* myNoteOff;
+    QColor myColor;
 };
 
 #endif // PianoRoll_H

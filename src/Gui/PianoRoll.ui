@@ -13,6 +13,29 @@
   <property name="windowTitle">
    <string>PianoRoll</string>
   </property>
+  <widget class="QToolBar" name="toolsToolbar">
+   <addaction name="actionNavigationTool"/>
+   <addaction name="actionMoveTool"/>
+  </widget>
+  <action name="actionNavigationTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Navigation tool</string>
+   </property>
+  </action>
+  <action name="actionMoveTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Move tool</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

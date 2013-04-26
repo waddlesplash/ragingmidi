@@ -80,6 +80,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     connect(ui->tracksEdit,SIGNAL(somethingChanged()),this,SLOT(somethingChanged()));
     connect(ui->timeEdit,SIGNAL(tickChanged(int)),ui->songPosSlider,SLOT(setValue(int)));
     connect(ui->songPosSlider,SIGNAL(valueChanged(int)),ui->timeEdit,SLOT(setTick(qint32)));
+    connect(ui->pianoRoll,SIGNAL(somethingChanged()),this,SLOT(somethingChanged()));
 
     // Final UI setup
     this->show();
