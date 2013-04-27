@@ -37,7 +37,8 @@ SOURCES += Gui/MainWind.cpp \
     Gui/Widgets/TimeEdit.cpp \
     Gui/Widgets/TimeLabel.cpp \
     Gui/Dialogs/Preferences.cpp \
-    Settings.cpp
+    Settings.cpp \
+    globals.cpp
 
 HEADERS  += Gui/MainWind.h \
     Gui/Selectors/SelectInstrument.h \
