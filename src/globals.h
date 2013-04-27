@@ -25,10 +25,10 @@
 #ifndef RM_CONFIG_H
 #define RM_CONFIG_H
 
-/****h* RagingMidi/config.h
+/****h* RagingMidi/globals.h
  * PURPOSE
- *   Defines various global variables for
- *   use by other components.
+ *   Defines various global variables and
+ *   functions for use by the other components.
  ******
  */
 

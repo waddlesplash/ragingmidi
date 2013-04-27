@@ -48,13 +48,13 @@ HEADERS  += Gui/MainWind.h \
     Gui/Dialogs/AllEvents.h \
     Gui/Widgets/SeekSlider.h \
     Gui/Dialogs/AboutDlg.h \
-    globals.h \
     Gui/Dialogs/TransposeDlg.h \
     Gui/Widgets/TracksEdit.h \
     Gui/Widgets/TimeEdit.h \
     Gui/Widgets/TimeLabel.h \
     Gui/Dialogs/Preferences.h \
-    Settings.h
+    Settings.h \
+	globals.h
 
 FORMS    += Gui/MainWind.ui \
     Gui/Selectors/SelectInstrument.ui \
