@@ -70,6 +70,7 @@ PianoRoll::PianoRoll(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setScene(new QGraphicsScene(this));
+    this->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
 
     tools = new QActionGroup(this);
     tools->addAction(ui->actionNavigationTool);

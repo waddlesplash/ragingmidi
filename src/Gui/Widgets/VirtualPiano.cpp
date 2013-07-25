@@ -149,6 +149,7 @@ VirtualPiano::VirtualPiano(QWidget *parent) :
 {
     connect(MainWind::settings,SIGNAL(somethingChanged(QString)),this,SLOT(handleChange(QString)));
     this->setMinimumHeight(80);
+    this->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
 
 #ifndef QT_NO_OPENGL
     if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget()); }
