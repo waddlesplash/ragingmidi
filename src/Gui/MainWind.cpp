@@ -79,7 +79,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     // Connections
     connect(ui->tracksEdit,SIGNAL(somethingChanged()),this,SLOT(somethingChanged()));
     connect(ui->timeEdit,SIGNAL(tickChanged(int)),ui->songPosSlider,SLOT(setValue(int)));
-    connect(ui->songPosSlider,SIGNAL(valueChanged(int)),ui->timeEdit,SLOT(setTick(qint32)));
+    connect(ui->songPosSlider,SIGNAL(valueChanged(int)),ui->timeEdit,SLOT(setTick(int)));
     connect(ui->pianoRoll,SIGNAL(somethingChanged()),this,SLOT(somethingChanged()));
 
     // Final UI setup
@@ -286,7 +286,7 @@ void MainWind::on_actionPlay_triggered()
 
     connect(player,SIGNAL(tickChanged(qint32)),
             ui->pianoRoll->initLine(ui->songPosSlider->value()),SLOT(setTick(qint32)));
-    connect(player,SIGNAL(tickChanged(qint32)),ui->songPosSlider,SLOT(setValue(int)));
+    connect(player,SIGNAL(tickChanged(qint32)),ui->songPosSlider,SLOT(setValue(qint32)));
 
     connect(player,SIGNAL(addTrackColor(int,int)),ui->piano,SLOT(addTrackColor(int,int)));
     connect(player,SIGNAL(removeTrackColor(int,int)),ui->piano,SLOT(removeTrackColor(int,int)));

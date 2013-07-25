@@ -62,7 +62,7 @@ public:
 
 public slots:
     /* 2nd arg is "don't update Time Editor widget */
-    void setTick(qint32 tick, bool dontUpdateTEW = false);
+    void setTick(int tick, bool dontUpdateTEW = false);
 
 signals:
     void tickChanged(int tick);

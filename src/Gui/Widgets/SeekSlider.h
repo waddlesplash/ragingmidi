@@ -51,7 +51,7 @@ public:
     ~SeekSlider();
 
 public slots:
-    inline void setValue(int v)
+    inline void setValue(qint32 v)
     { if(enableUpdate) { QSlider::setValue(v); } }
 
 protected:

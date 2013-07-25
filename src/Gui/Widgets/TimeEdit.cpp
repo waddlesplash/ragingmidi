@@ -68,7 +68,7 @@ void TimeEdit::on_editorWidget_editingFinished()
     emit tickChanged(tick);
 }
 
-void TimeEdit::setTick(qint32 tick, bool dontUpdateTEW)
+void TimeEdit::setTick(int tick, bool dontUpdateTEW)
 {
     ui->curTimeLbl->setTick(tick);
     if(dontUpdateTEW) { return; }
