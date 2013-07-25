@@ -38,11 +38,8 @@ AboutDlg::AboutDlg(QWidget *parent) :
 
     ui->versionLbl->setText(tr("version %1","%1 = version num.").arg(RM_VERSION));
 
-    QFile f(":/REVISION.txt");
-    f.open(QFile::ReadOnly);
-    QString rev(f.readAll());
+    QString rev(qFileGetContents(":/REVISION.txt"));
     rev = rev.trimmed();
-    f.close();
     QString link;
     link += "<a href=\"https://github.com/waddlesplash/ragingmidi/commit/"+ rev;
     link += "\">"+ rev.mid(0,10) +"</a>";

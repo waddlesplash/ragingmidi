@@ -32,6 +32,14 @@
  ******
  */
 
+// Pre-defs
+class QByteArray;
+class QString;
+
+// Defs
 #define RM_VERSION "0.0.1"
+
+// Helper functions
+QByteArray qFileGetContents(QString fileName);
 
 #endif // RM_CONFIG_H
