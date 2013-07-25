@@ -297,7 +297,10 @@ void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)
             }
             else if(!didName && (e->type() == QMidiEvent::Meta) &&
                     (e->number() == 0x03))
-            { i->setName(e->data()); didName = true; } // Name
+            {
+                i->setName(QString::fromLatin1(e->data()));
+                didName = true;
+            }
 
             if(didInstr && didVoice && didName && didBal) { break; }
         }
