@@ -431,9 +431,9 @@ void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
         {
             if((e->type() == QMidiEvent::Meta) &&
                (e->number() == 0x03) &&
-               (e->data() != itm->name().toUtf8()))
+               (e->data() != itm->name().toLatin1()))
             {
-                e->setData(itm->name().toUtf8());
+                e->setData(itm->name().toLatin1());
                 emit somethingChanged();
                 return;
             }
