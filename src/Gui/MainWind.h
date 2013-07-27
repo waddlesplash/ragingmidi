@@ -89,7 +89,7 @@ private slots:
     void on_actionStop_triggered();
     void on_actionRewind_triggered();
 
-    void on_songPosSlider_sliderReleased();
+    void on_songPosSlider_sliderMoveFinished(int value);
 
     void on_actionViewAllEvents_triggered();
 

@@ -37,3 +37,24 @@ SeekSlider::~SeekSlider()
 {
     delete ui;
 }
+
+void SeekSlider::setValue(qint32 v)
+{
+    if(enableUpdate) {
+        QSlider::setValue(v);
+    } else {
+        emit valueChanged(v); // passthrough
+    }
+}
+
+void SeekSlider::mousePressEvent(QMouseEvent *e)
+{
+    enableUpdate = false;
+    QSlider::mousePressEvent(e);
+}
+void SeekSlider::mouseReleaseEvent(QMouseEvent *e)
+{
+    QSlider::mouseReleaseEvent(e);
+    emit sliderMoveFinished(this->value());
+    enableUpdate = true;
+}

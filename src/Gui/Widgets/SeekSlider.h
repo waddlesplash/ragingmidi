@@ -51,14 +51,14 @@ public:
     ~SeekSlider();
 
 public slots:
-    inline void setValue(qint32 v)
-    { if(enableUpdate) { QSlider::setValue(v); } }
+    void setValue(qint32 v);
+
+signals:
+    void sliderMoveFinished(int pos);
 
 protected:
-    inline void mousePressEvent(QMouseEvent *e)
-    { enableUpdate = false; QSlider::mousePressEvent(e); }
-    inline void mouseReleaseEvent(QMouseEvent *e)
-    { enableUpdate = true; QSlider::mouseReleaseEvent(e); }
+    void mousePressEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
     
 private:
     Ui::SeekSlider *ui;

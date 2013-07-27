@@ -310,12 +310,14 @@ void MainWind::on_actionRewind_triggered()
     ui->songPosSlider->setValue(0);
 }
 
-void MainWind::on_songPosSlider_sliderReleased()
-{/* // FIXME: doesnt work yet... just stops and does not start, and does not seek....
+void MainWind::on_songPosSlider_sliderMoveFinished(int value)
+{
     if(!player) { return; }
     on_actionStop_triggered();
+    ui->songPosSlider->setValue(value);
+    QApplication::processEvents(); // otherwise this won't work
     on_actionPlay_triggered();
-*/}
+}
 
 void MainWind::on_actionViewAllEvents_triggered()
 {
