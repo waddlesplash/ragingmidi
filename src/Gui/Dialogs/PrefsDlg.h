@@ -22,37 +22,45 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include "Preferences.h"
-#include "ui_Preferences.h"
+#ifndef PREFSDLG_H
+#define PREFSDLG_H
 
-#include "../MainWind.h"
+/****h* RagingMidi/PrefsDlg.h
+ * PURPOSE
+ *   Allows the user to configure various
+ *   settings about how Raging MIDI behaves.
+ ******
+ */
 
-Preferences::Preferences(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Preferences)
-{
-    ui->setupUi(this);
+#include <QDialog>
+#include <QAbstractButton>
 
-    Settings* s = MainWind::settings;
-    ui->hwaChk->setChecked(s->getHWA());
-
-#ifdef QT_NO_OPENGL
-    ui->hwaChk->setDisabled(true);
-    ui->hwaChk->setChecked(false);
-#endif
+namespace Ui {
+class PrefsDlg;
 }
 
-Preferences::~Preferences()
+/****c* PrefsDlg.h/PrefsDlg
+ * SYNOPSIS
+ */
+class PrefsDlg : public QDialog
+/**
+ * DESCRIPTION
+ *   Provides the preferences editor
+ *   dialog.
+ ******
+ */
 {
-    delete ui;
-}
+    Q_OBJECT
+    
+public:
+    explicit PrefsDlg(QWidget *parent = 0);
+    ~PrefsDlg();
+    
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 
-void Preferences::on_buttonBox_clicked(QAbstractButton *button)
-{
-    if(ui->buttonBox->standardButton(button) == QDialogButtonBox::Ok) {
-        Settings* s = MainWind::settings;
-        s->setHWA(ui->hwaChk->isChecked());
-        s->save();
-    }
-    this->close();
-}
+private:
+    Ui::PrefsDlg *ui;
+};
+
+#endif // PREFSDLG_H

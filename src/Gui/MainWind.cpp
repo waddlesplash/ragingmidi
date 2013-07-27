@@ -35,7 +35,7 @@
 #include "Dialogs/AllEvents.h"
 #include "Dialogs/TransposeDlg.h"
 #include "Dialogs/AboutDlg.h"
-#include "Dialogs/Preferences.h"
+#include "Dialogs/PrefsDlg.h"
 
 QMap<int,QColor>* MainWind::trackColors;
 QMap<int,bool>* MainWind::trackStatus;
@@ -258,7 +258,7 @@ void MainWind::on_actionTranspose_triggered()
 }
 void MainWind::on_actionPreferences_triggered()
 {
-    Preferences p;
+    PrefsDlg p;
     p.exec();
 }
 

@@ -36,9 +36,9 @@ SOURCES += Gui/MainWind.cpp \
     Gui/Widgets/TracksEdit.cpp \
     Gui/Widgets/TimeEdit.cpp \
     Gui/Widgets/TimeLabel.cpp \
-    Gui/Dialogs/Preferences.cpp \
     Settings.cpp \
-    globals.cpp
+    globals.cpp \
+    Gui/Dialogs/PrefsDlg.cpp
 
 HEADERS  += Gui/MainWind.h \
     Gui/Selectors/SelectInstrument.h \
@@ -53,9 +53,9 @@ HEADERS  += Gui/MainWind.h \
     Gui/Widgets/TracksEdit.h \
     Gui/Widgets/TimeEdit.h \
     Gui/Widgets/TimeLabel.h \
-    Gui/Dialogs/Preferences.h \
     Settings.h \
-	globals.h
+	globals.h \
+    Gui/Dialogs/PrefsDlg.h
 
 FORMS    += Gui/MainWind.ui \
     Gui/Selectors/SelectInstrument.ui \
@@ -68,7 +68,7 @@ FORMS    += Gui/MainWind.ui \
     Gui/Widgets/TracksEdit.ui \
     Gui/Widgets/TimeEdit.ui \
     Gui/Widgets/TimeLabel.ui \
-    Gui/Dialogs/Preferences.ui
+    Gui/Dialogs/PrefsDlg.ui
 
 RESOURCES += Resources/Resources.qrc
 
