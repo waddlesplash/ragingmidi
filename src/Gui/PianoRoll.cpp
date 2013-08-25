@@ -78,7 +78,7 @@ PianoRoll::PianoRoll(QWidget *parent) :
 
     connect(MainWind::settings,SIGNAL(somethingChanged(QString)),this,SLOT(handleChange(QString)));
 #ifndef QT_NO_OPENGL
-    if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget()); }
+    if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers))); }
 #endif
 
     file = 0;
@@ -95,7 +95,7 @@ void PianoRoll::handleChange(QString a)
 {
 #ifndef QT_NO_OPENGL
     if(a == "HWA") {
-        if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget()); }
+        if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers))); }
         else { this->setViewport(new QWidget()); }
     }
 #endif

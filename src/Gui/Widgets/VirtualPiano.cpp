@@ -152,7 +152,7 @@ VirtualPiano::VirtualPiano(QWidget *parent) :
     this->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
 
 #ifndef QT_NO_OPENGL
-    if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget()); }
+    if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers))); }
 #endif
 
     QGraphicsScene* scene = new QGraphicsScene(this);
@@ -193,7 +193,7 @@ void VirtualPiano::handleChange(QString a)
 {
 #ifndef QT_NO_OPENGL
     if(a == "HWA") {
-        if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget()); }
+        if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers))); }
         else { this->setViewport(new QWidget()); }
     }
 #endif
