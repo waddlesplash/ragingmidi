@@ -61,6 +61,8 @@ private slots:
 
 private:
     Ui::PrefsDlg *ui;
+
+    void applyPrefs();
 };
 
 #endif // PREFSDLG_H

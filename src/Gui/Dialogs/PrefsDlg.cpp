@@ -47,12 +47,21 @@ PrefsDlg::~PrefsDlg()
     delete ui;
 }
 
+void PrefsDlg::applyPrefs()
+{
+    Settings* s = MainWind::settings;
+    s->setHWA(ui->hwaChk->isChecked());
+    s->save();
+}
+
 void PrefsDlg::on_buttonBox_clicked(QAbstractButton *button)
 {
     if(ui->buttonBox->standardButton(button) == QDialogButtonBox::Ok) {
-        Settings* s = MainWind::settings;
-        s->setHWA(ui->hwaChk->isChecked());
-        s->save();
+        applyPrefs();
+        this->close();
+    } else if(ui->buttonBox->standardButton(button) == QDialogButtonBox::Cancel) {
+        this->close();
+    } else if(ui->buttonBox->standardButton(button) == QDialogButtonBox::Apply) {
+        applyPrefs();
     }
-    this->close();
 }
