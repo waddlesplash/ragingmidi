@@ -4,8 +4,14 @@
 The project's goal is to make a complete, open-source, cross-platform replacement of Anvil Studio.
 Right now, it's little more than a powerful player.
 
-## Getting started
-To build Raging MIDI, you need the [Qt](http://qt-project.org/) and OpenGL libraries (optional, but it will eat your CPU if there is no OpenGL-2D).
+## Compiling
+Qt libraries (either Qt4 or Qt5, whichever you have) are required on all systems. QtOpenGL is not required, but will make for some better performance. Install other dependencies listed below and use either Qt Creator or standard `qmake` make procedure.  
+**NOTE: `make install` for Raging MIDI has not been implemented.**
+
+**Other dependencies by system:**  
+*Windows*: requires WinMM, development files come with MinGW. Untested on MSVC.  
+*Linux*: requires ALSA. Packages: `libqt4-dev libasound2-dev fluidsynth`. To use a softsynth, run in a terminal: `fluidsynth -l -s -aalsa -o audio.alsa.device=default {PATH_TO_SF2_FILE}`  
+*Mac OS X*: not supported yet, as I don't have a Mac to implement the required MIDI functions.  
 
 You might want to read the source code documentation, which for now you can get by installing [ROBODoc](http://robodoc.sourceforge.net/) and running `robodoc --rc robodoc.rc` in the root repository directory.
 
