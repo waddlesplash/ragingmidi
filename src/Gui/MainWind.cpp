@@ -28,7 +28,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QFile>
-#include <QMidi.h>
+#include <QMidiOut.h>
 
 #include "Selectors/SelectInstrument.h"
 #include "Selectors/SelectOutput.h"
@@ -89,7 +89,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     // Open MIDI out
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted) {
-        QMidi::initMidiOut(selOut.midiOutId());
+        QMidiOut::initMidiOut(selOut.midiOutId());
     } else {
         initOK = false;
         return;
@@ -108,7 +108,7 @@ MainWind::~MainWind()
 {
     delete ui;
     delete settings;
-    if(initOK) { QMidi::closeMidiOut(); }
+    if(initOK) { QMidiOut::closeMidiOut(); }
 }
 
 int MainWind::confirmUnsaved()
@@ -300,7 +300,7 @@ void MainWind::on_actionStop_triggered()
     player->wait();
     delete player;
     player = 0;
-    QMidi::outStopAll();
+    QMidiOut::outStopAll();
     ui->piano->clearTrackColors();
     ui->pianoRoll->deleteLine();
 }
@@ -329,8 +329,8 @@ void MainWind::on_actionDeviceReconnect_triggered()
 {
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted) {
-        QMidi::closeMidiOut();
-        QMidi::initMidiOut(selOut.midiOutId());
+        QMidiOut::closeMidiOut();
+        QMidiOut::initMidiOut(selOut.midiOutId());
     }
 }
 

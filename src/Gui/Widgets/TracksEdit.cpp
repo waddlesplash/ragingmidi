@@ -27,7 +27,7 @@
 
 #include <QColor>
 #include <QMessageBox>
-#include <QMidi.h>
+#include <QMidiOut.h>
 
 #include "../Selectors/SelectInstrument.h"
 
@@ -235,7 +235,7 @@ void TracksEdit::trackItem_balChanged(int b)
     if (!bChanged) {
         midiFile->createControlChangeEvent(trk, 0, voice, /* Coarse Pan */10, b);
     }
-    QMidi::outControlChange(voice, /* Coarse Pan */10, b);
+    QMidiOut::outControlChange(voice, /* Coarse Pan */10, b);
     emit somethingChanged();
 }
 
@@ -285,13 +285,13 @@ void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)
                 SelectInstrument sel(this);
                 sel.setInsNum(instr);
                 i->setInst(sel.insName());
-                QMidi::outSetInstr(e->voice(),e->number());
+                QMidiOut::outSetInstr(e->voice(),e->number());
                 didInstr = true;
             }
             else if((e->type() == QMidiEvent::ControlChange) ||
                     (e->number() == /* Coarse Pan */10))
             {
-                QMidi::outControlChange(e->voice(), /* Coarse Pan */10, e->value());
+                QMidiOut::outControlChange(e->voice(), /* Coarse Pan */10, e->value());
                 i->setBal(e->value());
                 didBal = true;
             }
@@ -310,7 +310,7 @@ void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)
         if(!didName)
         { i->setName(tr("Track %1","track number").arg(curTrack)); }
         if(!didBal && didVoice)
-        { QMidi::outControlChange(i->voice(), /* Coarse Pan */10, 64); }
+        { QMidiOut::outControlChange(i->voice(), /* Coarse Pan */10, 64); }
 
         TrackPreview* trPrev = new TrackPreview(this,i->track(),f);
         this->setItemWidget(i,TrackItem::Preview,trPrev);
@@ -351,7 +351,7 @@ void TracksEdit::updateTrackOn()
         }
         bool on = (itm->on() == tr("on"));
         myTrackStatus.insert(itm->track(),on);
-        if(!on) { QMidi::outStopAll(itm->voice()); }
+        if(!on) { QMidiOut::outStopAll(itm->voice()); }
     }
 
     if(soloTracks.size() < 1) { return; }
@@ -363,7 +363,7 @@ void TracksEdit::updateTrackOn()
         }
         myTrackStatus.insert(i,false);
     }
-    QMidi::outStopAll();
+    QMidiOut::outStopAll();
     piano->clearTrackColors();
 }
 
@@ -390,7 +390,7 @@ void TracksEdit::tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column)
                     e->setNumber(insNum);
                 }
             }
-            QMidi::outSetInstr(itm->voice(),ins->insNum());
+            QMidiOut::outSetInstr(itm->voice(),ins->insNum());
             if(didChange) { emit somethingChanged(); }
         }
     }

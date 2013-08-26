@@ -42,7 +42,7 @@
 #include <QColor>
 #include <QReadWriteLock>
 
-#include <QMidi.h>
+#include <QMidiOut.h>
 
 namespace Ui {
 class VirtualPiano;

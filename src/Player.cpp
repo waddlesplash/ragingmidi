@@ -23,7 +23,7 @@
  */
 
 #include <QElapsedTimer>
-#include <QMidi.h>
+#include <QMidiOut.h>
 
 #include "Player.h"
 #include "Gui/MainWind.h"
@@ -44,7 +44,7 @@ void Player::handleEvent()
     if(e->type() == QMidiEvent::SysEx) { // TODO: sysex
     } else {
         qint32 message = e->message();
-        QMidi::outSendMsg(message);
+        QMidiOut::outSendMsg(message);
     }
 
     // Update the piano, pianoroll, and slider

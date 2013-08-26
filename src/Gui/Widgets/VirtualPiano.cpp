@@ -48,12 +48,12 @@ VirtualPianoKey::VirtualPianoKey(QObject *parent, int midiKey, QString noteName,
 void VirtualPianoKey::mousePressEvent(QGraphicsSceneMouseEvent *)
 {
     isClicking = true; this->update();
-    QMidi::outNoteOn(myMidiKey,VirtualPiano::voiceToUse);
+    QMidiOut::outNoteOn(myMidiKey,VirtualPiano::voiceToUse);
 }
 void VirtualPianoKey::mouseReleaseEvent(QGraphicsSceneMouseEvent *)
 {
     isClicking = false; this->update();
-    QMidi::outNoteOff(myMidiKey,VirtualPiano::voiceToUse);
+    QMidiOut::outNoteOff(myMidiKey,VirtualPiano::voiceToUse);
 }
 
 void VirtualPianoKey::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
