@@ -91,7 +91,7 @@ void SelectOutput::on_midiOutNames_itemDoubleClicked(QTreeWidgetItem *, int)
 void SelectOutput::on_refreshBtn_clicked()
 {
     ui->midiOutNames->clear();
-    QMap<QString,QString> outDev = QMidiOut::outDeviceNames();
+    QMap<QString,QString> outDev = QMidiOut::devices();
     QStringList ids = outDev.keys();
     QTreeWidgetItem* newItem;
     foreach(QString id,ids)

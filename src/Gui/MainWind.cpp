@@ -89,7 +89,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     // Open MIDI out
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted) {
-        QMidiOut::initMidiOut(selOut.midiOutId());
+        QMidiOut::connect(selOut.midiOutId());
     } else {
         initOK = false;
         return;
@@ -108,7 +108,7 @@ MainWind::~MainWind()
 {
     delete ui;
     delete settings;
-    if(initOK) { QMidiOut::closeMidiOut(); }
+    if(initOK) { QMidiOut::disconnect(); }
 }
 
 int MainWind::confirmUnsaved()
@@ -300,7 +300,7 @@ void MainWind::on_actionStop_triggered()
     player->wait();
     delete player;
     player = 0;
-    QMidiOut::outStopAll();
+    QMidiOut::stopAll();
     ui->piano->clearTrackColors();
     ui->pianoRoll->deleteLine();
 }
@@ -329,8 +329,8 @@ void MainWind::on_actionDeviceReconnect_triggered()
 {
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted) {
-        QMidiOut::closeMidiOut();
-        QMidiOut::initMidiOut(selOut.midiOutId());
+        QMidiOut::disconnect();
+        QMidiOut::connect(selOut.midiOutId());
     }
 }
 
