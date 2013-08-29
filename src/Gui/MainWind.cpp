@@ -28,7 +28,6 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QFile>
-#include <QMidiOut.h>
 
 #include "Selectors/SelectInstrument.h"
 #include "Selectors/SelectOutput.h"
@@ -37,6 +36,7 @@
 #include "Dialogs/AboutDlg.h"
 #include "Dialogs/PrefsDlg.h"
 
+QMidiOut* MainWind::midiOut;
 QMap<int,QColor>* MainWind::trackColors;
 QMap<int,bool>* MainWind::trackStatus;
 Settings* MainWind::settings;
@@ -87,9 +87,10 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
     ui->piano->setMaximumHeight(ui->piano->height());
 
     // Open MIDI out
+    midiOut = new QMidiOut(this);
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted) {
-        QMidiOut::connect(selOut.midiOutId());
+        midiOut->connect(selOut.midiOutId());
     } else {
         initOK = false;
         return;
@@ -108,7 +109,7 @@ MainWind::~MainWind()
 {
     delete ui;
     delete settings;
-    if(initOK) { QMidiOut::disconnect(); }
+    if(initOK) { midiOut->disconnect(); }
 }
 
 int MainWind::confirmUnsaved()
@@ -300,7 +301,7 @@ void MainWind::on_actionStop_triggered()
     player->wait();
     delete player;
     player = 0;
-    QMidiOut::stopAll();
+    midiOut->stopAll();
     ui->piano->clearTrackColors();
     ui->pianoRoll->deleteLine();
 }
@@ -329,8 +330,8 @@ void MainWind::on_actionDeviceReconnect_triggered()
 {
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted) {
-        QMidiOut::disconnect();
-        QMidiOut::connect(selOut.midiOutId());
+        midiOut->disconnect();
+        midiOut->connect(selOut.midiOutId());
     }
 }
 

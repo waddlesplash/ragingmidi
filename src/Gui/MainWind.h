@@ -39,6 +39,7 @@
 #include <QSettings>
 
 #include <QMidiFile.h>
+#include <QMidiOut.h>
 #include "Widgets/SeekSlider.h"
 #include "../Player.h"
 #include "../Settings.h"
@@ -65,6 +66,7 @@ public:
 
     inline bool didInitOk() { return initOK; }
 
+    static QMidiOut* midiOut;
     static QMap<int,QColor>* trackColors;
     static QMap<int,bool>* trackStatus;
     static Settings* settings;

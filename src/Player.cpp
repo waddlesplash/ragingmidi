@@ -44,7 +44,7 @@ void Player::handleEvent()
     if(e->type() == QMidiEvent::SysEx) { // TODO: sysex
     } else {
         qint32 message = e->message();
-        QMidiOut::sendMsg(message);
+        MainWind::midiOut->sendMsg(message);
     }
 
     // Update the piano, pianoroll, and slider
