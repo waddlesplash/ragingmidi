@@ -1,8 +1,9 @@
 *.user*
 *build-*
+*.autosave
+*~
 *.o
 *.exe
-*~
 Makefile*
 docs
 binary
