@@ -109,7 +109,6 @@ private:
     Ui::PianoRoll *ui;
     QMidiFile* file;
     QActionGroup* tools;
-
     PianoRollLine* line;
 
     void zoom(qreal factor, QPointF centerPoint);
@@ -155,4 +154,4 @@ private:
     QColor myColor;
 };
 
-#endif // PianoRoll_H
+#endif // PIANOROLL_H

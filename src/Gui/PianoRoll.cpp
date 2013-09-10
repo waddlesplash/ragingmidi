@@ -37,6 +37,8 @@
 /* Static vars. */
 bool PianoRoll::canMoveItems;
 
+/*******************************************************/
+
 PianoRollLine::PianoRollLine(QObject* parent)
     : QObject(parent), QGraphicsRectItem(0)
 {
@@ -63,6 +65,8 @@ void PianoRollLine::setTick(qint32 tick)
 
     this->scene()->update(x,y,w,h);
 }
+
+/*******************************************************/
 
 PianoRoll::PianoRoll(QWidget *parent) :
     QGraphicsView(parent),
@@ -194,6 +198,8 @@ void PianoRoll::on_actionMoveTool_toggled(bool v)
 {
     canMoveItems = v;
 }
+
+/*******************************************************/
 
 PianoRollEvent::PianoRollEvent(QObject *p)
     : QObject(p), QGraphicsRectItem(0)
