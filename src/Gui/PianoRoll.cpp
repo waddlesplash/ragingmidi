@@ -85,6 +85,7 @@ PianoRoll::PianoRoll(QWidget *parent) :
     tools = new QActionGroup(this);
     tools->addAction(ui->actionNavigationTool);
     tools->addAction(ui->actionMoveTool);
+    this->setDragMode(QGraphicsView::RubberBandDrag);
 
     connect(MainWind::settings,SIGNAL(somethingChanged(QString)),this,SLOT(handleChange(QString)));
 #ifndef QT_NO_OPENGL
@@ -223,6 +224,11 @@ void PianoRoll::drawBackground(QPainter *painter, const QRectF &rect)
 
 void PianoRoll::on_actionMoveTool_toggled(bool v)
 {
+    if(v) {
+        this->setDragMode(QGraphicsView::RubberBandDrag);
+    } else {
+        this->setDragMode(QGraphicsView::ScrollHandDrag);
+    }
     canMoveItems = v;
 }
 
