@@ -64,6 +64,8 @@ void PianoRollLine::setTick(qint32 tick)
     this->scene()->update(tick/2.0,0,1,scene()->height());
 
     p->ensureVisible(this,p->viewport()->width()/2,0-scene()->height());
+    /* 0-scene()->height() ensures that the vertical viewport location is
+     * NOT changed when this function fires. */
 
     this->scene()->update(x,y,w,h);
 }
