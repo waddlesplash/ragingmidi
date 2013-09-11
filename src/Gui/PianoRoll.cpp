@@ -34,7 +34,7 @@
 #include <QMenu>
 #include <math.h> // for pow()
 
-#define NOTE_HEIGHT 7
+#define NOTE_HEIGHT 9 /* pixels */
 
 /* Static vars. */
 bool PianoRoll::canMoveItems;
