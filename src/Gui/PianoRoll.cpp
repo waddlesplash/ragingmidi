@@ -34,6 +34,8 @@
 #include <QMenu>
 #include <math.h> // for pow()
 
+#define NOTE_HEIGHT 7
+
 /* Static vars. */
 bool PianoRoll::canMoveItems;
 
@@ -43,7 +45,7 @@ PianoRollLine::PianoRollLine(QObject* parent)
     : QObject(parent), QGraphicsRectItem(0)
 {
     setBrush(Qt::black);
-    setRect(0,0,1,127*7);
+    setRect(0,0,1,127*NOTE_HEIGHT);
     oldTick = 0;
     p = qobject_cast<QGraphicsView*>(parent);
 }
@@ -73,6 +75,10 @@ PianoRoll::PianoRoll(QWidget *parent) :
     ui(new Ui::PianoRoll)
 {
     ui->setupUi(this);
+    darker = QBrush(QColor("#c2e6ff"));
+    lighter1 = QBrush(QColor("#eaf6ff"));
+    lighter2 = QBrush(QColor("#daffd3"));
+
     this->setScene(new QGraphicsScene(this));
     this->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
 
@@ -146,9 +152,9 @@ void PianoRoll::initEditor(QMidiFile* f)
                 connect(edEv,SIGNAL(somethingChanged()),
                         this,SLOT(handleNoteChange()));
 
-                qreal y = (127 - e->note())*7;
+                qreal y = (127 - e->note())*NOTE_HEIGHT;
                 qreal w = (e->tick() - noteOn->tick())/2.0;
-                edEv->setSize(noteOn->tick()/2.0,y,w,7);
+                edEv->setSize(noteOn->tick()/2.0,y,w,NOTE_HEIGHT);
                 edEv->setNoteOnAndOff(noteOn,e);
                 scene()->addItem((QGraphicsItem*)edEv);
 
@@ -194,6 +200,27 @@ void PianoRoll::contextMenuEvent(QContextMenuEvent *event)
     { this->resetTransform(); }
 }
 
+static int pianoKeyColor[12] = {
+    0 /* white */, 1 /* black */, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0
+};
+
+void PianoRoll::drawBackground(QPainter *painter, const QRectF &rect)
+{
+    qreal width = this->scene()->width();
+
+    painter->setClipRect(rect);
+    painter->setPen(Qt::NoPen);
+    for(int i = 0; i < 128; i++) {
+        if(i == 60) { // Middle C
+            painter->setBrush(QBrush(QColor("#80ff80")));
+        } else {
+            int octave = (i - 5) / 12;
+            painter->setBrush(pianoKeyColor[i % 12] ? darker : ((octave % 2) ? lighter1 : lighter2));
+        }
+        painter->drawRect(QRectF(0,i*NOTE_HEIGHT,width,NOTE_HEIGHT));
+    }
+}
+
 void PianoRoll::on_actionMoveTool_toggled(bool v)
 {
     canMoveItems = v;
@@ -225,7 +252,7 @@ void PianoRollEvent::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
     if(!PianoRoll::canMoveItems) { return; }
     QGraphicsRectItem::mouseReleaseEvent(e);
 
-    int note = 127-(y()/7);
+    int note = 127-(y()/NOTE_HEIGHT);
     qint32 tick = x()*2;
     qint32 dur = myNoteOff->tick()-myNoteOn->tick();
     if(tick == myNoteOn->tick()) { return; }
@@ -234,7 +261,7 @@ void PianoRollEvent::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
     if(note > 127) { note = 127; }
     if(note < 0) { note = 0; }
     if(tick < 0) { tick = 0; }
-    setY((127-note)*7);
+    setY((127-note)*NOTE_HEIGHT);
     setX(tick/2.0);
 
     myNoteOn->setNote(note);

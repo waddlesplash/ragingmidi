@@ -95,6 +95,7 @@ public:
 protected:
     void wheelEvent(QWheelEvent* event);
     void contextMenuEvent(QContextMenuEvent *event);
+    void drawBackground(QPainter *painter, const QRectF &rect);
 
 private slots:
     void handleChange(QString a);
@@ -110,6 +111,7 @@ private:
     QMidiFile* file;
     QActionGroup* tools;
     PianoRollLine* line;
+    QBrush darker, lighter1, lighter2;
 
     void zoom(qreal factor, QPointF centerPoint);
 };
