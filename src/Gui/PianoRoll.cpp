@@ -237,10 +237,14 @@ void PianoRoll::moveTool_toggled(bool v)
 {
     if(v) {
         this->setDragMode(QGraphicsView::RubberBandDrag);
+        canMoveItems = true;
     } else {
         this->setDragMode(QGraphicsView::ScrollHandDrag);
+        foreach(QGraphicsItem* s, this->scene()->selectedItems()) {
+            s->setSelected(false);
+        }
+        canMoveItems = false;
     }
-    canMoveItems = v;
 }
 
 /*******************************************************/
@@ -289,7 +293,14 @@ void PianoRollEvent::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
 void PianoRollEvent::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setBrush(myColor);
-    if(this->rect().width() > 3)
-    { painter->drawRoundedRect(rect(),3,3); }
-    else { painter->drawRoundedRect(rect(),1,1); }
+    if(this->isSelected()) {
+        painter->setPen(Qt::DashLine);
+    } else {
+        painter->setPen(Qt::SolidLine);
+    }
+    if(this->rect().width() > 3) {
+        painter->drawRoundedRect(rect(),3,3);
+    } else {
+        painter->drawRoundedRect(rect(),1,1);
+    }
 }
