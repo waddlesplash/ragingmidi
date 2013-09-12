@@ -31,6 +31,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QWheelEvent>
 #include <QContextMenuEvent>
+#include <QGridLayout>
 #include <QPointF>
 
 #include <QMidiFile.h>
@@ -85,10 +86,9 @@ public:
     static bool canMoveItems;
 
     explicit PianoRoll(QWidget *parent = 0);
-    ~PianoRoll();
 
+    void init(QWidget* controlsContainer, QGridLayout* controlsLayout);
     void initEditor(QMidiFile* f);
-
     PianoRollLine* initLine(qint32 tick);
     void deleteLine();
 
@@ -101,7 +101,7 @@ private slots:
     void handleChange(QString a);
     void handleNoteChange();
 
-    void on_actionMoveTool_toggled(bool v);
+    void moveTool_toggled(bool v);
 
 signals:
     void somethingChanged();

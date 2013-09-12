@@ -23,16 +23,15 @@
  */
 
 #include "PianoRoll.h"
-#include "ui_PianoRoll.h"
-
-#include "MainWind.h"
 
 #ifndef QT_NO_OPENGL
 #   include <QGLWidget>
 #endif
 
 #include <QMenu>
+#include <QPushButton>
 #include <math.h> // for pow()
+#include "MainWind.h"
 
 #define NOTE_HEIGHT 9 /* pixels */
 
@@ -73,21 +72,15 @@ void PianoRollLine::setTick(qint32 tick)
 /*******************************************************/
 
 PianoRoll::PianoRoll(QWidget *parent) :
-    QGraphicsView(parent),
-    ui(new Ui::PianoRoll)
+    QGraphicsView(parent)
 {
-    ui->setupUi(this);
     darker = QBrush(QColor("#c2e6ff"));
     lighter1 = QBrush(QColor("#eaf6ff"));
     lighter2 = QBrush(QColor("#daffd3"));
 
     this->setScene(new QGraphicsScene(this));
     this->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
-
-    tools = new QActionGroup(this);
-    tools->addAction(ui->actionNavigationTool);
-    tools->addAction(ui->actionMoveTool);
-    this->setDragMode(QGraphicsView::RubberBandDrag);
+    moveTool_toggled(false);
 
     connect(MainWind::settings,SIGNAL(somethingChanged(QString)),this,SLOT(handleChange(QString)));
 #ifndef QT_NO_OPENGL
@@ -96,12 +89,28 @@ PianoRoll::PianoRoll(QWidget *parent) :
 
     file = 0;
     line = 0;
-    canMoveItems = false;
 }
 
-PianoRoll::~PianoRoll()
+void PianoRoll::init(QWidget* controlsContainer, QGridLayout* controlsLayout)
 {
-    delete ui;
+    QPushButton* a = new QPushButton(controlsContainer);
+    a->setCheckable(true);
+    a->setChecked(true);
+    a->setAutoExclusive(true);
+    a->setText(tr("Navigation tool"));
+    controlsLayout->addWidget(a,1,1);
+
+    a = new QPushButton(controlsContainer);
+    a->setCheckable(true);
+    a->setChecked(false);
+    a->setAutoExclusive(true);
+    a->setText(tr("Move tool"));
+    connect(a,SIGNAL(toggled(bool)),this,SLOT(moveTool_toggled(bool)));
+    controlsLayout->addWidget(a,1,2);
+
+    QWidget* spacer = new QWidget();
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    controlsLayout->addWidget(spacer,1,3);
 }
 
 void PianoRoll::handleChange(QString a)
@@ -224,7 +233,7 @@ void PianoRoll::drawBackground(QPainter *painter, const QRectF &rect)
     }
 }
 
-void PianoRoll::on_actionMoveTool_toggled(bool v)
+void PianoRoll::moveTool_toggled(bool v)
 {
     if(v) {
         this->setDragMode(QGraphicsView::RubberBandDrag);

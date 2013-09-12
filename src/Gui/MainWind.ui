@@ -19,16 +19,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="TimeEdit" name="timeEdit" native="true"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="SeekSlider" name="songPosSlider">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="0">
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
@@ -55,10 +45,45 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="PianoRoll" name="pianoRoll">
+       <widget class="QWidget" name="pianoRollTab">
         <attribute name="title">
          <string>Piano Roll</string>
         </attribute>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <property name="leftMargin">
+          <number>4</number>
+         </property>
+         <property name="topMargin">
+          <number>4</number>
+         </property>
+         <property name="rightMargin">
+          <number>4</number>
+         </property>
+         <property name="bottomMargin">
+          <number>4</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="PianoRoll" name="pianoRoll"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QWidget" name="pianoRollControls" native="true">
+           <layout class="QGridLayout" name="controlsLayout">
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
+           </layout>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
       <widget class="VirtualPiano" name="piano">
@@ -69,6 +94,16 @@
         </sizepolicy>
        </property>
       </widget>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="TimeEdit" name="timeEdit" native="true"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="SeekSlider" name="songPosSlider">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
      </widget>
     </item>
    </layout>
