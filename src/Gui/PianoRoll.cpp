@@ -88,7 +88,7 @@ PianoRoll::PianoRoll(QWidget *parent) :
     if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers))); }
 #endif
 
-    file = 0;
+    midiFile = 0;
     line = 0;
     me = this;
 }
@@ -160,13 +160,13 @@ void PianoRoll::finishMove()
 void PianoRoll::initEditor(QMidiFile* f)
 {
     scene()->clear();
-    file = f;
+    midiFile = f;
     PianoRollEvent* edEv = 0;
     QMidiEvent* noteOn = 0;
 
     QMap<int,QMidiEvent*> lastNoteOn;
 
-    QList<QMidiEvent*>* events = file->events();
+    QList<QMidiEvent*>* events = midiFile->events();
     for(int i = 0;i<events->count(); i++) {
         QMidiEvent* e = events->at(i);
         if(e->isNoteEvent()) {

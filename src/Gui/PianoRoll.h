@@ -111,7 +111,7 @@ signals:
     
 private:
     Ui::PianoRoll *ui;
-    QMidiFile* file;
+    QMidiFile* midiFile;
     QActionGroup* tools;
     PianoRollLine* line;
     QBrush darker, lighter1, lighter2;

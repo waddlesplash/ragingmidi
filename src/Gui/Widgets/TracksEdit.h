@@ -97,7 +97,7 @@ protected:
     void paintEvent(QPaintEvent *event);
 
 private:
-    QMidiFile* file;
+    QMidiFile* midiFile;
     int curTick;
     int trackNum;
 };

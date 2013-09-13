@@ -50,7 +50,7 @@ TrackPreview::TrackPreview(QWidget *parent, int track, QMidiFile *f)
 {
     setMinimumSize(QSize(300,20));
     trackNum = track;
-    file = f;
+    midiFile = f;
     curTick = 0;
 }
 
@@ -68,7 +68,7 @@ void TrackPreview::paintEvent(QPaintEvent *event)
     p.setBrush(Qt::SolidPattern);
     p.setClipRegion(event->region());
     int w = size().width(), h = size().height();
-    QList<QMidiEvent*>* events = file->events();
+    QList<QMidiEvent*>* events = midiFile->events();
 
     p.setPen(Qt::gray);
     p.drawLine(0,0,w,0); // Top
