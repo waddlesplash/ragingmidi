@@ -450,14 +450,15 @@ void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
         foreach(QMidiEvent* e, midiFile->eventsForTrack(itm->track()))
         {
             if((e->type() == QMidiEvent::Meta) &&
-               (e->number() == 0x03) &&
-               (e->data() != itm->name().toLatin1()))
+               (e->number() == 0x03))
             {
                 e->setData(itm->name().toLatin1());
                 emit somethingChanged();
                 return;
             }
         }
+        /* Due to the `return` above, if we're here, there IS no meta event
+         * for the track name. So we have to create one. */
+        midiFile->createMetaEvent(itm->track(),0,0x03,itm->name().toLatin1());
     }
 }
-
