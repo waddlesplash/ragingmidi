@@ -215,8 +215,8 @@ void TracksEdit::trackItem_balChanged(int b)
 
         if(oldVal == -1) { oldVal = e->value(); continue; }
         if(oldVal != e->value()) {
-            int ret = QMessageBox::warning(this->parentWidget(),tr("Different Balance!"),
-                                           tr("<b>This track already has Balance event.</b><br/>"
+            int ret = QMessageBox::warning(this->parentWidget(),tr("Different Balances!"),
+                                           tr("<b>This track has varying Balance events!</b><br/>"
                                               "Are you sure you want to modify the balance?"),
                                            QMessageBox::Ok,QMessageBox::Cancel);
             if(ret == QMessageBox::Ok) { break; }
