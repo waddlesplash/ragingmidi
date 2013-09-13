@@ -334,6 +334,13 @@ void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)
             if(didInstr && didVoice && didName && didBal) { break; }
         }
 
+        if((curTrack == 0) && !didInstr) {
+            /* Track 0 and no instrument means that this
+             * file's version is >0. T0 on that is a control track. */
+            removeTrack(curTrack); // Remove the list item for this track
+            continue;
+        }
+
         if(!didInstr)
         { i->setInst(tr("(no instrument)")); }
         if(!didName)
