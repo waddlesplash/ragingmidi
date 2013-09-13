@@ -188,9 +188,10 @@ public:
     void setupTracks(QMidiFile* f, QSlider* songPosSlider);
 
     TrackItem* createTrack(int trackNum);
-    QList<TrackItem*> tracks();
-
+    void deleteTrack(int trackNum);
     void deleteCurTrack();
+    void removeTrack(int trackNum);
+    QList<TrackItem*> tracks();
 
 signals:
     void somethingChanged();

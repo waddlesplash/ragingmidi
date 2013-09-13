@@ -170,6 +170,34 @@ TrackItem* TracksEdit::createTrack(int trackNum)
 
     return ret;
 }
+void TracksEdit::deleteTrack(int trackNum)
+{
+    /* Deletes specified track and all items in it. */
+    TrackItem* i = tracks().at(trackNum);
+    i->~QTreeWidgetItem();
+    foreach(QMidiEvent*e,midiFile->eventsForTrack(trackNum))
+    {
+        midiFile->removeEvent(e);
+        delete e;
+    }
+    midiFile->removeTrack(trackNum);
+}
+void TracksEdit::deleteCurTrack()
+{
+    /* Deletes the current track. Uses deleteTrack(). */
+    TrackItem* i = static_cast<TrackItem*>(this->selectedItems().at(0));
+    if(!i) { return; }
+
+    int trackNum = i->track();
+    deleteTrack(trackNum);
+}
+void TracksEdit::removeTrack(int trackNum)
+{
+    /* Deletes the TrackItem for the specified track.
+     * Does not delete the track itself. */
+    TrackItem* i = tracks().at(trackNum);
+    i->~QTreeWidgetItem();
+}
 
 void TracksEdit::trackItem_volChanged(int v)
 {
@@ -325,21 +353,6 @@ void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)
     resizeColsToContents();
     myTrackStatus.clear();
     updateTrackOn();
-}
-
-void TracksEdit::deleteCurTrack()
-{
-    TrackItem* i = static_cast<TrackItem*>(this->selectedItems().at(0));
-    if(!i) { return; }
-
-    int trackNum = i->track();
-    i->~QTreeWidgetItem();
-    foreach(QMidiEvent*e,midiFile->eventsForTrack(trackNum))
-    {
-        midiFile->removeEvent(e);
-        delete e;
-    }
-    midiFile->removeTrack(trackNum);
 }
 
 void TracksEdit::updateTrackOn()
