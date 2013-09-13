@@ -37,6 +37,7 @@
 
 /* Static vars. */
 bool PianoRoll::canMoveItems;
+PianoRoll* PianoRoll::me;
 
 /*******************************************************/
 
@@ -89,6 +90,7 @@ PianoRoll::PianoRoll(QWidget *parent) :
 
     file = 0;
     line = 0;
+    me = this;
 }
 
 void PianoRoll::init(QWidget* controlsContainer, QGridLayout* controlsLayout)
@@ -141,6 +143,18 @@ void PianoRoll::deleteLine()
     scene()->removeItem((QGraphicsItem*)line);
     delete line;
     line = 0;
+}
+
+void PianoRoll::finishMove()
+{
+    /* This calls all the finishMove() events
+     * in all selected items. For some reason,
+     * not all the mouse events are fired on
+     * all items when more than one item is moved */
+    foreach(QGraphicsItem* i, this->scene()->selectedItems()) {
+        PianoRollEvent* e = (PianoRollEvent*)i;
+        e->finishMove();
+    }
 }
 
 void PianoRoll::initEditor(QMidiFile* f)
@@ -256,6 +270,7 @@ PianoRollEvent::PianoRollEvent(QObject *p)
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
 }
+
 void PianoRollEvent::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
     if(PianoRoll::canMoveItems) {
@@ -272,7 +287,10 @@ void PianoRollEvent::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
 {
     if(!PianoRoll::canMoveItems) { return; }
     QGraphicsRectItem::mouseReleaseEvent(e);
-
+    PianoRoll::me->finishMove();
+}
+void PianoRollEvent::finishMove()
+{
     int note = 127-(y()/NOTE_HEIGHT);
     qint32 tick = x()*2;
     qint32 dur = myNoteOff->tick()-myNoteOn->tick();
@@ -290,6 +308,7 @@ void PianoRollEvent::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
     myNoteOff->setNote(note);
     myNoteOff->setTick(tick+dur);
 }
+
 void PianoRollEvent::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setBrush(myColor);

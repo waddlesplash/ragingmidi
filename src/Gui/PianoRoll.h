@@ -84,6 +84,7 @@ class PianoRoll : public QGraphicsView
     
 public:
     static bool canMoveItems;
+    static PianoRoll* me;
 
     explicit PianoRoll(QWidget *parent = 0);
 
@@ -91,6 +92,8 @@ public:
     void initEditor(QMidiFile* f);
     PianoRollLine* initLine(qint32 tick);
     void deleteLine();
+
+    void finishMove();
 
 protected:
     void wheelEvent(QWheelEvent* event);
@@ -124,6 +127,9 @@ class PianoRollEvent : public QObject, QGraphicsRectItem
  * DESCRIPTION
  *  Rectangle that shows the location of one pair of
  *  NoteOn and NoteOff events in the piano roll.
+ *
+ * NOTE: before changing this class's definition, PLEASE
+ * read the comments at PianoRoll::finishMove().
  ******
  */
 {
@@ -139,6 +145,8 @@ public:
     { myNoteOn = noteOn; myNoteOff = noteOff; }
 
     inline void setColor(QColor c) { myColor = c; }
+
+    void finishMove();
 
 signals:
     void somethingChanged();
