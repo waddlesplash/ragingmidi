@@ -354,7 +354,6 @@ void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)
                 trPrev,SLOT(tickChanged(int)));
         connect(songPosSlider,SIGNAL(sliderMoved(int)),
                 trPrev,SLOT(tickChanged(int)));
-        trPrev->repaint();
     }
     ignoreEvents = false;
     resizeColsToContents();
