@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 CONFIG += qt
-QT  += core gui
+QT = core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 contains(QT_CONFIG, opengl) | contains(QT_CONFIG, opengles2) {
    QT += opengl
