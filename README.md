@@ -1,5 +1,5 @@
-# Raging MIDI
-![(Raging MIDI playing a file)](http://sourceforge.net/projects/ragingmidi/screenshots/Shot1.png "Raging MIDI playing a file")
+# Raging MIDI [![(Ohloh metrics)](https://www.ohloh.net/p/ragingmidi/widgets/project_thin_badge.gif)](https://www.ohloh.net/p/ragingmidi)
+![(Raging MIDI playing a file)](https://f.cloud.github.com/assets/2175324/1142413/57ca47b6-1ccf-11e3-8ee5-ea21804c4684.png "Raging MIDI playing a file")
 
 The project's goal is to make a complete, open-source, cross-platform replacement of Anvil Studio.
 Right now, it's little more than a powerful player.
