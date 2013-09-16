@@ -73,14 +73,19 @@ void Player::run()
         if(e->type() != QMidiEvent::Meta) {
             qint64 event_time = (f->timeFromTick(e->tick())-sTime) * 1000;
 
-            qint32 waitTime = event_time - t.elapsed();
-            if(waitTime > 0) {
-                msleep(waitTime);
-            }
+            qint32 waitTime;
+            do {
+                waitTime = event_time - t.elapsed();
+                if(waitTime > 100) {
+                    msleep(100);
+                } else if(waitTime > 0) {
+                    msleep(waitTime);
+                }
+
+                if(doStop)
+                { return; }
+            } while(waitTime > 0);
             handleEvent();
         }
-
-        if(doStop)
-        { return; }
     }
 }
