@@ -1,6 +1,8 @@
-Raging MIDI (https://github.com/waddlesplash/ragingmidi).
-
-Copyright (c) 2012-2013 WaddleSplash & contributors (see AUTHORS.txt).
+Raging MIDI (https://github.com/waddlesplash/ragingmidi)
+Copyright (c) 2012-2013 by...
+	- @waddlesplash
+	- @forrestcavalier
+	- David Slomin, MIDI Utilities (http://www.sreal.com/~div/midi-utilities/)
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the "Software"),
