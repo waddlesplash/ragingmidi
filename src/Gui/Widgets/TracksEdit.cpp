@@ -162,7 +162,7 @@ TrackItem* TracksEdit::createTrack(int trackNum)
     myTrackColors.insert(trackNum,QColor(colorNames.at(trackNum)));
     ret->setType(tr("Instrument"));
     ret->setOn(tr("on"));
-    ret->setDevice("<automatic>");
+    ret->setDevice(tr("auto","automatic"));
 
     ret->volSlider()->setTrack(trackNum);
     ret->balSlider()->setTrack(trackNum);
