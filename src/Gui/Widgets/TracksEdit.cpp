@@ -133,8 +133,6 @@ TracksEdit::TracksEdit(QWidget *parent) :
     colorNames.removeOne("azure");
     colorNames.removeOne("aliceblue");
 
-    connect(this,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
-            this,SLOT(tracksEdit_itemDoubleClicked(QTreeWidgetItem*,int)));
     connect(this,SIGNAL(itemClicked(QTreeWidgetItem*,int)),
             this,SLOT(tracksEdit_itemClicked(QTreeWidgetItem*,int)));
     connect(this,SIGNAL(itemChanged(QTreeWidgetItem*,int)),
@@ -388,11 +386,6 @@ void TracksEdit::updateTrackOn()
     }
     MainWind::midiOut->stopAll();
     piano->clearTrackColors();
-}
-
-void TracksEdit::tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column)
-{
-    TrackItem* itm = static_cast<TrackItem*>(item);
 }
 
 void TracksEdit::tracksEdit_itemClicked(QTreeWidgetItem *item, int column)
