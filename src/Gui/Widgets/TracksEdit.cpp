@@ -459,7 +459,7 @@ void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
     }
 }
 
-void TracksEdit::tracksEdit_itemEntered(QTreeWidgetItem *item, int col)
+void TracksEdit::tracksEdit_itemEntered(QTreeWidgetItem *, int col)
 {
     if((col == TrackItem::Name) || (col == TrackItem::Inst)) {
         this->setCursor(QCursor(Qt::PointingHandCursor));
