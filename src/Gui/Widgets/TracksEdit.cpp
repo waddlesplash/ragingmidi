@@ -151,8 +151,12 @@ TracksEdit::~TracksEdit()
 
 void TracksEdit::resizeColsToContents()
 {
-    for(int i = 0;i<this->columnCount();i++)
-    { this->resizeColumnToContents(i); }
+    for(int i = 0;i < this->columnCount();i++) {
+        this->resizeColumnToContents(i);
+        if(this->columnWidth(i) > 140) {
+            this->setColumnWidth(i, 140);
+        }
+    }
 }
 
 TrackItem* TracksEdit::createTrack(int trackNum)
