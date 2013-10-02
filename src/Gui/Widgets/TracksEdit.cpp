@@ -139,7 +139,10 @@ TracksEdit::TracksEdit(QWidget *parent) :
             this,SLOT(tracksEdit_itemClicked(QTreeWidgetItem*,int)));
     connect(this,SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this,SLOT(tracksEdit_itemChanged(QTreeWidgetItem*,int)));
+    connect(this,SIGNAL(itemEntered(QTreeWidgetItem*,int)),
+            this,SLOT(tracksEdit_itemEntered(QTreeWidgetItem*,int)));
 
+    this->setMouseTracking(true); // Otherwise, itemEntered() won't fire
     resizeColsToContents();
 }
 
@@ -390,12 +393,34 @@ void TracksEdit::updateTrackOn()
 void TracksEdit::tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
     TrackItem* itm = static_cast<TrackItem*>(item);
-    if(column == TrackItem::Name) {
+}
+
+void TracksEdit::tracksEdit_itemClicked(QTreeWidgetItem *item, int column)
+{
+    TrackItem* itm = static_cast<TrackItem*>(item);
+    if(column == TrackItem::Name) {                      /* NAME */
         Qt::ItemFlags oldFlags = itm->flags();
         itm->setFlags(oldFlags | Qt::ItemIsEditable);
         this->editItem(itm,column);
         itm->setFlags(oldFlags);
-    } else if(column == TrackItem::Inst) {
+    } else if(column == TrackItem::On) {                 /* ON? */
+        if(itm->on() == tr("on")) {
+            itm->setOn(tr("mute"));
+            itm->setBackgroundColor(TrackItem::On,QColor("#a52a2a"));
+            itm->setForeground(TrackItem::On,QColor(Qt::white));
+            updateTrackOn();
+        } else if(itm->on() == tr("mute")) {
+            itm->setOn(tr("solo"));
+            item->setBackgroundColor(TrackItem::On,QColor(Qt::darkBlue));
+            updateTrackOn();
+        } else {
+            itm->setOn(tr("on"));
+            itm->setBackgroundColor(TrackItem::On,QColor(Qt::white));
+            itm->setForeground(TrackItem::On,QColor(Qt::black));
+            updateTrackOn();
+        }
+        this->resizeColumnToContents(TrackItem::On);
+    } else if(column == TrackItem::Inst) {                  /* INSTRUMENTS */
         if(itm->voice() == 9) { return; } // drums, don't change
         SelectInstrument* ins = new SelectInstrument(this);
         ins->setModal(true);
@@ -414,29 +439,6 @@ void TracksEdit::tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column)
             if(didChange) { emit somethingChanged(); }
         }
     }
-}
-
-void TracksEdit::tracksEdit_itemClicked(QTreeWidgetItem *item, int column)
-{
-    TrackItem* itm = static_cast<TrackItem*>(item);
-    if(column == TrackItem::On) {
-        if(itm->on() == tr("on")) {
-            itm->setOn(tr("mute"));
-            itm->setBackgroundColor(TrackItem::On,QColor("#a52a2a"));
-            itm->setForeground(TrackItem::On,QColor(Qt::white));
-            updateTrackOn();
-        } else if(itm->on() == tr("mute")) {
-            itm->setOn(tr("solo"));
-            item->setBackgroundColor(TrackItem::On,QColor(Qt::darkBlue));
-            updateTrackOn();
-        } else {
-            itm->setOn(tr("on"));
-            itm->setBackgroundColor(TrackItem::On,QColor(Qt::white));
-            itm->setForeground(TrackItem::On,QColor(Qt::black));
-            updateTrackOn();
-        }
-        this->resizeColumnToContents(TrackItem::On);
-    }
     VirtualPiano::voiceToUse = itm->voice();
 }
 
@@ -450,7 +452,8 @@ void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
         foreach(QMidiEvent* e, midiFile->eventsForTrack(itm->track()))
         {
             if((e->type() == QMidiEvent::Meta) &&
-               (e->number() == 0x03))
+               (e->number() == 0x03) &&
+               (e->data() != itm->name().toLatin1()))
             {
                 e->setData(itm->name().toLatin1());
                 emit somethingChanged();
@@ -460,5 +463,14 @@ void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
         /* Due to the `return` above, if we're here, there IS no meta event
          * for the track name. So we have to create one. */
         midiFile->createMetaEvent(itm->track(),0,0x03,itm->name().toLatin1());
+    }
+}
+
+void TracksEdit::tracksEdit_itemEntered(QTreeWidgetItem *item, int col)
+{
+    if((col == TrackItem::Name) || (col == TrackItem::Inst)) {
+        this->setCursor(QCursor(Qt::PointingHandCursor));
+    } else {
+        this->setCursor(QCursor(Qt::ArrowCursor));
     }
 }

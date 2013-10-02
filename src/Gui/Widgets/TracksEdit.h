@@ -203,6 +203,7 @@ private slots:
     void tracksEdit_itemClicked(QTreeWidgetItem *item, int column);
     void tracksEdit_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void tracksEdit_itemChanged(QTreeWidgetItem* item, int column);
+    void tracksEdit_itemEntered(QTreeWidgetItem * item, int col);
 
 private:
     Ui::TracksEdit *ui;
