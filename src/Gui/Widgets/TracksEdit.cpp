@@ -48,7 +48,7 @@ void TrackSlider::revert()
 TrackPreview::TrackPreview(QWidget *parent, int track, QMidiFile *f)
     : QWidget(parent)
 {
-    setMinimumSize(QSize(300,20));
+    setMinimumSize(QSize(50,20));
     trackNum = track;
     midiFile = f;
     curTick = 0;
