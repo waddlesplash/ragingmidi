@@ -51,14 +51,15 @@ AboutDlg::AboutDlg(QWidget *parent) :
     QString arch = tr("%1-bit","32-bit or 64-bit").arg(size);
     ui->archLbl->setText(arch);
 
-    ui->authorsText->setText(tr("<u><b>Created By</b></u><br />"
-                                "<a href=\"https://github.com/waddlesplash\"><u>@waddlesplash</u></a><br />"
-                                "<br />"
-                                "<u><b>Contributors</b></u><br />"
-                                "<a href=\"https://github.com/forrestcavalier\"><u>Forrest Cavalier III</u></a><br />"
-                                "<br />"
-                                "<u><b>Using Code By</b></u><br />"
-                                "David G. Slomin, <a href=\"http://www.sreal.com/~div/midi-utilities/\"><u>MIDI Utilities</u></a>."));
+    ui->authorsText->setText(
+                tr("<u><b>Created By</b></u><br />"
+                   "<a href=\"https://github.com/waddlesplash\"><u>@waddlesplash</u></a><br />"
+                   "<br />"
+                   "<u><b>Contributors</b></u><br />"
+                   "<a href=\"https://github.com/forrestcavalier\"><u>Forrest Cavalier III</u></a><br />"
+                   "<br />"
+                   "<u><b>Using Code By</b></u><br />"
+                   "David G. Slomin, <a href=\"http://www.sreal.com/~div/midi-utilities/\"><u>MIDI Utilities</u></a>."));
 }
 
 AboutDlg::~AboutDlg()
