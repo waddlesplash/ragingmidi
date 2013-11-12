@@ -1,13 +1,10 @@
 ; Distributing "Raging MIDI"
 ;==================================
-; 1 - place RagingMidi.exe and --THESE DLLS-- <repo_root>\binary
-;     D3DCompiler_43.dll
+; 1. place RagingMidi.exe and -THESE DLLS- in <repo>\binary
 ;     icudt49.dll
 ;     icuin49.dll
 ;     icuuc49.dll
-;     libEGL.dll
 ;     libgcc_s_sjlj-1.dll
-;     libGLESv2.dll
 ;     libstdc++-6.dll
 ;     libwinpthread-1.dll
 ;     Qt5Core.dll
@@ -18,15 +15,15 @@
 ;     [[all NON-DEBUG "imageformats" plugins]]
 ;     accessible/qtaccessiblewidgets.dll
 ;     platforms/qwindows.dll
-; 2 - run the Inno Setup compiler
-; 3 - create a .zip file for those allergic to installers
+; 2. run the Inno Setup compiler
+; 3. create a .zip file for those allergic to installers
 
 #define AppName "Raging MIDI"
 #define AppVersion "0.0.1"
 #define AppPublisher "waddlesplash"
 #define AppURL "http://sourceforge.net/projects/ragingmidi/"
 #define AppExeName "RagingMidi.exe"
-#define AppCopyright "© 2012-2013 WaddleSplash & contributors."
+#define AppCopyright "Â© 2012-2013 WaddleSplash & contributors."
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -99,7 +96,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: "..\..\binary\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\binary\*.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: core
 Source: "..\..\binary\plugins\*"; DestDir: "{app}\plugins"; Flags: recursesubdirs; Components: core
