@@ -39,7 +39,7 @@
 #include <QMap>
 #include <QMidiFile.h>
 
-#include "VirtualPiano.h"
+#include "Widgets/VirtualPiano.h"
 
 namespace Ui {
 class TracksEdit;

@@ -33,7 +33,7 @@ SOURCES += Gui/MainWind.cpp \
     Gui/Widgets/SeekSlider.cpp \
     Gui/Dialogs/AboutDlg.cpp \
     Gui/Dialogs/TransposeDlg.cpp \
-    Gui/Widgets/TracksEdit.cpp \
+    Gui/TracksEdit.cpp \
     Gui/Widgets/TimeEdit.cpp \
     Gui/Widgets/TimeLabel.cpp \
     Settings.cpp \
@@ -50,7 +50,7 @@ HEADERS  += Gui/MainWind.h \
     Gui/Widgets/SeekSlider.h \
     Gui/Dialogs/AboutDlg.h \
     Gui/Dialogs/TransposeDlg.h \
-    Gui/Widgets/TracksEdit.h \
+    Gui/TracksEdit.h \
     Gui/Widgets/TimeEdit.h \
     Gui/Widgets/TimeLabel.h \
     Settings.h \
@@ -64,7 +64,7 @@ FORMS    += Gui/MainWind.ui \
     Gui/Widgets/SeekSlider.ui \
     Gui/Dialogs/AboutDlg.ui \
     Gui/Dialogs/TransposeDlg.ui \
-    Gui/Widgets/TracksEdit.ui \
+    Gui/TracksEdit.ui \
     Gui/Widgets/TimeEdit.ui \
     Gui/Widgets/TimeLabel.ui \
     Gui/Dialogs/PrefsDlg.ui

@@ -290,7 +290,7 @@
   <customwidget>
    <class>TracksEdit</class>
    <extends>QWidget</extends>
-   <header>Gui/Widgets/TracksEdit.h</header>
+   <header>Gui/TracksEdit.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

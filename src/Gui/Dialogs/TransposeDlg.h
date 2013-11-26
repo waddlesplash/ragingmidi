@@ -36,7 +36,7 @@
 #include <QTreeWidget>
 #include <QList>
 
-#include "../Widgets/TracksEdit.h"
+#include "../TracksEdit.h"
 
 namespace Ui {
 class TransposeDlg;

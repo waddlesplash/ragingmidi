@@ -28,9 +28,9 @@
 #include <QColor>
 #include <QMessageBox>
 #include <QMidiOut.h>
-#include "../MainWind.h"
 
-#include "../Selectors/SelectInstrument.h"
+#include "MainWind.h"
+#include "Selectors/SelectInstrument.h"
 
 void TrackSlider::setValue(int v)
 {
