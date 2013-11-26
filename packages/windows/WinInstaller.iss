@@ -1,10 +1,10 @@
 ; Distributing "Raging MIDI"
 ;==================================
 ; 1. place RagingMidi.exe and -THESE DLLS- in <repo>\binary
-;     icudt49.dll
-;     icuin49.dll
-;     icuuc49.dll
-;     libgcc_s_sjlj-1.dll
+;     icudt51.dll
+;     icuin51.dll
+;     icuuc51.dll
+;     libgcc_s_dw2-1.dll
 ;     libstdc++-6.dll
 ;     libwinpthread-1.dll
 ;     Qt5Core.dll
@@ -23,7 +23,7 @@
 #define AppPublisher "waddlesplash"
 #define AppURL "http://sourceforge.net/projects/ragingmidi/"
 #define AppExeName "RagingMidi.exe"
-#define AppCopyright "© 2012-2013 WaddleSplash & contributors."
+#define AppCopyright "© 2012-2013 waddlesplash & contributors."
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -92,8 +92,7 @@ Name: "fileAssoc\mid"; Description: ".mid"; Types: full
 Name: "fileAssoc\midi"; Description: ".midi"; Types: full
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags:
 
 [Files]
 Source: "..\..\binary\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion; Components: core
@@ -102,10 +101,11 @@ Source: "..\..\binary\plugins\*"; DestDir: "{app}\plugins"; Flags: recursesubdir
 Source: "MidiFile.ico"; DestDir: "{app}"
 
 [Registry]
-; File associations
+;; File associations -- extensions
 Root: "HKCR"; Subkey: ".mid"; ValueType: string; ValueData: "RagingMidiFile"; Flags: uninsdeletevalue; Components: fileAssoc\mid
 Root: "HKCR"; Subkey: ".midi"; ValueType: string; ValueData: "RagingMidiFile"; Flags: uninsdeletevalue; Components: fileAssoc\midi
 
+; File extension data
 Root: "HKCR"; Subkey: "RagingMidiFile"; ValueType: string; ValueData: "MIDI file"; Flags: uninsdeletekey
 Root: "HKCR"; Subkey: "RagingMidiFile\DefaultIcon"; ValueType: string; ValueData: "{app}\MidiFile.ico"
 Root: "HKCR"; Subkey: "RagingMidiFile\shell\open\command"; ValueType: string; ValueData: """{app}\{#AppExeName}"" ""%1"""
@@ -115,4 +115,3 @@ Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"
 Name: "{group}\{cm:ProgramOnTheWeb,{#AppName}}"; Filename: "{#AppURL}"; Flags: preventpinning excludefromshowinnewinstall
 Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}"; Flags: preventpinning excludefromshowinnewinstall
 Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: quicklaunchicon
