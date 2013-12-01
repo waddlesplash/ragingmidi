@@ -244,7 +244,7 @@ void TracksEdit::trackItem_balChanged(int b)
     foreach(QMidiEvent* e, midiFile->eventsForTrack(trk))
     {
         if((e->type() != QMidiEvent::ControlChange) ||
-                (e->number() != /* coarse pan */10)) { continue; }
+           (e->number() != /* coarse pan */10)) { continue; }
 
         if(oldVal == -1) { oldVal = e->value(); continue; }
         if(oldVal != e->value()) {
@@ -260,7 +260,7 @@ void TracksEdit::trackItem_balChanged(int b)
     foreach(QMidiEvent* e, midiFile->eventsForTrack(trk))
     {
         if((e->type() != QMidiEvent::ControlChange) ||
-                (e->number() != /* coarse pan */10)) { continue; }
+           (e->number() != /* coarse pan */10)) { continue; }
         e->setValue(b);
         bChanged = true;
     }
@@ -449,9 +449,11 @@ void TracksEdit::modifyInstrument(TrackItem* itm)
         int insNum = ins->insNum();
         bool didChange = false;
         foreach(QMidiEvent*e,midiFile->eventsForTrack(itm->track())) {
-            if(e->type() == QMidiEvent::ProgramChange) {
-                didChange = (e->number() != insNum) || didChange;
+            if((e->type() == QMidiEvent::ProgramChange) && !didChange) {
+                didChange = (e->number() != insNum);
                 e->setNumber(insNum);
+            } else if(e->type() == QMidiEvent::ProgramChange) {
+                midiFile->removeEvent(e);
             }
         }
         MainWind::midiOut->setInstr(itm->voice(),ins->insNum());
@@ -477,7 +479,7 @@ void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
                 return;
             }
         }
-        /* Due to the `return` above, if we're here, there IS no meta event
+        /* Due to the "return" above, if we're here, there IS no meta event
          * for the track name. So we have to create one. */
         midiFile->createMetaEvent(itm->track(),0,0x03,itm->name().toLatin1());
     }
