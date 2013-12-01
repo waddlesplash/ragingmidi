@@ -417,26 +417,46 @@ void TracksEdit::tracksEdit_itemClicked(QTreeWidgetItem *item, int column)
             updateTrackOn();
         }
         this->resizeColumnToContents(TrackItem::On);
-    } else if(column == TrackItem::Inst) {                  /* INSTRUMENTS */
-        if(itm->voice() == 9) { return; } // drums, don't change
-        SelectInstrument* ins = new SelectInstrument(this);
-        ins->setModal(true);
-        ins->setInsName(itm->inst());
-        if(ins->exec() == QDialog::Accepted) {
-            itm->setInst(ins->insName());
-            int insNum = ins->insNum();
-            bool didChange = false;
-            foreach(QMidiEvent*e,midiFile->eventsForTrack(itm->track())) {
-                if (e->type() == QMidiEvent::ProgramChange) {
-                    didChange = (e->number() != insNum) || didChange;
-                    e->setNumber(insNum);
-                }
-            }
-            MainWind::midiOut->setInstr(itm->voice(),ins->insNum());
-            if(didChange) { emit somethingChanged(); }
-        }
+    } else if(column == TrackItem::Inst) {
+        modifyInstrument(itm);
     }
     VirtualPiano::voiceToUse = itm->voice();
+}
+
+void TracksEdit::modifyInstrument(TrackItem* itm)
+{
+    if(itm->voice() == 9) { return; } // drums, don't change
+
+    int oldVal = -1;
+    foreach(QMidiEvent*e, midiFile->eventsForTrack(itm->track())) {
+        if(e->type() != QMidiEvent::ProgramChange) { continue; }
+        if(oldVal == -1) { oldVal = e->number(); }
+        else if(oldVal != e->number()) {
+            int ret = QMessageBox::warning(this->parentWidget(),tr("Different Instruments!"),
+                                           tr("<b>This track has varying instruments!</b><br/>"
+                                              "Are you sure you want to modify the instrument?"),
+                                           QMessageBox::Ok,QMessageBox::Cancel);
+            if(ret == QMessageBox::Ok) { break; }
+            else { return; }
+        }
+    }
+
+    SelectInstrument* ins = new SelectInstrument(this);
+    ins->setModal(true);
+    ins->setInsName(itm->inst());
+    if(ins->exec() == QDialog::Accepted) {
+        itm->setInst(ins->insName());
+        int insNum = ins->insNum();
+        bool didChange = false;
+        foreach(QMidiEvent*e,midiFile->eventsForTrack(itm->track())) {
+            if(e->type() == QMidiEvent::ProgramChange) {
+                didChange = (e->number() != insNum) || didChange;
+                e->setNumber(insNum);
+            }
+        }
+        MainWind::midiOut->setInstr(itm->voice(),ins->insNum());
+        if(didChange) { emit somethingChanged(); }
+    }
 }
 
 void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)

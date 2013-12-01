@@ -216,6 +216,7 @@ private:
 
     void updateTrackOn();
     void resizeColsToContents();
+    void modifyInstrument(TrackItem* itm);
 };
 
 #endif // TRACKSEDIT_H
