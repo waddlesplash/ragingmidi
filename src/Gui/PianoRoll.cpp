@@ -79,7 +79,6 @@ PianoRoll::PianoRoll(QWidget *parent) :
     lighter1 = QBrush(QColor("#eaf6ff"));
     lighter2 = QBrush(QColor("#daffd3"));
 
-    this->setScene(new QGraphicsScene(this));
     this->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
     moveTool_toggled(false);
 
@@ -254,14 +253,15 @@ void PianoRoll::drawBackground(QPainter *painter, const QRectF &rect)
 void PianoRoll::moveTool_toggled(bool v)
 {
     if(v) {
-        this->setDragMode(QGraphicsView::RubberBandDrag);
         canMoveItems = true;
+        this->setDragMode(QGraphicsView::RubberBandDrag);
     } else {
+        canMoveItems = false;
         this->setDragMode(QGraphicsView::ScrollHandDrag);
+        if(!this->scene()) { return; } /* Otherwise, this crashes the program */
         foreach(QGraphicsItem* s, this->scene()->selectedItems()) {
             s->setSelected(false);
         }
-        canMoveItems = false;
     }
 }
 
