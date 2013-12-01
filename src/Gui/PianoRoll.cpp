@@ -159,7 +159,11 @@ void PianoRoll::finishMove()
 
 void PianoRoll::initEditor(QMidiFile* f)
 {
-    scene()->clear();
+    if(this->scene()) {
+        this->scene()->clear();
+        delete this->scene();
+    }
+    this->setScene(new QGraphicsScene(this));
     midiFile = f;
     PianoRollEvent* edEv = 0;
     QMidiEvent* noteOn = 0;
@@ -232,7 +236,7 @@ static int pianoKeyColor[12] = {
 
 void PianoRoll::drawBackground(QPainter *painter, const QRectF &rect)
 {
-    qreal width = this->scene()->width();
+    qreal width = rect.width();
 
     painter->setClipRect(rect);
     painter->setPen(Qt::NoPen);
@@ -243,7 +247,7 @@ void PianoRoll::drawBackground(QPainter *painter, const QRectF &rect)
             int octave = (i - 5) / 12;
             painter->setBrush(pianoKeyColor[i % 12] ? darker : ((octave % 2) ? lighter1 : lighter2));
         }
-        painter->drawRect(QRectF(0,i*NOTE_HEIGHT,width,NOTE_HEIGHT));
+        painter->drawRect(QRectF(rect.x(),i*NOTE_HEIGHT,width,NOTE_HEIGHT));
     }
 }
 
