@@ -55,19 +55,13 @@ void GuiMidiEvent::init(QMidiEvent *ev, SelectInstrument* ins)
     case QMidiEvent::PitchWheel:
         setText(4,QObject::tr("pitch wheel")); break;
     case QMidiEvent::Meta:
-        setText(4,QObject::tr("meta")); break;
-    case QMidiEvent::Meta_Lyric:
-        setText(4,QObject::tr("meta/lyric")); break;
-    case QMidiEvent::Meta_Tempo:
-        setText(4,QObject::tr("tempo")); break;
-    case QMidiEvent::Meta_TimeSignature:
-        setText(4,QObject::tr("meta/time sig.","meta/time signature")); break;
+        setText(4,QObject::tr("meta")); break; /*TODO distinguish between different meta types */
     case QMidiEvent::SysEx:
         setText(4,QObject::tr("sys. ex.","system exclusive")); break;
     default: break;
     }
 
-    if(ev->type() == QMidiEvent::Meta_Tempo) {
+    if((ev->type() == QMidiEvent::Meta) && (ev->number() == QMidiEvent::Tempo)) {
         setText(5,QString::number(ev->tempo()));
     } else if(ev->type() == QMidiEvent::ControlChange) {
         ins->setInsNum(ev->number());

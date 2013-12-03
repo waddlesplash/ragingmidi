@@ -331,7 +331,7 @@ void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)
                 didBal = true;
             }
             else if(!didName && (e->type() == QMidiEvent::Meta) &&
-                    (e->number() == 0x03))
+                    (e->number() == QMidiEvent::TrackName))
             {
                 i->setName(QString::fromLatin1(e->data()));
                 didName = true;
@@ -473,7 +473,7 @@ void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
         foreach(QMidiEvent* e, midiFile->eventsForTrack(itm->track()))
         {
             if((e->type() == QMidiEvent::Meta) &&
-               (e->number() == 0x03) &&
+               (e->number() == QMidiEvent::TrackName) &&
                (e->data() != itm->name().toLatin1()))
             {
                 e->setData(itm->name().toLatin1());
@@ -483,7 +483,7 @@ void TracksEdit::tracksEdit_itemChanged(QTreeWidgetItem* item, int column)
         }
         /* Due to the "return" above, if we're here, there IS no meta event
          * for the track name. So we have to create one. */
-        midiFile->createMetaEvent(itm->track(),0,0x03,itm->name().toLatin1());
+        midiFile->createMetaEvent(itm->track(),0,QMidiEvent::TrackName,itm->name().toLatin1());
     }
 }
 
