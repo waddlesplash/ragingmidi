@@ -187,6 +187,13 @@ void MainWind::openMidiFile(QString filename)
     if(midiFile) { delete midiFile; }
     midiFile = new QMidiFile();
     midiFile->load(filename);
+    this->setWindowModified(false);
+
+    QMidiFile* f = midiFile->oneTrackPerVoice();
+    if(f != 0) {
+        midiFile = f;
+        this->setWindowModified(true);
+    }
 
     ui->tracksEdit->setupTracks(midiFile,ui->songPosSlider);
     ui->songPosSlider->setValue(0);
@@ -200,7 +207,6 @@ void MainWind::openMidiFile(QString filename)
     QFileInfo i(filename);
     settings->setFileDlgLoc(i.absoluteDir().path());
     midiFileLoc = filename;
-    this->setWindowModified(false);
     this->setWindowTitle(tr("%1[*] - Raging MIDI","%1 = filename").arg(i.fileName()));
 }
 void MainWind::on_actionSave_triggered()
