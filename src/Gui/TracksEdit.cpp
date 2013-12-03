@@ -281,6 +281,7 @@ QList<TrackItem*> TracksEdit::tracks()
         c = this->topLevelItem(i);
         ret.append(static_cast<TrackItem*>(c));
     }
+    if(ret.at(0)->track() != 0) { ret.prepend(0); }
     return ret;
 }
 
@@ -370,6 +371,7 @@ void TracksEdit::updateTrackOn()
 {
     QList<int> soloTracks;
     foreach(TrackItem* itm,tracks()) {
+        if(!itm) { continue; }
         if(itm->on() == tr("solo")) {
             soloTracks.append(itm->track());
             piano->clearTrackColors(itm->track());
