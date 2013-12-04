@@ -89,6 +89,9 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
 
     // Open MIDI out
     midiOut = new QMidiOut(this);
+#ifdef Q_OS_WIN
+    midiOut->connect("0"); /* Microsoft GS Wavetable Synth */
+#else
     SelectOutput selOut(this);
     if(selOut.exec() == QDialog::Accepted) {
         midiOut->connect(selOut.midiOutId());
@@ -96,6 +99,7 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
         initOK = false;
         return;
     }
+#endif
 
     // Load file if specified on the commandline
     for(int i = 1;i<argc;i++) {
