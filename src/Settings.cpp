@@ -42,7 +42,7 @@ Settings::~Settings()
 
 void Settings::load()
 {
-    HWA = sets->value("EnableHWA",true).toBool();
+    HWA = sets->value("EnableHWA",false).toBool();
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
     QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
