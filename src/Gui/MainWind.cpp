@@ -103,8 +103,12 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
 
     // Load file if specified on the commandline
     for(int i = 1;i<argc;i++) {
-        QFile f(QString(argv[i]));
-        if(f.exists()) { openMidiFile(QString(argv[i])); break; }
+        QFile f;
+        f.setFileName(QString(argv[i]));
+        if(f.exists()) {
+            openMidiFile(QString(argv[i]));
+            break;
+        }
     }
 
     initOK = true;

@@ -179,7 +179,7 @@ void TracksEdit::deleteTrack(int trackNum)
 {
     /* Deletes specified track and all items in it. */
     TrackItem* i = tracks().at(trackNum);
-    i->~QTreeWidgetItem();
+    delete i;
     foreach(QMidiEvent*e,midiFile->eventsForTrack(trackNum))
     {
         midiFile->removeEvent(e);
@@ -201,7 +201,7 @@ void TracksEdit::removeTrack(int trackNum)
     /* Deletes the TrackItem for the specified track.
      * Does not delete the track itself. */
     TrackItem* i = tracks().at(trackNum);
-    i->~QTreeWidgetItem();
+    delete i;
 }
 
 void TracksEdit::trackItem_volChanged(int v)

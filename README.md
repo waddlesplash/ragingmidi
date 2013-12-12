@@ -1,4 +1,4 @@
-# Raging MIDI [![(Ohloh metrics)](https://www.ohloh.net/p/ragingmidi/widgets/project_thin_badge.gif)](https://www.ohloh.net/p/ragingmidi) [![Build Status](https://travis-ci.org/waddlesplash/ragingmidi.png?branch=master)](https://travis-ci.org/waddlesplash/ragingmidi)
+# Raging MIDI [![(Ohloh)](https://www.ohloh.net/p/ragingmidi/widgets/project_thin_badge.gif)](https://www.ohloh.net/p/ragingmidi) [![(status)](https://travis-ci.org/waddlesplash/ragingmidi.png?branch=master)](https://travis-ci.org/waddlesplash/ragingmidi)
 ![(Raging MIDI playing a file)](https://f.cloud.github.com/assets/2175324/1142413/57ca47b6-1ccf-11e3-8ee5-ea21804c4684.png "Raging MIDI playing a file")
 
 The project's goal is to make a complete, open-source, cross-platform replacement of Anvil Studio.
@@ -9,7 +9,7 @@ Qt libraries (either Qt4 or Qt5, whichever you have) are required on all systems
 **NOTE: `make install` for Raging MIDI has not been implemented.**
 
 **Other dependencies by system:**  
-*Windows*: requires WinMM, development files come with MinGW. Untested on MSVC.  
+*Windows*: requires WinMM. Use either MinGW *or* MSVC compilers.
 *Linux*: requires ALSA. Packages: `libqt4-dev libasound2-dev fluidsynth`. To use a softsynth, run in a terminal: `fluidsynth -l -s -aalsa -o audio.alsa.device=default {PATH_TO_SF2_FILE}`  
 *Mac OS X*: not supported yet, as I don't have a Mac to implement the required MIDI functions.  
 
