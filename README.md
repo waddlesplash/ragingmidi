@@ -9,7 +9,7 @@ Qt libraries (either Qt4 or Qt5, whichever you have) are required on all systems
 **NOTE: `make install` for Raging MIDI has not been implemented.**
 
 **Other dependencies by system:**  
-*Windows*: requires WinMM. Use either MinGW *or* MSVC compilers.
+*Windows*: requires WinMM. Use either MinGW *or* MSVC compilers.  
 *Linux*: requires ALSA. Packages: `libqt4-dev libasound2-dev fluidsynth`. To use a softsynth, run in a terminal: `fluidsynth -l -s -aalsa -o audio.alsa.device=default {PATH_TO_SF2_FILE}`  
 *Mac OS X*: not supported yet, as I don't have a Mac to implement the required MIDI functions.  
 
