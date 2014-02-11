@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
     QApplication::addLibraryPath(QApplication::applicationDirPath() + "/plugins");
 #endif
 
-    MainWind w(argc,argv);
+    MainWind w;
     if(w.didInitOk()) {
         return a.exec();
     } else {

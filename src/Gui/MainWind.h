@@ -61,7 +61,7 @@ class MainWind : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWind(int argc, char* argv[], QWidget *parent = 0);
+    explicit MainWind(QWidget *parent = 0);
     ~MainWind();
 
     inline bool didInitOk() { return initOK; }

@@ -41,7 +41,7 @@ QMap<int,QColor>* MainWind::trackColors;
 QMap<int,bool>* MainWind::trackStatus;
 Settings* MainWind::settings;
 
-MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
+MainWind::MainWind(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWind)
 {
@@ -102,9 +102,9 @@ MainWind::MainWind(int argc, char *argv[], QWidget *parent) :
 #endif
 
     // Load file if specified on the commandline
-    for(int i = 1;i<argc;i++) {
-        if(QFile::exists(QString(argv[i]))) {
-            openMidiFile(QString(argv[i]));
+    foreach(QString arg, QApplication::arguments()) {
+        if(QFile::exists(arg)) {
+            openMidiFile(arg);
             break;
         }
     }
