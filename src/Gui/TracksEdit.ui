@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>TracksEdit</string>
   </property>
-  <property name="verticalScrollMode">
-   <enum>QAbstractItemView::ScrollPerPixel</enum>
-  </property>
   <property name="indentation">
    <number>0</number>
   </property>
