@@ -43,8 +43,8 @@ public:
     QMidiOut(QObject* parent = 0);
     bool connect(QString outDeviceId);
     void disconnect();
-    void sendEvent(QMidiEvent* e);
     void sendMsg(qint32 msg);
+    void sendEvent(QMidiEvent* e);
 
     void setInstr(int voice, int instr);
     void noteOn(int note, int voice, int velocity = 64);
@@ -60,6 +60,7 @@ signals:
 private:
     QString myDeviceId;
     MidiPtrObjs* myMidiPtrs;
+    bool myConnected;
 };
 
 #endif // QMIDIOUT_H
