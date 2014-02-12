@@ -141,7 +141,7 @@
      <string>Track</string>
     </property>
     <addaction name="actionTrackAdd"/>
-    <addaction name="actionTrackRemove"/>
+    <addaction name="actionTrackDelete"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -192,9 +192,9 @@
     <string>Add</string>
    </property>
   </action>
-  <action name="actionTrackRemove">
+  <action name="actionTrackDelete">
    <property name="text">
-    <string>Remove</string>
+    <string>Delete</string>
    </property>
   </action>
   <action name="actionOpen">

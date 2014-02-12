@@ -189,9 +189,11 @@ public:
 
     TrackItem* createTrack(int trackNum);
     void deleteTrack(int trackNum);
-    void deleteCurTrack();
     void removeTrack(int trackNum);
     inline QList<TrackItem*> tracks() { return myTrackItems.values(); }
+
+public slots:
+    void deleteCurTrack();
 
 signals:
     void somethingChanged();

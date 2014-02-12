@@ -131,6 +131,10 @@ TracksEdit::TracksEdit(QWidget *parent) :
     ui(new Ui::TracksEdit)
 {
     ui->setupUi(this);
+
+    addAction(ui->actionDeleteTrack);
+    connect(ui->actionDeleteTrack, SIGNAL(triggered()), this, SLOT(deleteCurTrack()));
+
     this->hideColumn(TrackItem::TrackNumber);
 
     colorNames = QColor::colorNames();
