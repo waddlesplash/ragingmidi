@@ -104,8 +104,7 @@ MainWind::MainWind(QWidget *parent) :
     // Load file if specified on the commandline
     foreach(QString arg, QApplication::arguments()) {
         if(QFile::exists(arg)) {
-            openMidiFile(arg);
-            break;
+            if(openMidiFile(arg)) { break; }
         }
     }
 
@@ -187,12 +186,16 @@ void MainWind::on_actionOpen_triggered()
     if(!f.isEmpty()) { openMidiFile(f); }
     else { return; }
 }
-void MainWind::openMidiFile(QString filename)
+bool MainWind::openMidiFile(QString filename)
 {
+    QMidiFile* newMidiFile = new QMidiFile();
+    if(!newMidiFile->load(filename)) {
+        return false;
+    }
+
     if(player) { on_actionStop_triggered(); }
     if(midiFile) { delete midiFile; }
-    midiFile = new QMidiFile();
-    midiFile->load(filename);
+    midiFile = newMidiFile;
     this->setWindowModified(false);
 
     QMidiFile* f = midiFile->oneTrackPerVoice();
@@ -214,6 +217,7 @@ void MainWind::openMidiFile(QString filename)
     settings->setFileDlgLoc(i.absoluteDir().path());
     midiFileLoc = filename;
     this->setWindowTitle(tr("%1[*] - Raging MIDI","%1 = filename").arg(i.fileName()));
+    return true;
 }
 void MainWind::on_actionSave_triggered()
 {

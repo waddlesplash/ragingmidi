@@ -109,7 +109,7 @@ private:
     Player* player;
     QString midiFileLoc;
 
-    void openMidiFile(QString filename);
+    bool openMidiFile(QString filename);
     int confirmUnsaved();
 };
 
