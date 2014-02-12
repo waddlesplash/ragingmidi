@@ -191,7 +191,7 @@ public:
     void deleteTrack(int trackNum);
     void deleteCurTrack();
     void removeTrack(int trackNum);
-    QList<TrackItem*> tracks();
+    inline QList<TrackItem*> tracks() { return myTrackItems.values(); }
 
 signals:
     void somethingChanged();
@@ -206,8 +206,9 @@ private slots:
 
 private:
     Ui::TracksEdit *ui;
-    QMap<int,QColor> myTrackColors;
-    QMap<int,bool> myTrackStatus;
+    QMap<int, QColor> myTrackColors;
+    QMap<int, bool> myTrackStatus;
+    QMap<int, TrackItem*> myTrackItems;
     bool ignoreEvents;
 
     QMidiFile *midiFile;

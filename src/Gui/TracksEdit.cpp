@@ -103,21 +103,27 @@ void TrackPreview::paintEvent(QPaintEvent *event)
 TrackItem::TrackItem(QTreeWidget *tree, int track)
     : QTreeWidgetItem(tree)
 {
-    this->setText(TrackNumber,QString::number(track));
+    setText(TrackNumber,QString::number(track));
+
+    setType(QObject::tr("Instrument"));
+    setOn(QObject::tr("on"));
+    setDevice(QObject::tr("auto","automatic"));
 
     volSL = new TrackSlider(this->treeWidget());
     volSL->setTracking(false);
     volSL->setMinimum(0);
     volSL->setValue(100);
     volSL->setMaximum(100);
-    this->treeWidget()->setItemWidget(this,Vol,volSL);
+    treeWidget()->setItemWidget(this,Vol,volSL);
 
     balSL = new TrackSlider(this->treeWidget());
     balSL->setTracking(false);
     balSL->setMinimum(0);
     balSL->setMaximum(127);
     balSL->setValue(64); // but its 0-127, not 128
-    this->treeWidget()->setItemWidget(this,Bal,balSL);
+    treeWidget()->setItemWidget(this,Bal,balSL);
+
+    myTrackId = track;
 }
 
 TracksEdit::TracksEdit(QWidget *parent) :
@@ -161,12 +167,10 @@ void TracksEdit::resizeColsToContents()
 
 TrackItem* TracksEdit::createTrack(int trackNum)
 {
-    TrackItem* ret = new TrackItem(this,trackNum);
-    ret->setBackgroundColor(TrackItem::Name,QColor(colorNames.at(trackNum)));
-    myTrackColors.insert(trackNum,QColor(colorNames.at(trackNum)));
-    ret->setType(tr("Instrument"));
-    ret->setOn(tr("on"));
-    ret->setDevice(tr("auto","automatic"));
+    TrackItem* ret = new TrackItem(this, trackNum);
+    ret->setBackgroundColor(TrackItem::Name, QColor(colorNames.at(trackNum)));
+    myTrackColors.insert(trackNum, QColor(colorNames.at(trackNum)));
+    myTrackItems.insert(trackNum, ret);
 
     ret->volSlider()->setTrack(trackNum);
     ret->balSlider()->setTrack(trackNum);
@@ -178,7 +182,8 @@ TrackItem* TracksEdit::createTrack(int trackNum)
 void TracksEdit::deleteTrack(int trackNum)
 {
     /* Deletes specified track and all items in it. */
-    TrackItem* i = tracks().at(trackNum);
+    TrackItem* i = myTrackItems.value(trackNum);
+    myTrackItems.remove(trackNum);
     delete i;
     foreach(QMidiEvent*e,midiFile->eventsForTrack(trackNum))
     {
@@ -200,7 +205,8 @@ void TracksEdit::removeTrack(int trackNum)
 {
     /* Deletes the TrackItem for the specified track.
      * Does not delete the track itself. */
-    TrackItem* i = tracks().at(trackNum);
+    TrackItem* i = myTrackItems.value(trackNum);
+    myTrackItems.remove(trackNum);
     delete i;
 }
 
@@ -271,18 +277,6 @@ void TracksEdit::trackItem_balChanged(int b)
     }
     MainWind::midiOut->controlChange(voice, /* Coarse Pan */10, b);
     emit somethingChanged();
-}
-
-QList<TrackItem*> TracksEdit::tracks()
-{
-    QList<TrackItem*> ret;
-    QTreeWidgetItem *c;
-    for(int i = 0;i<this->topLevelItemCount();i++) {
-        c = this->topLevelItem(i);
-        ret.append(static_cast<TrackItem*>(c));
-    }
-    if(ret.at(0)->track() != 0) { ret.prepend(0); }
-    return ret;
 }
 
 void TracksEdit::init(VirtualPiano* p)
