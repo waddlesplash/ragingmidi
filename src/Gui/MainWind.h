@@ -64,8 +64,6 @@ public:
     explicit MainWind(QWidget *parent = 0);
     ~MainWind();
 
-    inline bool didInitOk() { return initOK; }
-
     static QMidiOut* midiOut;
     static QMap<int,QColor>* trackColors;
     static QMap<int,bool>* trackStatus;
@@ -103,7 +101,6 @@ private slots:
 
 private:
     Ui::MainWind *ui;
-    bool initOK;
 
     QMidiFile* midiFile;
     Player* player;

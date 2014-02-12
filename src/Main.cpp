@@ -40,9 +40,5 @@ int main(int argc, char *argv[])
 #endif
 
     MainWind w;
-    if(w.didInitOk()) {
-        return a.exec();
-    } else {
-        return 0;
-    }
+    return a.exec();
 }

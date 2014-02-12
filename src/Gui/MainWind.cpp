@@ -96,8 +96,7 @@ MainWind::MainWind(QWidget *parent) :
     if(selOut.exec() == QDialog::Accepted) {
         midiOut->connect(selOut.midiOutId());
     } else {
-        initOK = false;
-        return;
+        QApplication::exit();
     }
 #endif
 
@@ -107,15 +106,12 @@ MainWind::MainWind(QWidget *parent) :
             if(openMidiFile(arg)) { break; }
         }
     }
-
-    initOK = true;
 }
 
 MainWind::~MainWind()
 {
     delete ui;
     delete settings;
-    if(initOK) { midiOut->disconnect(); }
 }
 
 int MainWind::confirmUnsaved()
