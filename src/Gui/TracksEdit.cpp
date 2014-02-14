@@ -103,8 +103,6 @@ void TrackPreview::paintEvent(QPaintEvent *event)
 TrackItem::TrackItem(QTreeWidget *tree, int track)
     : QTreeWidgetItem(tree)
 {
-    setText(TrackNumber,QString::number(track));
-
     setType(QObject::tr("Instrument"));
     setOn(QObject::tr("on"));
     setDevice(QObject::tr("auto","automatic"));
@@ -134,8 +132,6 @@ TracksEdit::TracksEdit(QWidget *parent) :
 
     addAction(ui->actionDeleteTrack);
     connect(ui->actionDeleteTrack, SIGNAL(triggered()), this, SLOT(deleteCurTrack()));
-
-    this->hideColumn(TrackItem::TrackNumber);
 
     colorNames = QColor::colorNames();
     colorNames.removeOne("black");

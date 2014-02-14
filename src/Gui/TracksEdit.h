@@ -126,8 +126,7 @@ public:
         Inst = 5,
         Vol = 6,
         Bal = 7,
-        Preview = 8,
-        TrackNumber = 9
+        Preview = 8
     };
 
     inline void setName(QString name) { setText(Name,name); }
@@ -156,7 +155,7 @@ public:
     inline int bal() { return balSL->value(); }
     inline TrackSlider* balSlider() { return balSL; }
 
-    inline int track() { return text(TrackNumber).toInt(); }
+    inline int track() { return myTrackId; }
 
 private:
     int myTrackId;

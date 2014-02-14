@@ -39,7 +39,7 @@ TransposeDlg::TransposeDlg(QWidget *parent, TracksEdit *tracksEdit) :
         n->setText(0,t->name());
         n->setBackgroundColor(0,t->backgroundColor(TrackItem::Name));
         n->setText(1,t->inst());
-        n->setText(2,t->text(TrackItem::TrackNumber));
+        n->setText(2,QString::number(t->track()));
     }
 }
 

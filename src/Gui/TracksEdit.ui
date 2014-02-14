@@ -64,11 +64,6 @@
     <string>Preview</string>
    </property>
   </column>
-  <column>
-   <property name="text">
-    <string notr="true">&lt;hide_me&gt;</string>
-   </property>
-  </column>
   <action name="actionDeleteTrack">
    <property name="text">
     <string>Delete track</string>
