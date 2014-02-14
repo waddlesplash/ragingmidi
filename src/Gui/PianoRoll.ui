@@ -10,6 +10,9 @@
     <height>192</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::ActionsContextMenu</enum>
+  </property>
   <property name="renderHints">
    <set>QPainter::Antialiasing|QPainter::HighQualityAntialiasing|QPainter::TextAntialiasing</set>
   </property>
@@ -38,6 +41,11 @@
    </property>
    <property name="text">
     <string>Move</string>
+   </property>
+  </action>
+  <action name="actionZoom100">
+   <property name="text">
+    <string>Zoom 100%</string>
    </property>
   </action>
  </widget>

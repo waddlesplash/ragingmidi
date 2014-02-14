@@ -78,6 +78,7 @@ PianoRoll::PianoRoll(QWidget *parent) :
     ui(new Ui::PianoRoll)
 {
     ui->setupUi(this);
+    addAction(ui->actionZoom100);
     darker = QBrush(QColor("#c2e6ff"));
     lighter1 = QBrush(QColor("#eaf6ff"));
     lighter2 = QBrush(QColor("#daffd3"));
@@ -117,6 +118,11 @@ void PianoRoll::handleChange(QString a)
         else { this->setViewport(new QWidget()); }
     }
 #endif
+}
+
+void PianoRoll::on_actionZoom100_triggered()
+{
+    resetTransform();
 }
 
 void PianoRoll::handleNoteChange()
@@ -212,16 +218,6 @@ void PianoRoll::zoom(qreal factor, QPointF centerPoint)
 {
     scale(factor, factor);
     centerOn(centerPoint);
-}
-
-void PianoRoll::contextMenuEvent(QContextMenuEvent *event)
-{
-    QMenu m(this);
-    m.addAction(tr("Zoom 100%"));
-    QAction* a = m.exec(mapToGlobal(event->pos()));
-    if(!a) { return; }
-    if(a->text() == tr("Zoom 100%"))
-    { this->resetTransform(); }
 }
 
 static int pianoKeyColor[12] = {

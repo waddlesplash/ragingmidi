@@ -98,7 +98,6 @@ public:
 
 protected:
     void wheelEvent(QWheelEvent* event);
-    void contextMenuEvent(QContextMenuEvent *event);
     void drawBackground(QPainter *painter, const QRectF &rect);
 
 private slots:
@@ -106,6 +105,7 @@ private slots:
     void handleNoteChange();
 
     void on_actionMove_toggled(bool checked);
+    void on_actionZoom100_triggered();
 
 signals:
     void somethingChanged();
