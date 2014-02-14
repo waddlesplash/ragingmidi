@@ -23,6 +23,7 @@
  */
 
 #include "PianoRoll.h"
+#include "ui_PianoRoll.h"
 
 #ifndef QT_NO_OPENGL
 #   include <QGLWidget>
@@ -73,14 +74,15 @@ void PianoRollLine::setTick(qint32 tick)
 /*******************************************************/
 
 PianoRoll::PianoRoll(QWidget *parent) :
-    QGraphicsView(parent)
+    QGraphicsView(parent),
+    ui(new Ui::PianoRoll)
 {
+    ui->setupUi(this);
     darker = QBrush(QColor("#c2e6ff"));
     lighter1 = QBrush(QColor("#eaf6ff"));
     lighter2 = QBrush(QColor("#daffd3"));
 
-    this->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
-    moveTool_toggled(false);
+    on_actionMove_toggled(false);
 
     connect(MainWind::settings,SIGNAL(somethingChanged(QString)),this,SLOT(handleChange(QString)));
 #ifndef QT_NO_OPENGL
@@ -92,25 +94,19 @@ PianoRoll::PianoRoll(QWidget *parent) :
     me = this;
 }
 
+PianoRoll::~PianoRoll()
+{
+    delete ui;
+}
+
 void PianoRoll::init(QToolBar *controlsToolbar)
 {
     QActionGroup* ag = new QActionGroup(controlsToolbar);
-    QAction* a = new QAction(controlsToolbar);
-    a->setCheckable(true);
-    a->setChecked(true);
-    a->setText(tr("Hand"));
-    a->setIcon(QIcon(":/toolbar/hand.png"));
-    controlsToolbar->addAction(a);
-    ag->addAction(a);
+    controlsToolbar->addAction(ui->actionHand);
+    ag->addAction(ui->actionHand);
 
-    a = new QAction(controlsToolbar);
-    a->setCheckable(true);
-    a->setChecked(false);
-    a->setText(tr("Move"));
-    a->setIcon(QIcon(":/toolbar/move.png"));
-    connect(a,SIGNAL(toggled(bool)),this,SLOT(moveTool_toggled(bool)));
-    controlsToolbar->addAction(a);
-    ag->addAction(a);
+    controlsToolbar->addAction(ui->actionMove);
+    ag->addAction(ui->actionMove);
 }
 
 void PianoRoll::handleChange(QString a)
@@ -249,9 +245,9 @@ void PianoRoll::drawBackground(QPainter *painter, const QRectF &rect)
     }
 }
 
-void PianoRoll::moveTool_toggled(bool v)
+void PianoRoll::on_actionMove_toggled(bool checked)
 {
-    if(v) {
+    if(checked) {
         canMoveItems = true;
         this->setDragMode(QGraphicsView::RubberBandDrag);
     } else {

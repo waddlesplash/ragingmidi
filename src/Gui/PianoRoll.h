@@ -87,6 +87,7 @@ public:
     static PianoRoll* me;
 
     explicit PianoRoll(QWidget *parent = 0);
+    ~PianoRoll();
 
     void init(QToolBar* controlsToolbar);
     void initEditor(QMidiFile* f);
@@ -104,7 +105,7 @@ private slots:
     void handleChange(QString a);
     void handleNoteChange();
 
-    void moveTool_toggled(bool v);
+    void on_actionMove_toggled(bool checked);
 
 signals:
     void somethingChanged();

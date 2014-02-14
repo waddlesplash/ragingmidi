@@ -61,6 +61,7 @@ HEADERS  += Gui/MainWind.h \
 FORMS    += Gui/MainWind.ui \
     Gui/Selectors/SelectInstrument.ui \
     Gui/Selectors/SelectOutput.ui \
+    Gui/PianoRoll.ui \
     Gui/Dialogs/AllEvents.ui \
     Gui/Widgets/SeekSlider.ui \
     Gui/Dialogs/AboutDlg.ui \
