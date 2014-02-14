@@ -135,8 +135,6 @@
     <property name="title">
      <string>Track</string>
     </property>
-    <addaction name="actionTrackAdd"/>
-    <addaction name="actionTrackDelete"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -182,16 +180,6 @@
    <addaction name="actionRewind"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionTrackAdd">
-   <property name="text">
-    <string>Add</string>
-   </property>
-  </action>
-  <action name="actionTrackDelete">
-   <property name="text">
-    <string>Delete</string>
-   </property>
-  </action>
   <action name="actionOpen">
    <property name="text">
     <string>Open...</string>

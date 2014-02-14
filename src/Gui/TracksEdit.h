@@ -35,6 +35,7 @@
 
 #include <QTreeWidget>
 #include <QSlider>
+#include <QMenu>
 #include <QStringList>
 #include <QMap>
 #include <QMidiFile.h>
@@ -184,7 +185,7 @@ public:
     QMap<int,QColor>* trackColors() { return &myTrackColors; }
     QMap<int,bool>* trackStatus() { return &myTrackStatus; }
 
-    void init(VirtualPiano* p);
+    void init(VirtualPiano* p, QMenu *menuTracks);
     void setupTracks(QMidiFile* f, QSlider* songPosSlider);
 
     TrackItem* createTrack(int trackNum);

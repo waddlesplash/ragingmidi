@@ -283,9 +283,10 @@ void TracksEdit::trackItem_balChanged(int b)
     emit somethingChanged();
 }
 
-void TracksEdit::init(VirtualPiano* p)
+void TracksEdit::init(VirtualPiano* p, QMenu* menuTracks)
 {
     piano = p;
+    menuTracks->addAction(ui->actionDeleteTrack);
 }
 
 void TracksEdit::setupTracks(QMidiFile *f, QSlider *songPosSlider)

@@ -49,6 +49,7 @@ MainWind::MainWind(QWidget *parent) :
     settings = new Settings(); // This first because some UI stuff calls it
     ui->setupUi(this);
     ui->pianoRoll->init(ui->pianoRollToolbar);
+    ui->tracksEdit->init(ui->piano, ui->menuTrack);
 
     // Icon setup
     ui->actionOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
@@ -59,7 +60,6 @@ MainWind::MainWind(QWidget *parent) :
     ui->actionRewind->setIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward));
 
     // UI & Static Var. setup
-    ui->tracksEdit->init(ui->piano);
     trackColors = ui->tracksEdit->trackColors();
     trackStatus = ui->tracksEdit->trackStatus();
 
@@ -274,18 +274,6 @@ void MainWind::on_actionPreferences_triggered()
 {
     PrefsDlg p;
     p.exec();
-}
-
-void MainWind::on_actionTrackAdd_triggered()
-{
-
-}
-void MainWind::on_actionTrackDelete_triggered()
-{
-    if(!midiFile) { return; }
-    ui->tracksEdit->deleteCurTrack();
-    ui->pianoRoll->initEditor(midiFile);
-    somethingChanged();
 }
 
 void MainWind::on_actionPlay_triggered()
