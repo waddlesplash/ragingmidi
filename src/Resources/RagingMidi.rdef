@@ -1,5 +1,5 @@
 resource app_signature "application/x-vnd.RagingMidi";
-
+resource app_flags B_MULTIPLE_LAUNCH;
 resource app_version {
 	major  = 0,
 	middle = 0,
@@ -12,7 +12,13 @@ resource app_version {
 	long_info = "Qt-based cross-platform MIDI editor."
 };
 
-resource app_flags B_MULTIPLE_LAUNCH;
+resource file_types message {
+	"types" = "application/x-midi",
+	"types" = "audio/mid",
+	"types" = "audio/midi",
+	"types" = "audio/x-mid",
+	"types" = "audio/x-midi"
+};
 
 resource vector_icon {
 	$"6E6369661803D00700052C03CFBF04050E03292C010342340103CB4D0105BA03"
