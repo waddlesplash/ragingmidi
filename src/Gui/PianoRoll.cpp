@@ -92,26 +92,25 @@ PianoRoll::PianoRoll(QWidget *parent) :
     me = this;
 }
 
-void PianoRoll::init(QWidget* controlsContainer, QGridLayout* controlsLayout)
+void PianoRoll::init(QToolBar *controlsToolbar)
 {
-    QPushButton* a = new QPushButton(controlsContainer);
+    QActionGroup* ag = new QActionGroup(controlsToolbar);
+    QAction* a = new QAction(controlsToolbar);
     a->setCheckable(true);
     a->setChecked(true);
-    a->setAutoExclusive(true);
-    a->setText(tr("Navigation tool"));
-    controlsLayout->addWidget(a,1,1);
+    a->setText(tr("Hand"));
+    a->setIcon(QIcon(":/toolbar/hand.png"));
+    controlsToolbar->addAction(a);
+    ag->addAction(a);
 
-    a = new QPushButton(controlsContainer);
+    a = new QAction(controlsToolbar);
     a->setCheckable(true);
     a->setChecked(false);
-    a->setAutoExclusive(true);
-    a->setText(tr("Move tool"));
+    a->setText(tr("Move"));
+    a->setIcon(QIcon(":/toolbar/move.png"));
     connect(a,SIGNAL(toggled(bool)),this,SLOT(moveTool_toggled(bool)));
-    controlsLayout->addWidget(a,1,2);
-
-    QWidget* spacer = new QWidget();
-    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    controlsLayout->addWidget(spacer,1,3);
+    controlsToolbar->addAction(a);
+    ag->addAction(a);
 }
 
 void PianoRoll::handleChange(QString a)

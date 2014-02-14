@@ -48,7 +48,7 @@ MainWind::MainWind(QWidget *parent) :
     // Important stuff
     settings = new Settings(); // This first because some UI stuff calls it
     ui->setupUi(this);
-    ui->pianoRoll->init(ui->pianoRollControls, ui->controlsLayout);
+    ui->pianoRoll->init(ui->pianoRollToolbar);
 
     // Icon setup
     ui->actionOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));

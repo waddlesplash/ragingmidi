@@ -26,7 +26,7 @@
 #define PIANOROLL_H
 
 #include <QGraphicsView>
-#include <QActionGroup>
+#include <QToolBar>
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QWheelEvent>
@@ -88,7 +88,7 @@ public:
 
     explicit PianoRoll(QWidget *parent = 0);
 
-    void init(QWidget* controlsContainer, QGridLayout* controlsLayout);
+    void init(QToolBar* controlsToolbar);
     void initEditor(QMidiFile* f);
     PianoRollLine* initLine(qint32 tick);
     void deleteLine();
@@ -112,7 +112,6 @@ signals:
 private:
     Ui::PianoRoll *ui;
     QMidiFile* midiFile;
-    QActionGroup* tools;
     PianoRollLine* line;
     QBrush darker, lighter1, lighter2;
 

@@ -3,5 +3,7 @@
         <file>REVISION.txt</file>
         <file>Logo.png</file>
         <file>Logo50.png</file>
+        <file>toolbar/hand.png</file>
+        <file>toolbar/move.png</file>
     </qresource>
 </RCC>
