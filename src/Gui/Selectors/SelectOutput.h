@@ -25,13 +25,6 @@
 #ifndef SELECTOUTPUT_H
 #define SELECTOUTPUT_H
 
-/****h* RagingMidi/SelectOutput.h
- * PURPOSE
- *   Shows a list of currently available MIDI
- *   output devices and requires the user to select one.
- ******
- */
-
 #include <QDialog>
 #include <QTreeWidgetItem>
 
@@ -39,14 +32,13 @@ namespace Ui {
 class SelectOutput;
 }
 
-/****c* SelectOutput.h/SelectOutput
- * SYNOPSIS
+/*!
+ * \brief Shows a list of currently available MIDI output devices and requires the user to select one.
  */
 class SelectOutput : public QDialog
-/********/
 {
     Q_OBJECT
-    
+
 public:
     explicit SelectOutput(QWidget *parent = 0);
     ~SelectOutput();

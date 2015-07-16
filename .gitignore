@@ -1,11 +1,6 @@
 *.user*
-*build-*
+*build*
+*generated*
 *.autosave
 *~
-*.o
-*.exe
-Makefile*
-docs
-binary
-dist
 /src/Resources/REVISION.txt

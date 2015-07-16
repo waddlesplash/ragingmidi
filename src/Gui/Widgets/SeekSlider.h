@@ -25,27 +25,19 @@
 #ifndef SEEKSLIDER_H
 #define SEEKSLIDER_H
 
-/****h* RagingMidi/SeekSlider.h
- * PURPOSE
- *   Creates the slider widget used to seek
- *   around midi files.
- ******
- */
-
 #include <QSlider>
 
 namespace Ui {
 class SeekSlider;
 }
 
-/****c* SeekSlider.h/SeekSlider
- * SYNOPSIS
+/*!
+ * \brief Creates the slider widget used to seek around midi files.
  */
 class SeekSlider : public QSlider
-/********/
 {
     Q_OBJECT
-    
+
 public:
     explicit SeekSlider(QWidget *parent = 0);
     ~SeekSlider();
@@ -59,7 +51,7 @@ signals:
 protected:
     void mousePressEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
-    
+
 private:
     Ui::SeekSlider *ui;
     bool enableUpdate;

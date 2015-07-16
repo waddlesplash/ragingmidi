@@ -25,12 +25,10 @@
 #ifndef VIRTUALPIANO_H
 #define VIRTUALPIANO_H
 
-/****h* RagingMidi/VirtualPiano.h
- * PURPOSE
- *   Creates an interactive virtual piano
- *   that plays MIDI notes and shows which ones
- *   are being played in the song.
- ******
+/*!
+ * \file VirtualPiano.h
+ * \brief Creates an interactive virtual piano that plays MIDI notes and shows which ones are being
+ *   played in the song.
  */
 
 #include <QGraphicsView>
@@ -48,17 +46,11 @@ namespace Ui {
 class VirtualPiano;
 }
 
-/****c* VirtualPiano.h/VirtualPianoKey
- * SYNOPSIS
+/*!
+ * \brief Draws one key of the virtual piano, either black or white. It is told which MIDI tracks are
+ *   currently playing it, and it highlights the key with that knowledge.
  */
 class VirtualPianoKey : public QObject, QGraphicsRectItem
-/**
- * DESCRIPTION
- *   Draws one key of the virtual piano, either black or white.
- *   It is told which MIDI tracks are currently playing it, and
- *   it highlights the key with that knowledge.
- ******
- */
 {
     Q_OBJECT
 public:
@@ -94,20 +86,14 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 };
 
-/****c* VirtualPiano.h/VirtualPiano
- * SYNOPSIS
+/*!
+ * \brief Creates 128 VirtualPianoKey[s], places them in their correct positons, and keeps track of
+ *   what key maps to what note.
  */
 class VirtualPiano : public QGraphicsView
-/**
- * DESCRIPTION
- *   Creates 128 VirtualPianoKey[s], places them in
- *   their correct positons, and keeps track of what
- *   key maps to what note.
- ******
- */
 {
     Q_OBJECT
-    
+
 public:
     explicit VirtualPiano(QWidget *parent = 0);
 
@@ -123,7 +109,7 @@ public slots:
 
 private slots:
     void handleChange(QString a);
-    
+
 private:
     QMap<int,VirtualPianoKey*> keys;
 

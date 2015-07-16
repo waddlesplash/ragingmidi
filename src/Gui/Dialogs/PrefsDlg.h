@@ -25,11 +25,9 @@
 #ifndef PREFSDLG_H
 #define PREFSDLG_H
 
-/****h* RagingMidi/PrefsDlg.h
- * PURPOSE
- *   Allows the user to configure various
- *   settings about how Raging MIDI behaves.
- ******
+/*!
+ * \file PrefsDlg.h
+ * \brief Allows the user to configure various settings about how Raging MIDI behaves.
  */
 
 #include <QDialog>
@@ -39,23 +37,17 @@ namespace Ui {
 class PrefsDlg;
 }
 
-/****c* PrefsDlg.h/PrefsDlg
- * SYNOPSIS
+/*!
+ * \brief Provides the preferences editor dialog.
  */
 class PrefsDlg : public QDialog
-/**
- * DESCRIPTION
- *   Provides the preferences editor
- *   dialog.
- ******
- */
 {
     Q_OBJECT
-    
+
 public:
     explicit PrefsDlg(QWidget *parent = 0);
     ~PrefsDlg();
-    
+
 private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
 

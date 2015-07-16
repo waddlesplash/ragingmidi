@@ -25,11 +25,9 @@
 #ifndef RM_CONFIG_H
 #define RM_CONFIG_H
 
-/****h* RagingMidi/globals.h
- * PURPOSE
- *   Defines various global variables and
- *   functions for use by the other components.
- ******
+/*!
+ * \file globals.h
+ * \brief Defines various global variables and functions for use by the other components.
  */
 
 // Pre-defs

@@ -31,26 +31,19 @@
 
 #include <QMidiFile.h>
 
-/****h* RagingMidi/TimeEdit.h
- * PURPOSE
- *   Allows the user to view and edit the
- *   current time position the file is at.
- ******
+/*!
+ * \file TimeEdit.h
+ * \brief Allows the user to view and edit the current time position the file is at.
  */
 
 namespace Ui {
 class TimeEdit;
 }
 
-/****c* TimeEdit.h/TimeEdit
- * SYNOPSIS
+/*!
+ * \brief Provides the time editor/viewer.
  */
 class TimeEdit : public QStackedWidget
-/**
- * DESCRIPTION
- *   Provides the time editor/viewer.
- ******
- */
 {
     Q_OBJECT
 public:
@@ -69,7 +62,7 @@ signals:
 
 protected:
     void mouseReleaseEvent(QMouseEvent *e);
-    
+
 private slots:
     void on_editorWidget_editingFinished();
 

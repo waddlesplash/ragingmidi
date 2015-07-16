@@ -1,0 +1,43 @@
+div.contents, div.header, address.footer, div#titlearea, .tabs, .tabs2, .navpath ul {
+  width: 826px; /* 59em */
+  margin: auto;
+}
+
+#MSearchBox {
+  right: initial;
+  margin-left: 250px;
+}
+
+.directory td, .directory td.entry, .directory td.desc {
+  padding: 5px;
+}
+
+.icona, .arrow {
+  height: initial;
+}
+
+.contents .textblock {
+  margin-top: 10px;
+}
+
+dl.since, dl.see, dl.params, dl.return {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+
+dl.since dt:after, dl.see dt:after, dl.params dt:after, dl.return dt:after {
+  content: ": ";
+}
+
+dl.since dt, dl.see dt, dl.params dt, dl.return dt {
+  display: inline;
+}
+
+dl.since dd, dl.see dd, dl.return dd {
+  margin: 0;
+  display: inline;
+}
+
+code {
+  color: #602020;
+}

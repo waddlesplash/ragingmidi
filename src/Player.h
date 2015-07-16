@@ -25,28 +25,16 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-/****h* RagingMidi/Player.h
- * PURPOSE
- *   Sequences the MIDI notes and sends them
- *   to whatever output device the user selected.
- ******
- */
-
 #include <QThread>
 #include <QMidiFile.h>
 
-/****c* Player.h/Player
- * SYNOPSIS
+/*!
+ * \brief Sequences the MIDI notes and sends them to whatever output device the user selected.
+ *
+ * QThread subclass that handles all the events. Technically, this is the wrong way to use QThreads,
+ *   but it is the only way right now due to the use of QThread::msleep().
  */
 class Player : public QThread
-/**
- * DESCRIPTION
- *   QThread subclass that handles all the events.
- *   Technically, this is the wrong way to use QThreads,
- *   but it is the only way right now due to use of
- *   QThread::msleep().
- ******
- */
 {
     Q_OBJECT
 public:

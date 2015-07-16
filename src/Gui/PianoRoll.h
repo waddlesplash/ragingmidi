@@ -36,26 +36,20 @@
 
 #include <QMidiFile.h>
 
-/****h* RagingMidi/PianoRoll.h
- * PURPOSE
- *   Events and painting for the "PianoRoll" widget which
- *   displays a scrolling piano roll of the notes on tracks.
- ******
+/*!
+ * \file PianoRoll.h
+ * \brief Events and painting for the "PianoRoll" widget which displays a scrolling piano roll of
+ * the notes on tracks.
  */
 
 namespace Ui {
 class PianoRoll;
 }
 
-/****c* PianoRoll.h/PianoRollLine
- * SYNOPSIS
+/*!
+ * \brief The scrolling line that shows the current play location.
  */
 class PianoRollLine : public QObject, QGraphicsRectItem
-/**
- * DESCRIPTION
- *   The scrolling line that shows the current play location.
- ******
- */
 {
     Q_OBJECT
 public:
@@ -69,19 +63,13 @@ private:
     QGraphicsView *p;
 };
 
-/****c* PianoRoll.h/PianoRoll
- * SYNOPSIS
+/*!
+ * \brief Widget that handles the display and the management of PianoRollEvent[s].
  */
 class PianoRoll : public QGraphicsView
-/**
- * DESCRIPTION
- *   Widget that handles the display and the
- *   management of PianoRollEvent[s].
- ******
- */
 {
     Q_OBJECT
-    
+
 public:
     static bool canMoveItems;
     static PianoRoll* me;
@@ -109,7 +97,7 @@ private slots:
 
 signals:
     void somethingChanged();
-    
+
 private:
     Ui::PianoRoll *ui;
     QMidiFile* midiFile;
@@ -119,19 +107,14 @@ private:
     void zoom(qreal factor, QPointF centerPoint);
 };
 
-/****c* PianoRoll.h/PianoRollEvent
- * SYNOPSIS
- */
-class PianoRollEvent : public QObject, QGraphicsRectItem
-/**
- * DESCRIPTION
- *  Rectangle that shows the location of one pair of
- *  NoteOn and NoteOff events in the piano roll.
+/*!
+ * \brief Rectangle that shows the location of one pair of NoteOn and NoteOff events in the
+ * piano roll.
  *
  * NOTE: before changing this class's definition, PLEASE
  * read the comments at PianoRoll::finishMove().
- ******
  */
+class PianoRollEvent : public QObject, QGraphicsRectItem
 {
     Q_OBJECT
 

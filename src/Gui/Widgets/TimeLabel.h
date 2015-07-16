@@ -28,29 +28,17 @@
 #include <QLabel>
 #include <QMidiFile.h>
 
-/****h* RagingMidi/TimeLabel.h
- * PURPOSE
- *   Displays the current MIDI tick
- *   in a user-friendly way.
- ******
- */
-
 namespace Ui {
 class TimeLabel;
 }
 
-/****c* TimeLabel.h/TimeLabel
- * SYNOPSIS
+/*!
+ * \brief Displays the current MIDI tick in a user-friendly way.
  */
 class TimeLabel : public QLabel
-/**
- * DESCRIPTION
- *   Provides the tick viewer.
- ******
- */
 {
     Q_OBJECT
-    
+
 public:
     explicit TimeLabel(QWidget *parent = 0);
     ~TimeLabel();
@@ -59,7 +47,7 @@ public:
     qint32 tick() { return myTick; }
 
     void setMidiFile(QMidiFile* f) { file = f; setTick(0); }
-    
+
 private:
     Ui::TimeLabel *ui;
     QMidiFile *file;

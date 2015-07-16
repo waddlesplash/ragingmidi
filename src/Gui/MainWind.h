@@ -25,12 +25,10 @@
 #ifndef MAINWIND_H
 #define MAINWIND_H
 
-/****h* RagingMidi/MainWind.h
- * PURPOSE
- *   Main window of Raging MIDI. Responsible
- *   for the layout and communication of the
- *   PianoRoll, VirtualPiano, and TracksEdit.
- ******
+/*!
+ * \file MainWind.h
+ * \brief Main window of Raging MIDI. Responsible for the layout and communication of the PianoRoll,
+ *   VirtualPiano, and TracksEdit.
  */
 
 #include <QMainWindow>
@@ -48,18 +46,13 @@ namespace Ui {
 class MainWind;
 }
 
-/****c* MainWind.h/MainWind
- * SYNOPSIS
+/*!
+ * \brief The QMainWindow subclass that does everything.
  */
 class MainWind : public QMainWindow
-/**
- * DESCRIPTION
- *   The QMainWindow subclass that does everything.
- ******
- */
 {
     Q_OBJECT
-    
+
 public:
     explicit MainWind(QWidget *parent = 0);
     ~MainWind();
@@ -71,7 +64,7 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *e);
-    
+
 private slots:
     void somethingChanged();
 

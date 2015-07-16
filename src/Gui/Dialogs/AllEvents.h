@@ -25,11 +25,9 @@
 #ifndef ALLEVENTS_H
 #define ALLEVENTS_H
 
-/****h* RagingMidi/AllEvents.h
- * PURPOSE
- *   Dialog with a list of all the MIDI events
- *   in the current MIDI file.
- ******
+/*!
+ * \file AllEvents.h
+ * \brief Dialog with a list of all the MIDI events in the current MIDI file.
  */
 
 #include <QDialog>
@@ -43,16 +41,10 @@ class AllEvents;
 }
 class SelectInstrument;
 
-/****c* AllEvents.h/GuiMidiEvent
- * SYNOPSIS
+/*!
+ * \brief Subclass of QTreeWidgetItem geared towards showing a MIDI event.
  */
 class GuiMidiEvent : public QTreeWidgetItem
-/**
- * DESCRIPTION
- *   Subclass of QTreeWidgetItem geared towards
- *   showing a MIDI event.
- ******
- */
 {
 public:
     inline explicit GuiMidiEvent(QTreeWidget *p = 0)
@@ -68,22 +60,16 @@ private:
     QMidiEvent* e;
 };
 
-/****c* AllEvents.h/AllEvents
- * SYNOPSIS
+/*!
+ * \brief Dialog that takes care of creating all the GuiMidiEvent[s] for one specific MIDI file.
  */
 class AllEvents : public QDialog
-/**
- * DESCRIPTION
- *   Dialog that takes care of creating all the
- *   GuiMidiEvent[s] for one specific MIDI file.
- ******
- */
 {
     Q_OBJECT
 public:
     explicit AllEvents(QWidget *parent = 0, QMidiFile *f = 0);
     ~AllEvents();
-    
+
 private slots:
     void on_delCertEvBtn_clicked();
     void updateFilters();

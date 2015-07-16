@@ -25,12 +25,9 @@
 #ifndef TRACKSEDIT_H
 #define TRACKSEDIT_H
 
-/****h* RagingMidi/TracksEdit.h
- * PURPOSE
- *   Subclass of QTreeWidget and related
- *   classes to create a widget to edit tracks
- *   with.
- ******
+/*!
+ * \file TracksEdit.h
+ * \brief Subclass of QTreeWidget and related classes to create a widget to edit tracks with.
  */
 
 #include <QTreeWidget>
@@ -46,16 +43,10 @@ namespace Ui {
 class TracksEdit;
 }
 
-/****c* TracksEdit.h/TrackSlider
- * SYNOPSIS
+/*!
+ * \brief Subclass of QSlider that can store what MIDI track it was created for.
  */
 class TrackSlider : public QSlider
-/**
- * DESCRIPTION
- *   Subclass of QSlider that can store what MIDI track
- *   it was created for.
- ******
- */
 {
     Q_OBJECT
 public:
@@ -74,18 +65,13 @@ protected:
 private:
     int myTrack;
     int valToRevertTo;
+
 };
 
-/****c* TracksEdit.h/TrackPreview
- * SYNOPSIS
+/*!
+ * \brief Subclass of QWidget that shows an overview of the entire track.
  */
 class TrackPreview : public QWidget
-/**
- * DESCRIPTION
- *   Subclass of QWidget that shows an overview
- *   of the entire track.
- ******
- */
 {
     Q_OBJECT
 public:
@@ -103,16 +89,10 @@ private:
     int trackNum;
 };
 
-/****c* TracksEdit.h/TrackItem
- * SYNOPSIS
+/*!
+ * \brief Subclass of QTreeWidgetItem that is designed to store MIDI track data.
  */
 class TrackItem : public QTreeWidgetItem
-/**
- * DESCRIPTION
- *   Subclass of QTreeWidgetItem that is
- *   designed to store MIDI track data.
- ******
- */
 {
 public:
     TrackItem(QTreeWidget* tree = 0, int track = 0);
@@ -163,20 +143,14 @@ private:
     TrackSlider* balSL;
 };
 
-/****c* TracksEdit.h/TracksEdit
- * SYNOPSIS
+/*!
+ * \brief Subclass of QTreeWidget that is designed to use the above two classes to edit MIDI track
+ *   data.
  */
 class TracksEdit : public QTreeWidget
-/**
- * DESCRIPTION
- *   Subclass of QTreeWidget that is
- *   designed to use the above two classes
- *   to edit MIDI track data.
- ******
- */
 {
     Q_OBJECT
-    
+
 public:
     explicit TracksEdit(QWidget *parent = 0);
     ~TracksEdit();
@@ -197,7 +171,7 @@ public slots:
 
 signals:
     void somethingChanged();
-    
+
 private slots:
     void trackItem_volChanged(int v);
     void trackItem_balChanged(int b);

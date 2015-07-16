@@ -25,13 +25,6 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-/****h* RagingMidi/Settings.h
- * PURPOSE
- *   Stores the application's settings
- *   and reads and writes them from storage.
- ******
- */
-
 #include <QSettings>
 
 /* Some people say this is "abusing the preprocessor", but it should work
@@ -40,19 +33,13 @@
 #define GetSetVal(name,type) inline type get##name() { return name; } \
     inline void set##name(type newVal) { name = newVal; emit somethingChanged(#name); }
 
-/****c* Settings.h/Settings
- * SYNOPSIS
+/*!
+ * \brief Stores the application's settings and reads and writes them from storage.
+ *
+ * All functions and variables in this class are static, because there is only one instance of this
+ *   class per application instance.
  */
 class Settings : public QObject
-/**
- * DESCRIPTION
- *   Provides the settings editor class.
- *   All functions and variables in this
- *   class are static, because there is
- *   only one instance of this class per
- *   application instance.
- ******
- */
 {
     Q_OBJECT
 public:

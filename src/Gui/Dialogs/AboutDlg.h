@@ -25,14 +25,6 @@
 #ifndef ABOUTDLG_H
 #define ABOUTDLG_H
 
-/****h* RagingMidi/AboutDlg.h
- * PURPOSE
- *   Shows a dialog that says the current version
- *   of Raging MIDI (and revision ID) along with
- *   copyright information.
- ******
- */
-
 #include <QDialog>
 #include <QUrl>
 
@@ -40,18 +32,20 @@ namespace Ui {
 class AboutDlg;
 }
 
-/****c* AboutDlg.h/AboutDlg
- * SYNOPSIS
+/*!
+ * \brief The about dialog.
+ *
+ * Shows a dialog that says the current version of Raging MIDI (and revision ID) along with
+ *   copyright information.
  */
 class AboutDlg : public QDialog
-/********/
 {
     Q_OBJECT
-    
+
 public:
     explicit AboutDlg(QWidget *parent = 0);
     ~AboutDlg();
-    
+
 private slots:
     void on_authorsText_anchorClicked(const QUrl &arg1);
     void on_fromRevLbl_linkActivated(const QString &link);
