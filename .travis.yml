@@ -1,12 +1,13 @@
-# This runs the linter (cppcheck) and
-# compiles Raging MIDI.
+sudo: false
 language: cpp
-compiler: gcc
-before_install:
- - sudo apt-get update -qq
- - sudo apt-get install -qq libqt4-dev libasound2-dev cppcheck
+compiler: clang
+addons:
+  apt:
+    packages:
+    - libqt4-dev
+    - libasound2-dev
+install:
  - cd src
 script:
- - cppcheck --error-exitcode=1 .
- - qmake -spec linux-g++ .
+ - qmake -spec unsupported/linux-clang .
  - make
