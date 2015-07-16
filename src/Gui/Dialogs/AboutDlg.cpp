@@ -30,54 +30,55 @@
 #include <QDesktopServices>
 #include <QFile>
 
-AboutDlg::AboutDlg(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::AboutDlg)
+AboutDlg::AboutDlg(QWidget* parent)
+	: QDialog(parent),
+	  ui(new Ui::AboutDlg)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 
-    ui->versionLbl->setText(tr("version %1","%1 = version num.").arg(RM_VERSION));
+	ui->versionLbl->setText(tr("version %1", "%1 = version num.").arg(RM_VERSION));
 
-    QString rev(qFileGetContents(":/REVISION.txt"));
-    rev = rev.trimmed();
-    QString link;
-    link += "<a href=\"https://github.com/waddlesplash/ragingmidi/commit/"+ rev;
-    link += "\">"+ rev.mid(0,10) +"</a>";
-    ui->fromRevLbl->setText(tr("from revision %1","%1 = revision hash").arg(link));
+	QString rev(qFileGetContents(":/REVISION.txt"));
+	rev = rev.trimmed();
+	QString link;
+	link += "<a href=\"https://github.com/waddlesplash/ragingmidi/commit/" + rev;
+	link += "\">" + rev.mid(0, 10) + "</a>";
+	ui->fromRevLbl->setText(tr("from revision %1", "%1 = revision hash").arg(link));
 
-    ui->compForQtLbl->setText(QT_VERSION_STR);
-    ui->runOnQtLbl->setText(qVersion());
-    int size = sizeof(void*)*8;
-    QString arch = tr("%1-bit","32-bit or 64-bit").arg(size);
-    ui->archLbl->setText(arch);
+	ui->compForQtLbl->setText(QT_VERSION_STR);
+	ui->runOnQtLbl->setText(qVersion());
+	int size = sizeof(void*) * 8;
+	QString arch = tr("%1-bit", "32-bit or 64-bit").arg(size);
+	ui->archLbl->setText(arch);
 
-    ui->authorsText->setText(
-                tr("<u><b>Created By</b></u><br />"
-                   "<a href=\"https://github.com/waddlesplash\"><u>@waddlesplash</u></a><br />"
-                   "<br />"
-                   "<u><b>Contributors</b></u><br />"
-                   "<a href=\"https://github.com/forrestcavalier\"><u>Forrest Cavalier III</u></a><br />"
-                   "<br />"
-                   "<u><b>Using Code By</b></u><br />"
-                   "David G. Slomin, <a href=\"http://www.sreal.com/~div/midi-utilities/\"><u>MIDI Utilities</u></a>."));
+	ui->authorsText->setText(
+		tr("<u><b>Created By</b></u><br />"
+		   "<a href=\"https://github.com/waddlesplash\"><u>@waddlesplash</u></a><br />"
+		   "<br />"
+		   "<u><b>Contributors</b></u><br />"
+		   "<a href=\"https://github.com/forrestcavalier\"><u>Forrest Cavalier III</u></a><br />"
+		   "<br />"
+		   "<u><b>Using Code By</b></u><br />"
+		   "David G. Slomin, <a href=\"http://www.sreal.com/~div/midi-utilities/\"><u>MIDI "
+		   "Utilities</u></a>."));
 }
 
 AboutDlg::~AboutDlg()
 {
-    delete ui;
+	delete ui;
 }
 
-void AboutDlg::on_authorsText_anchorClicked(const QUrl &arg1)
+void AboutDlg::on_authorsText_anchorClicked(const QUrl& arg1)
 {
-    QDesktopServices::openUrl(arg1);
+	QDesktopServices::openUrl(arg1);
 }
 
-void AboutDlg::on_fromRevLbl_linkActivated(const QString &link)
+void AboutDlg::on_fromRevLbl_linkActivated(const QString& link)
 {
-    QDesktopServices::openUrl(QUrl(link));
+	QDesktopServices::openUrl(QUrl(link));
 }
 
-void AboutDlg::on_urlLbl_linkActivated(const QString &link)
+void AboutDlg::on_urlLbl_linkActivated(const QString& link)
 {
-    QDesktopServices::openUrl(QUrl(link));
+	QDesktopServices::openUrl(QUrl(link));
 }

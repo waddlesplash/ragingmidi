@@ -30,8 +30,13 @@
 /* Some people say this is "abusing the preprocessor", but it should work
  * on any modern compiler. Two '#'s means print the literal, one '#' means
  * print the literal as a string. */
-#define GetSetVal(name,type) inline type get##name() { return name; } \
-    inline void set##name(type newVal) { name = newVal; emit somethingChanged(#name); }
+#define GetSetVal(name, type)                                                                      \
+	inline type get##name() { return name; }                                                       \
+	inline void set##name(type newVal)                                                             \
+	{                                                                                              \
+		name = newVal;                                                                             \
+		emit somethingChanged(#name);                                                              \
+	}
 
 /*!
  * \brief Stores the application's settings and reads and writes them from storage.
@@ -41,28 +46,26 @@
  */
 class Settings : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    Settings(bool dontLoadNow = false);
-    ~Settings();
+	Settings(bool dontLoadNow = false);
+	~Settings();
 
-    void load();
-    void save();
+	void load();
+	void save();
 
-    /* Note that Qt Creator gets very confused about
-     * indentation here, so don't run the auto-indenter
-     * on this file. */
-    GetSetVal(FileDlgLoc,QString)
-    GetSetVal(HWA,bool)
+	/* Note that Qt Creator gets very confused about
+	 * indentation here, so don't run the auto-indenter
+	 * on this file. */
+	GetSetVal(FileDlgLoc, QString) GetSetVal(HWA, bool)
 
-signals:
-    void somethingChanged(QString name);
+		signals : void somethingChanged(QString name);
 
 private:
-    QSettings* sets;
+	QSettings* sets;
 
-    QString FileDlgLoc;
-    bool HWA;
+	QString FileDlgLoc;
+	bool HWA;
 };
 
 #endif // SETTINGS_H

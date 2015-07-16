@@ -25,49 +25,51 @@
 #include "TransposeDlg.h"
 #include "ui_TransposeDlg.h"
 
-TransposeDlg::TransposeDlg(QWidget *parent, TracksEdit *tracksEdit) :
-    QDialog(parent),
-    ui(new Ui::TransposeDlg)
+TransposeDlg::TransposeDlg(QWidget* parent, TracksEdit* tracksEdit)
+	: QDialog(parent),
+	  ui(new Ui::TransposeDlg)
 {
-    ui->setupUi(this);
-    ui->tracksChoose->hideColumn(2);
+	ui->setupUi(this);
+	ui->tracksChoose->hideColumn(2);
 
-    foreach(TrackItem* t,tracksEdit->tracks()) {
-        if(t->inst() == tr("(no instrument)")) { continue; }
+	foreach (TrackItem* t, tracksEdit->tracks()) {
+		if (t->inst() == tr("(no instrument)")) {
+			continue;
+		}
 
-        QTreeWidgetItem* n = new QTreeWidgetItem(ui->tracksChoose);
-        n->setText(0,t->name());
-        n->setBackgroundColor(0,t->backgroundColor(TrackItem::Name));
-        n->setText(1,t->inst());
-        n->setText(2,QString::number(t->track()));
-    }
+		QTreeWidgetItem* n = new QTreeWidgetItem(ui->tracksChoose);
+		n->setText(0, t->name());
+		n->setBackgroundColor(0, t->backgroundColor(TrackItem::Name));
+		n->setText(1, t->inst());
+		n->setText(2, QString::number(t->track()));
+	}
 }
 
 TransposeDlg::~TransposeDlg()
 {
-    delete ui;
+	delete ui;
 }
 
 QList<int> TransposeDlg::tracksToTranspose()
 {
-    QList<int> ret;
-    foreach(QTreeWidgetItem* itm,ui->tracksChoose->selectedItems()) {
-        ret.append(itm->text(2).toInt());
-    }
-    return ret;
+	QList<int> ret;
+	foreach (QTreeWidgetItem* itm, ui->tracksChoose->selectedItems()) {
+		ret.append(itm->text(2).toInt());
+	}
+	return ret;
 }
 
 int TransposeDlg::transposeSteps()
 {
-    return ui->spinBox->value();
+	return ui->spinBox->value();
 }
 
 void TransposeDlg::on_selectNoneBtn_clicked()
 {
-    ui->tracksChoose->selectAll();
+	ui->tracksChoose->selectAll();
 }
 
 void TransposeDlg::on_selectAllBtn_clicked()
 {
-    ui->tracksChoose->clearSelection();
+	ui->tracksChoose->clearSelection();
 }

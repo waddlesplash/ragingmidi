@@ -29,75 +29,73 @@
 #include <QStringList>
 #include <QPushButton>
 
-SelectOutput::SelectOutput(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::SelectOutput)
+SelectOutput::SelectOutput(QWidget* parent)
+	: QDialog(parent),
+	  ui(new Ui::SelectOutput)
 {
-    ui->setupUi(this);
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+	ui->setupUi(this);
+	ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
-    ui->refreshBtn->setIcon(QApplication::style()->standardIcon(QStyle::SP_BrowserReload));
-    on_refreshBtn_clicked();
+	ui->refreshBtn->setIcon(QApplication::style()->standardIcon(QStyle::SP_BrowserReload));
+	on_refreshBtn_clicked();
 
-    ui->midiOutNames->resizeColumnToContents(0);
-    ui->midiOutNames->resizeColumnToContents(1);
+	ui->midiOutNames->resizeColumnToContents(0);
+	ui->midiOutNames->resizeColumnToContents(1);
 }
 
 SelectOutput::~SelectOutput()
 {
-    delete ui;
+	delete ui;
 }
 
 QString SelectOutput::midiOutId()
 {
-    return ui->midiOutNames->selectedItems().at(0)->text(0);
+	return ui->midiOutNames->selectedItems().at(0)->text(0);
 }
 
-void SelectOutput::on_searchLE_textChanged(const QString &)
+void SelectOutput::on_searchLE_textChanged(const QString&)
 {
-    int top = ui->midiOutNames->topLevelItemCount();
-    for(int i = 0;i < top;i++)
-    {
-        QTreeWidgetItem* curItem = ui->midiOutNames->topLevelItem(i);
-        curItem->setHidden(false);
-    }
-    if(ui->searchLE->text() == "") { return; }
+	int top = ui->midiOutNames->topLevelItemCount();
+	for (int i = 0; i < top; i++) {
+		QTreeWidgetItem* curItem = ui->midiOutNames->topLevelItem(i);
+		curItem->setHidden(false);
+	}
+	if (ui->searchLE->text() == "") {
+		return;
+	}
 
-    QStringList terms = ui->searchLE->text().split(" ");
-    QString curTerm;
+	QStringList terms = ui->searchLE->text().split(" ");
+	QString curTerm;
 
-    for(int i = 0;i < top;i++)
-    {
-        QTreeWidgetItem* curItem = ui->midiOutNames->topLevelItem(i);
-        foreach(curTerm,terms)
-        {
-            if(!curItem->text(1).contains(curTerm,Qt::CaseInsensitive))
-            { curItem->setHidden(true); }
-        }
-    }
-
+	for (int i = 0; i < top; i++) {
+		QTreeWidgetItem* curItem = ui->midiOutNames->topLevelItem(i);
+		foreach (curTerm, terms) {
+			if (!curItem->text(1).contains(curTerm, Qt::CaseInsensitive)) {
+				curItem->setHidden(true);
+			}
+		}
+	}
 }
 
 void SelectOutput::on_midiOutNames_itemClicked()
 {
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+	ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }
 
-void SelectOutput::on_midiOutNames_itemDoubleClicked(QTreeWidgetItem *, int)
+void SelectOutput::on_midiOutNames_itemDoubleClicked(QTreeWidgetItem*, int)
 {
-    this->accept();
+	this->accept();
 }
 
 void SelectOutput::on_refreshBtn_clicked()
 {
-    ui->midiOutNames->clear();
-    QMap<QString,QString> outDev = QMidiOut::devices();
-    QStringList ids = outDev.keys();
-    QTreeWidgetItem* newItem;
-    foreach(QString id,ids)
-    {
-        newItem = new QTreeWidgetItem(ui->midiOutNames);
-        newItem->setText(0,id);
-        newItem->setText(1,outDev.value(id));
-    }
+	ui->midiOutNames->clear();
+	QMap<QString, QString> outDev = QMidiOut::devices();
+	QStringList ids = outDev.keys();
+	QTreeWidgetItem* newItem;
+	foreach (QString id, ids) {
+		newItem = new QTreeWidgetItem(ui->midiOutNames);
+		newItem->setText(0, id);
+		newItem->setText(1, outDev.value(id));
+	}
 }

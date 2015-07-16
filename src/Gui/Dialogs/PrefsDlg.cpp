@@ -27,41 +27,41 @@
 
 #include "../MainWind.h"
 
-PrefsDlg::PrefsDlg(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::PrefsDlg)
+PrefsDlg::PrefsDlg(QWidget* parent)
+	: QDialog(parent),
+	  ui(new Ui::PrefsDlg)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 
-    Settings* s = MainWind::settings;
-    ui->hwaChk->setChecked(s->getHWA());
+	Settings* s = MainWind::settings;
+	ui->hwaChk->setChecked(s->getHWA());
 
 #ifdef QT_NO_OPENGL
-    ui->hwaChk->setDisabled(true);
-    ui->hwaChk->setChecked(false);
+	ui->hwaChk->setDisabled(true);
+	ui->hwaChk->setChecked(false);
 #endif
 }
 
 PrefsDlg::~PrefsDlg()
 {
-    delete ui;
+	delete ui;
 }
 
 void PrefsDlg::applyPrefs()
 {
-    Settings* s = MainWind::settings;
-    s->setHWA(ui->hwaChk->isChecked());
-    s->save();
+	Settings* s = MainWind::settings;
+	s->setHWA(ui->hwaChk->isChecked());
+	s->save();
 }
 
-void PrefsDlg::on_buttonBox_clicked(QAbstractButton *button)
+void PrefsDlg::on_buttonBox_clicked(QAbstractButton* button)
 {
-    if(ui->buttonBox->standardButton(button) == QDialogButtonBox::Ok) {
-        applyPrefs();
-        this->close();
-    } else if(ui->buttonBox->standardButton(button) == QDialogButtonBox::Cancel) {
-        this->close();
-    } else if(ui->buttonBox->standardButton(button) == QDialogButtonBox::Apply) {
-        applyPrefs();
-    }
+	if (ui->buttonBox->standardButton(button) == QDialogButtonBox::Ok) {
+		applyPrefs();
+		this->close();
+	} else if (ui->buttonBox->standardButton(button) == QDialogButtonBox::Cancel) {
+		this->close();
+	} else if (ui->buttonBox->standardButton(button) == QDialogButtonBox::Apply) {
+		applyPrefs();
+	}
 }

@@ -42,7 +42,8 @@
 #include "../Player.h"
 #include "../Settings.h"
 
-namespace Ui {
+namespace Ui
+{
 class MainWind;
 }
 
@@ -51,53 +52,53 @@ class MainWind;
  */
 class MainWind : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit MainWind(QWidget *parent = 0);
-    ~MainWind();
+	explicit MainWind(QWidget* parent = 0);
+	~MainWind();
 
-    static QMidiOut* midiOut;
-    static QMap<int,QColor>* trackColors;
-    static QMap<int,bool>* trackStatus;
-    static Settings* settings;
+	static QMidiOut* midiOut;
+	static QMap<int, QColor>* trackColors;
+	static QMap<int, bool>* trackStatus;
+	static Settings* settings;
 
 protected:
-    void closeEvent(QCloseEvent *e);
+	void closeEvent(QCloseEvent* e);
 
 private slots:
-    void somethingChanged();
+	void somethingChanged();
 
-    void on_actionOpen_triggered();
-    void on_actionSave_triggered();
-    void on_actionSaveAs_triggered();
+	void on_actionOpen_triggered();
+	void on_actionSave_triggered();
+	void on_actionSaveAs_triggered();
 
-    void on_actionTranspose_triggered();
-    void on_actionPreferences_triggered();
+	void on_actionTranspose_triggered();
+	void on_actionPreferences_triggered();
 
-    void on_actionPlay_triggered();
-    void on_actionStop_triggered();
-    void on_actionRewind_triggered();
+	void on_actionPlay_triggered();
+	void on_actionStop_triggered();
+	void on_actionRewind_triggered();
 
-    void on_songPosSlider_sliderMoveFinished(int value);
+	void on_songPosSlider_sliderMoveFinished(int value);
 
-    void on_actionViewAllEvents_triggered();
+	void on_actionViewAllEvents_triggered();
 
-    void on_actionDeviceReconnect_triggered();
+	void on_actionDeviceReconnect_triggered();
 
-    void on_actionAbout_triggered();
-    void on_actionAboutQt_triggered();
-    void on_actionQuit_triggered();
+	void on_actionAbout_triggered();
+	void on_actionAboutQt_triggered();
+	void on_actionQuit_triggered();
 
 private:
-    Ui::MainWind *ui;
+	Ui::MainWind* ui;
 
-    QMidiFile* midiFile;
-    Player* player;
-    QString midiFileLoc;
+	QMidiFile* midiFile;
+	Player* player;
+	QString midiFileLoc;
 
-    bool openMidiFile(QString filename);
-    int confirmUnsaved();
+	bool openMidiFile(QString filename);
+	int confirmUnsaved();
 };
 
 #endif // MAINWIND_H

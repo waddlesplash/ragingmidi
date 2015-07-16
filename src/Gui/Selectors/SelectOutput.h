@@ -28,33 +28,35 @@
 #include <QDialog>
 #include <QTreeWidgetItem>
 
-namespace Ui {
+namespace Ui
+{
 class SelectOutput;
 }
 
 /*!
- * \brief Shows a list of currently available MIDI output devices and requires the user to select one.
+ * \brief Shows a list of currently available MIDI output devices and requires the user to select
+ * one.
  */
 class SelectOutput : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit SelectOutput(QWidget *parent = 0);
-    ~SelectOutput();
+	explicit SelectOutput(QWidget* parent = 0);
+	~SelectOutput();
 
-    QString midiOutId();
+	QString midiOutId();
 
 private slots:
-    void on_searchLE_textChanged(const QString &);
+	void on_searchLE_textChanged(const QString&);
 
-    void on_midiOutNames_itemClicked();
-    void on_midiOutNames_itemDoubleClicked(QTreeWidgetItem *, int);
+	void on_midiOutNames_itemClicked();
+	void on_midiOutNames_itemDoubleClicked(QTreeWidgetItem*, int);
 
-    void on_refreshBtn_clicked();
+	void on_refreshBtn_clicked();
 
 private:
-    Ui::SelectOutput *ui;
+	Ui::SelectOutput* ui;
 };
 
 #endif // SELECTOUTPUT_H

@@ -42,48 +42,60 @@
 
 #include <QMidiOut.h>
 
-namespace Ui {
+namespace Ui
+{
 class VirtualPiano;
 }
 
 /*!
- * \brief Draws one key of the virtual piano, either black or white. It is told which MIDI tracks are
+ * \brief Draws one key of the virtual piano, either black or white. It is told which MIDI tracks
+ * are
  *   currently playing it, and it highlights the key with that knowledge.
  */
 class VirtualPianoKey : public QObject, QGraphicsRectItem
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit VirtualPianoKey(QObject *parent = 0, int midiKey = 0, QString noteName = "", bool isBlackKey = false);
+	explicit VirtualPianoKey(QObject* parent = 0, int midiKey = 0, QString noteName = "",
+							 bool isBlackKey = false);
 
-    inline void setSize(int x, int y, int w, int h)
-    { this->setRect(0,0,w,h); this->setPos(x,y); }
+	inline void setSize(int x, int y, int w, int h)
+	{
+		this->setRect(0, 0, w, h);
+		this->setPos(x, y);
+	}
 
-    QList<QColor> trackColors();
-    void setTrackColors(QList<QColor> newColors);
-    void addTrackColor(int track);
-    void removeTrackColor(int track);
+	QList<QColor> trackColors();
+	void setTrackColors(QList<QColor> newColors);
+	void addTrackColor(int track);
+	void removeTrackColor(int track);
 
 private:
-    bool isBlack;
-    bool isHovering;
-    bool isClicking;
-    int myMidiKey;
-    QString myNoteName;
+	bool isBlack;
+	bool isHovering;
+	bool isClicking;
+	int myMidiKey;
+	QString myNoteName;
 
-    QList<QColor> myColors;
-    QReadWriteLock lock;
+	QList<QColor> myColors;
+	QReadWriteLock lock;
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
+	void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
-    inline void hoverEnterEvent(QGraphicsSceneHoverEvent *)
-    { isHovering = true; this->scene()->update(x(),y(),rect().x(),rect().y()); }
-    inline void hoverLeaveEvent(QGraphicsSceneHoverEvent *)
-    { isHovering = false; this->scene()->update(x(),y(),rect().x(),rect().y()); }
+	inline void hoverEnterEvent(QGraphicsSceneHoverEvent*)
+	{
+		isHovering = true;
+		this->scene()->update(x(), y(), rect().x(), rect().y());
+	}
+	inline void hoverLeaveEvent(QGraphicsSceneHoverEvent*)
+	{
+		isHovering = false;
+		this->scene()->update(x(), y(), rect().x(), rect().y());
+	}
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+	void mousePressEvent(QGraphicsSceneMouseEvent* event);
+	void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 };
 
 /*!
@@ -92,32 +104,32 @@ protected:
  */
 class VirtualPiano : public QGraphicsView
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit VirtualPiano(QWidget *parent = 0);
+	explicit VirtualPiano(QWidget* parent = 0);
 
-    inline VirtualPianoKey* key(int num) { return keys.value(num); }
-    void clearTrackColors();
+	inline VirtualPianoKey* key(int num) { return keys.value(num); }
+	void clearTrackColors();
 
-    static int voiceToUse;
+	static int voiceToUse;
 
 public slots:
-    void addTrackColor(int note, int track);
-    void removeTrackColor(int note, int track);
-    void clearTrackColors(int track);
+	void addTrackColor(int note, int track);
+	void removeTrackColor(int note, int track);
+	void clearTrackColors(int track);
 
 private slots:
-    void handleChange(QString a);
+	void handleChange(QString a);
 
 private:
-    QMap<int,VirtualPianoKey*> keys;
+	QMap<int, VirtualPianoKey*> keys;
 
-    int k;
-    int curKey;
+	int k;
+	int curKey;
 
-    void addWhiteKey(QGraphicsScene* scene, QString noteName);
-    void addBlackKey(QGraphicsScene* scene, QString noteName);
+	void addWhiteKey(QGraphicsScene* scene, QString noteName);
+	void addBlackKey(QGraphicsScene* scene, QString noteName);
 };
 
 #endif // VIRTUALPIANO_H

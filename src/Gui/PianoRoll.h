@@ -42,7 +42,8 @@
  * the notes on tracks.
  */
 
-namespace Ui {
+namespace Ui
+{
 class PianoRoll;
 }
 
@@ -51,16 +52,16 @@ class PianoRoll;
  */
 class PianoRollLine : public QObject, QGraphicsRectItem
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    PianoRollLine(QObject* parent = 0);
+	PianoRollLine(QObject* parent = 0);
 
 public slots:
-    void setTick(qint32 tick);
+	void setTick(qint32 tick);
 
 private:
-    qint32 oldTick;
-    QGraphicsView *p;
+	qint32 oldTick;
+	QGraphicsView* p;
 };
 
 /*!
@@ -68,43 +69,43 @@ private:
  */
 class PianoRoll : public QGraphicsView
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    static bool canMoveItems;
-    static PianoRoll* me;
+	static bool canMoveItems;
+	static PianoRoll* me;
 
-    explicit PianoRoll(QWidget *parent = 0);
-    ~PianoRoll();
+	explicit PianoRoll(QWidget* parent = 0);
+	~PianoRoll();
 
-    void init(QToolBar* controlsToolbar);
-    void initEditor(QMidiFile* f);
-    PianoRollLine* initLine(qint32 tick);
-    void deleteLine();
+	void init(QToolBar* controlsToolbar);
+	void initEditor(QMidiFile* f);
+	PianoRollLine* initLine(qint32 tick);
+	void deleteLine();
 
-    void finishMove();
+	void finishMove();
 
 protected:
-    void wheelEvent(QWheelEvent* event);
-    void drawBackground(QPainter *painter, const QRectF &rect);
+	void wheelEvent(QWheelEvent* event);
+	void drawBackground(QPainter* painter, const QRectF& rect);
 
 private slots:
-    void handleChange(QString a);
-    void handleNoteChange();
+	void handleChange(QString a);
+	void handleNoteChange();
 
-    void on_actionMove_toggled(bool checked);
-    void on_actionZoom100_triggered();
+	void on_actionMove_toggled(bool checked);
+	void on_actionZoom100_triggered();
 
 signals:
-    void somethingChanged();
+	void somethingChanged();
 
 private:
-    Ui::PianoRoll *ui;
-    QMidiFile* midiFile;
-    PianoRollLine* line;
-    QBrush darker, lighter1, lighter2;
+	Ui::PianoRoll* ui;
+	QMidiFile* midiFile;
+	PianoRollLine* line;
+	QBrush darker, lighter1, lighter2;
 
-    void zoom(qreal factor, QPointF centerPoint);
+	void zoom(qreal factor, QPointF centerPoint);
 };
 
 /*!
@@ -116,35 +117,41 @@ private:
  */
 class PianoRollEvent : public QObject, QGraphicsRectItem
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    PianoRollEvent(QObject* p = 0);
+	PianoRollEvent(QObject* p = 0);
 
-    inline void setSize(qreal x, qreal y, qreal w, qreal h)
-    { this->setPos(x,y); this->setRect(0,0,w,h); }
+	inline void setSize(qreal x, qreal y, qreal w, qreal h)
+	{
+		this->setPos(x, y);
+		this->setRect(0, 0, w, h);
+	}
 
-    inline void setNoteOnAndOff(QMidiEvent* noteOn, QMidiEvent* noteOff)
-    { myNoteOn = noteOn; myNoteOff = noteOff; }
+	inline void setNoteOnAndOff(QMidiEvent* noteOn, QMidiEvent* noteOff)
+	{
+		myNoteOn = noteOn;
+		myNoteOff = noteOff;
+	}
 
-    inline void setColor(QColor c) { myColor = c; }
+	inline void setColor(QColor c) { myColor = c; }
 
-    void finishMove();
+	void finishMove();
 
 signals:
-    void somethingChanged();
+	void somethingChanged();
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+	void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *e);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *e);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *e);
+	void mousePressEvent(QGraphicsSceneMouseEvent* e);
+	void mouseMoveEvent(QGraphicsSceneMouseEvent* e);
+	void mouseReleaseEvent(QGraphicsSceneMouseEvent* e);
 
 private:
-    QMidiEvent* myNoteOn;
-    QMidiEvent* myNoteOff;
-    QColor myColor;
+	QMidiEvent* myNoteOn;
+	QMidiEvent* myNoteOff;
+	QColor myColor;
 };
 
 #endif // PIANOROLL_H

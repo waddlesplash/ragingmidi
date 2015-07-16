@@ -27,7 +27,8 @@
 
 #include <QSlider>
 
-namespace Ui {
+namespace Ui
+{
 class SeekSlider;
 }
 
@@ -36,26 +37,26 @@ class SeekSlider;
  */
 class SeekSlider : public QSlider
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit SeekSlider(QWidget *parent = 0);
-    ~SeekSlider();
+	explicit SeekSlider(QWidget* parent = 0);
+	~SeekSlider();
 
 public slots:
-    void setValue(qint32 v);
+	void setValue(qint32 v);
 
 signals:
-    void sliderMoveFinished(int pos);
+	void sliderMoveFinished(int pos);
 
 protected:
-    void mousePressEvent(QMouseEvent *e);
-    void mouseReleaseEvent(QMouseEvent *e);
+	void mousePressEvent(QMouseEvent* e);
+	void mouseReleaseEvent(QMouseEvent* e);
 
 private:
-    Ui::SeekSlider *ui;
-    bool enableUpdate;
-    int newPos;
+	Ui::SeekSlider* ui;
+	bool enableUpdate;
+	int newPos;
 };
 
 #endif // SEEKSLIDER_H

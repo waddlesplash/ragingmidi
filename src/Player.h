@@ -36,30 +36,30 @@
  */
 class Player : public QThread
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    Player(QMidiFile* fil, qint32 tick = 0);
-    inline ~Player() {}
+	Player(QMidiFile* fil, qint32 tick = 0);
+	inline ~Player() {}
 
-    inline void stop() { doStop = true; }
+	inline void stop() { doStop = true; }
 
 protected:
-    void run();
+	void run();
 
 signals:
-    void tickChanged(qint32 tick);
-    void addTrackColor(int note, int track);
-    void removeTrackColor(int note, int track);
-    void clearTrackColors(int track);
+	void tickChanged(qint32 tick);
+	void addTrackColor(int note, int track);
+	void removeTrackColor(int note, int track);
+	void clearTrackColors(int track);
 
 private:
-    QMidiEvent* e;
-    QMidiFile* f;
+	QMidiEvent* e;
+	QMidiFile* f;
 
-    bool doStop;
-    qint32 sTick; /* start tick */
+	bool doStop;
+	qint32 sTick; /* start tick */
 
-    void handleEvent();
+	void handleEvent();
 };
 
 #endif // PLAYER_H

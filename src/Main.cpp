@@ -25,13 +25,13 @@
 #include <QApplication>
 #include "Gui/MainWind.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
+	QApplication a(argc, argv);
 #ifdef Q_OS_WIN
-    QApplication::addLibraryPath(QApplication::applicationDirPath() + "/plugins");
+	QApplication::addLibraryPath(QApplication::applicationDirPath() + "/plugins");
 #endif
 
-    MainWind w;
-    return a.exec();
+	MainWind w;
+	return a.exec();
 }

@@ -27,56 +27,60 @@
 
 #include <QTime>
 
-TimeEdit::TimeEdit(QWidget *parent) :
-    QStackedWidget(parent),
-    ui(new Ui::TimeEdit)
+TimeEdit::TimeEdit(QWidget* parent)
+	: QStackedWidget(parent),
+	  ui(new Ui::TimeEdit)
 {
-    ui->setupUi(this);
-    file = 0;
+	ui->setupUi(this);
+	file = 0;
 }
 
 TimeEdit::~TimeEdit()
 {
-    delete ui;
+	delete ui;
 }
 
-void TimeEdit::setMidiFile(QMidiFile *f)
+void TimeEdit::setMidiFile(QMidiFile* f)
 {
-    file = f;
-    ui->curTimeLbl->setMidiFile(f);
-    setTick(0);
+	file = f;
+	ui->curTimeLbl->setMidiFile(f);
+	setTick(0);
 }
 
-void TimeEdit::mouseReleaseEvent(QMouseEvent *e)
+void TimeEdit::mouseReleaseEvent(QMouseEvent* e)
 {
-    if(!file) { return; }
-    if(this->currentIndex() == 0) {
-        this->setCurrentIndex(1);
-        this->setCursor(QCursor(Qt::ArrowCursor));
-        e->accept();
-    } else {
-        QStackedWidget::mouseReleaseEvent(e);
-    }
+	if (!file) {
+		return;
+	}
+	if (this->currentIndex() == 0) {
+		this->setCurrentIndex(1);
+		this->setCursor(QCursor(Qt::ArrowCursor));
+		e->accept();
+	} else {
+		QStackedWidget::mouseReleaseEvent(e);
+	}
 }
 
 void TimeEdit::on_editorWidget_editingFinished()
 {
-    this->setCurrentIndex(0);
-    this->setCursor(QCursor(Qt::PointingHandCursor));
-    qint32 tick = this->tick();
-    this->setTick(tick,true);
-    emit tickChanged(tick);
+	this->setCurrentIndex(0);
+	this->setCursor(QCursor(Qt::PointingHandCursor));
+	qint32 tick = this->tick();
+	this->setTick(tick, true);
+	emit tickChanged(tick);
 }
 
 void TimeEdit::setTick(int tick, bool dontUpdateTEW)
 {
-    ui->curTimeLbl->setTick(tick);
-    if(dontUpdateTEW) { return; }
-    ui->editorWidget->setTime(QTime::fromString(ui->curTimeLbl->text(),"m:ss.zzz"));
+	ui->curTimeLbl->setTick(tick);
+	if (dontUpdateTEW) {
+		return;
+	}
+	ui->editorWidget->setTime(QTime::fromString(ui->curTimeLbl->text(), "m:ss.zzz"));
 }
 qint32 TimeEdit::tick()
 {
-    QTime t = ui->editorWidget->time();
-    int ms = t.msecsTo(QTime())*-1;
-    return file->tickFromTime(ms/1000.0);
+	QTime t = ui->editorWidget->time();
+	int ms = t.msecsTo(QTime()) * -1;
+	return file->tickFromTime(ms / 1000.0);
 }

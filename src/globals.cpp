@@ -29,11 +29,11 @@
 
 QByteArray qFileGetContents(QString fileName)
 {
-    QFile f(fileName);
-    if(!f.open(QFile::ReadOnly)) {
-        return "";
-    }
-    QByteArray ret = f.readAll();
-    f.close();
-    return ret;
+	QFile f(fileName);
+	if (!f.open(QFile::ReadOnly)) {
+		return "";
+	}
+	QByteArray ret = f.readAll();
+	f.close();
+	return ret;
 }

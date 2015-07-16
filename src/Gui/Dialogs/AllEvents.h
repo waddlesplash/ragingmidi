@@ -36,7 +36,8 @@
 #include <QMidiFile.h>
 
 // Definitions so we don't have to #include stuff
-namespace Ui {
+namespace Ui
+{
 class AllEvents;
 }
 class SelectInstrument;
@@ -47,17 +48,16 @@ class SelectInstrument;
 class GuiMidiEvent : public QTreeWidgetItem
 {
 public:
-    inline explicit GuiMidiEvent(QTreeWidget *p = 0)
-        : QTreeWidgetItem(p) {}
+	inline explicit GuiMidiEvent(QTreeWidget* p = 0) : QTreeWidgetItem(p) {}
 
-    void init(QMidiEvent *ev, SelectInstrument *ins);
-    inline QMidiEvent* event() { return e; }
+	void init(QMidiEvent* ev, SelectInstrument* ins);
+	inline QMidiEvent* event() { return e; }
 
 protected:
-    bool operator<(const QTreeWidgetItem &other) const;
+	bool operator<(const QTreeWidgetItem& other) const;
 
 private:
-    QMidiEvent* e;
+	QMidiEvent* e;
 };
 
 /*!
@@ -65,20 +65,20 @@ private:
  */
 class AllEvents : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit AllEvents(QWidget *parent = 0, QMidiFile *f = 0);
-    ~AllEvents();
+	explicit AllEvents(QWidget* parent = 0, QMidiFile* f = 0);
+	~AllEvents();
 
 private slots:
-    void on_delCertEvBtn_clicked();
-    void updateFilters();
+	void on_delCertEvBtn_clicked();
+	void updateFilters();
 
 private:
-    Ui::AllEvents *ui;
-    QList<GuiMidiEvent*> listItems;
+	Ui::AllEvents* ui;
+	QList<GuiMidiEvent*> listItems;
 
-    void minColSize();
+	void minColSize();
 };
 
 #endif // ALLEVENTS_H

@@ -28,7 +28,8 @@
 #include <QLabel>
 #include <QMidiFile.h>
 
-namespace Ui {
+namespace Ui
+{
 class TimeLabel;
 }
 
@@ -37,21 +38,25 @@ class TimeLabel;
  */
 class TimeLabel : public QLabel
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit TimeLabel(QWidget *parent = 0);
-    ~TimeLabel();
+	explicit TimeLabel(QWidget* parent = 0);
+	~TimeLabel();
 
-    void setTick(qint32 t);
-    qint32 tick() { return myTick; }
+	void setTick(qint32 t);
+	qint32 tick() { return myTick; }
 
-    void setMidiFile(QMidiFile* f) { file = f; setTick(0); }
+	void setMidiFile(QMidiFile* f)
+	{
+		file = f;
+		setTick(0);
+	}
 
 private:
-    Ui::TimeLabel *ui;
-    QMidiFile *file;
-    qint32 myTick;
+	Ui::TimeLabel* ui;
+	QMidiFile* file;
+	qint32 myTick;
 };
 
 #endif // TIMELABEL_H

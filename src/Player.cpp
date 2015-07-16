@@ -29,63 +29,70 @@
 #include "Gui/MainWind.h"
 
 Player::Player(QMidiFile* fil, qint32 tick)
-    : QThread(0)
+	: QThread(0)
 {
-    f = fil;
-    doStop = false;
-    sTick = tick;
+	f = fil;
+	doStop = false;
+	sTick = tick;
 }
 
 void Player::handleEvent()
 {
-    if((MainWind::trackStatus->value(e->track(),true) == false) && e->isNoteEvent())
-    { return; }
+	if ((MainWind::trackStatus->value(e->track(), true) == false) && e->isNoteEvent()) {
+		return;
+	}
 
-    if(e->type() == QMidiEvent::SysEx) { // TODO: sysex
-    } else {
-        qint32 message = e->message();
-        MainWind::midiOut->sendMsg(message);
-    }
+	if (e->type() == QMidiEvent::SysEx) {
+		// TODO: sysex
+	} else {
+		qint32 message = e->message();
+		MainWind::midiOut->sendMsg(message);
+	}
 
-    // Update the piano, pianoroll, and slider
-    if(e->type() == QMidiEvent::NoteOn) {
-        emit addTrackColor(e->note(),e->track());
-        emit tickChanged(e->tick());
-    } else if(e->type() == QMidiEvent::NoteOff) {
-        emit removeTrackColor(e->note(),e->track());
-    } else if(e->type() == QMidiEvent::ControlChange) {
-        emit clearTrackColors(e->track());
-    }
+	// Update the piano, pianoroll, and slider
+	if (e->type() == QMidiEvent::NoteOn) {
+		emit addTrackColor(e->note(), e->track());
+		emit tickChanged(e->tick());
+	} else if (e->type() == QMidiEvent::NoteOff) {
+		emit removeTrackColor(e->note(), e->track());
+	} else if (e->type() == QMidiEvent::ControlChange) {
+		emit clearTrackColors(e->track());
+	}
 }
 
 void Player::run()
 {
-    float sTime = 0; /* start time, in seconds */
-    if(sTick) { sTime = f->timeFromTick(sTick); }
-    QElapsedTimer t;
-    t.start();
+	float sTime = 0; /* start time, in seconds */
+	if (sTick) {
+		sTime = f->timeFromTick(sTick);
+	}
+	QElapsedTimer t;
+	t.start();
 
-    QList<QMidiEvent*>* events = f->events();
-    for(int i = 0;i<events->count(); i++) {
-        e = events->at(i);
-        if(e->isNoteEvent() && (e->tick() < sTick)) { continue; }
+	QList<QMidiEvent*>* events = f->events();
+	for (int i = 0; i < events->count(); i++) {
+		e = events->at(i);
+		if (e->isNoteEvent() && (e->tick() < sTick)) {
+			continue;
+		}
 
-        if(e->type() != QMidiEvent::Meta) {
-            qint64 event_time = (f->timeFromTick(e->tick())-sTime) * 1000;
+		if (e->type() != QMidiEvent::Meta) {
+			qint64 event_time = (f->timeFromTick(e->tick()) - sTime) * 1000;
 
-            qint32 waitTime;
-            do {
-                waitTime = event_time - t.elapsed();
-                if(waitTime > 100) {
-                    msleep(100);
-                } else if(waitTime > 0) {
-                    msleep(waitTime);
-                }
+			qint32 waitTime;
+			do {
+				waitTime = event_time - t.elapsed();
+				if (waitTime > 100) {
+					msleep(100);
+				} else if (waitTime > 0) {
+					msleep(waitTime);
+				}
 
-                if(doStop)
-                { return; }
-            } while(waitTime > 0);
-            handleEvent();
-        }
-    }
+				if (doStop) {
+					return;
+				}
+			} while (waitTime > 0);
+			handleEvent();
+		}
+	}
 }

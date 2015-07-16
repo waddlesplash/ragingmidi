@@ -39,7 +39,8 @@
 
 #include "Widgets/VirtualPiano.h"
 
-namespace Ui {
+namespace Ui
+{
 class TracksEdit;
 }
 
@@ -48,24 +49,27 @@ class TracksEdit;
  */
 class TrackSlider : public QSlider
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    inline TrackSlider(QWidget* p = 0)
-        : QSlider(p) { setOrientation(Qt::Horizontal); myTrack = 0; }
+	inline TrackSlider(QWidget* p = 0)
+	: QSlider(p)
+	{
+		setOrientation(Qt::Horizontal);
+		myTrack = 0;
+	}
 
-    inline int track() { return myTrack; }
-    inline void setTrack(int t) { myTrack = t; }
+	inline int track() { return myTrack; }
+	inline void setTrack(int t) { myTrack = t; }
 
-    void setValue(int v);
-    void revert();
+	void setValue(int v);
+	void revert();
 
 protected:
-    inline void wheelEvent(QWheelEvent *) {}
+	inline void wheelEvent(QWheelEvent*) {}
 
 private:
-    int myTrack;
-    int valToRevertTo;
-
+	int myTrack;
+	int valToRevertTo;
 };
 
 /*!
@@ -73,20 +77,20 @@ private:
  */
 class TrackPreview : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    TrackPreview(QWidget* parent = 0, int track = 0, QMidiFile* f = 0);
+	TrackPreview(QWidget* parent = 0, int track = 0, QMidiFile* f = 0);
 
 public slots:
-    void tickChanged(int t);
+	void tickChanged(int t);
 
 protected:
-    void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent* event);
 
 private:
-    QMidiFile* midiFile;
-    int curTick;
-    int trackNum;
+	QMidiFile* midiFile;
+	int curTick;
+	int trackNum;
 };
 
 /*!
@@ -95,52 +99,52 @@ private:
 class TrackItem : public QTreeWidgetItem
 {
 public:
-    TrackItem(QTreeWidget* tree = 0, int track = 0);
+	TrackItem(QTreeWidget* tree = 0, int track = 0);
 
-    enum ColumnIds {
-        Name = 0,
-        Type = 1,
-        On = 2,
-        Device = 3,
-        Voice = 4,
-        Inst = 5,
-        Vol = 6,
-        Bal = 7,
-        Preview = 8
-    };
+	enum ColumnIds {
+		Name = 0,
+		Type = 1,
+		On = 2,
+		Device = 3,
+		Voice = 4,
+		Inst = 5,
+		Vol = 6,
+		Bal = 7,
+		Preview = 8
+	};
 
-    inline void setName(QString name) { setText(Name,name); }
-    inline QString name() { return text(Name); }
+	inline void setName(QString name) { setText(Name, name); }
+	inline QString name() { return text(Name); }
 
-    inline void setType(QString type) { setText(Type,type); }
-    inline QString type() { return text(Type); }
+	inline void setType(QString type) { setText(Type, type); }
+	inline QString type() { return text(Type); }
 
-    inline void setOn(QString on) { setText(On,on); }
-    inline QString on() { return text(On); }
+	inline void setOn(QString on) { setText(On, on); }
+	inline QString on() { return text(On); }
 
-    inline void setDevice(QString device) { setText(Device,device); }
-    inline QString device() { return text(Device); }
+	inline void setDevice(QString device) { setText(Device, device); }
+	inline QString device() { return text(Device); }
 
-    inline void setVoice(int voice) { setText(Voice,QString::number(voice+1)); }
-    inline int voice() { return text(Voice).toInt()-1; }
+	inline void setVoice(int voice) { setText(Voice, QString::number(voice + 1)); }
+	inline int voice() { return text(Voice).toInt() - 1; }
 
-    inline void setInst(QString ins) { setText(Inst,ins); }
-    inline QString inst() { return text(Inst); }
+	inline void setInst(QString ins) { setText(Inst, ins); }
+	inline QString inst() { return text(Inst); }
 
-    inline void setVol(int vol) { volSL->setValue(vol); }
-    inline int vol() { return volSL->value(); }
-    inline TrackSlider* volSlider() { return volSL; }
+	inline void setVol(int vol) { volSL->setValue(vol); }
+	inline int vol() { return volSL->value(); }
+	inline TrackSlider* volSlider() { return volSL; }
 
-    inline void setBal(int bal) { balSL->setValue(bal); }
-    inline int bal() { return balSL->value(); }
-    inline TrackSlider* balSlider() { return balSL; }
+	inline void setBal(int bal) { balSL->setValue(bal); }
+	inline int bal() { return balSL->value(); }
+	inline TrackSlider* balSlider() { return balSL; }
 
-    inline int track() { return myTrackId; }
+	inline int track() { return myTrackId; }
 
 private:
-    int myTrackId;
-    TrackSlider* volSL;
-    TrackSlider* balSL;
+	int myTrackId;
+	TrackSlider* volSL;
+	TrackSlider* balSL;
 };
 
 /*!
@@ -149,51 +153,51 @@ private:
  */
 class TracksEdit : public QTreeWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit TracksEdit(QWidget *parent = 0);
-    ~TracksEdit();
+	explicit TracksEdit(QWidget* parent = 0);
+	~TracksEdit();
 
-    QMap<int,QColor>* trackColors() { return &myTrackColors; }
-    QMap<int,bool>* trackStatus() { return &myTrackStatus; }
+	QMap<int, QColor>* trackColors() { return &myTrackColors; }
+	QMap<int, bool>* trackStatus() { return &myTrackStatus; }
 
-    void init(VirtualPiano* p, QMenu *menuTracks);
-    void setupTracks(QMidiFile* f, QSlider* songPosSlider);
+	void init(VirtualPiano* p, QMenu* menuTracks);
+	void setupTracks(QMidiFile* f, QSlider* songPosSlider);
 
-    TrackItem* createTrack(int trackNum);
-    void deleteTrack(int trackNum);
-    void removeTrack(int trackNum);
-    inline QList<TrackItem*> tracks() { return myTrackItems.values(); }
+	TrackItem* createTrack(int trackNum);
+	void deleteTrack(int trackNum);
+	void removeTrack(int trackNum);
+	inline QList<TrackItem*> tracks() { return myTrackItems.values(); }
 
 public slots:
-    void deleteCurTrack();
+	void deleteCurTrack();
 
 signals:
-    void somethingChanged();
+	void somethingChanged();
 
 private slots:
-    void trackItem_volChanged(int v);
-    void trackItem_balChanged(int b);
+	void trackItem_volChanged(int v);
+	void trackItem_balChanged(int b);
 
-    void tracksEdit_itemClicked(QTreeWidgetItem *item, int column);
-    void tracksEdit_itemChanged(QTreeWidgetItem* item, int column);
-    void tracksEdit_itemEntered(QTreeWidgetItem *, int col);
+	void tracksEdit_itemClicked(QTreeWidgetItem* item, int column);
+	void tracksEdit_itemChanged(QTreeWidgetItem* item, int column);
+	void tracksEdit_itemEntered(QTreeWidgetItem*, int col);
 
 private:
-    Ui::TracksEdit *ui;
-    QMap<int, QColor> myTrackColors;
-    QMap<int, bool> myTrackStatus;
-    QMap<int, TrackItem*> myTrackItems;
-    bool ignoreEvents;
+	Ui::TracksEdit* ui;
+	QMap<int, QColor> myTrackColors;
+	QMap<int, bool> myTrackStatus;
+	QMap<int, TrackItem*> myTrackItems;
+	bool ignoreEvents;
 
-    QMidiFile *midiFile;
-    VirtualPiano *piano;
-    QStringList colorNames;
+	QMidiFile* midiFile;
+	VirtualPiano* piano;
+	QStringList colorNames;
 
-    void updateTrackOn();
-    void resizeColsToContents();
-    void modifyInstrument(TrackItem* itm);
+	void updateTrackOn();
+	void resizeColsToContents();
+	void modifyInstrument(TrackItem* itm);
 };
 
 #endif // TRACKSEDIT_H

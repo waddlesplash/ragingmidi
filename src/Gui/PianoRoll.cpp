@@ -26,7 +26,7 @@
 #include "ui_PianoRoll.h"
 
 #ifndef QT_NO_OPENGL
-#   include <QGLWidget>
+#include <QGLWidget>
 #endif
 
 #include <QMenu>
@@ -43,278 +43,303 @@ PianoRoll* PianoRoll::me;
 /*******************************************************/
 
 PianoRollLine::PianoRollLine(QObject* parent)
-    : QObject(parent), QGraphicsRectItem(0)
+	: QObject(parent),
+	  QGraphicsRectItem(0)
 {
-    setBrush(Qt::black);
-    setRect(0,0,1,127*NOTE_HEIGHT);
-    oldTick = 0;
-    p = qobject_cast<QGraphicsView*>(parent);
+	setBrush(Qt::black);
+	setRect(0, 0, 1, 127 * NOTE_HEIGHT);
+	oldTick = 0;
+	p = qobject_cast<QGraphicsView*>(parent);
 }
 
 void PianoRollLine::setTick(qint32 tick)
 {
-    if(tick == oldTick) { return; }
-    if(tick-oldTick < 15) { return; }
-    oldTick = tick;
+	if (tick == oldTick) {
+		return;
+	}
+	if (tick - oldTick < 15) {
+		return;
+	}
+	oldTick = tick;
 
-    int x = this->x(), y = this->y(),
-            w = rect().width(), h = rect().height();
+	int x = this->x(), y = this->y(), w = rect().width(), h = rect().height();
 
-    this->setPos(tick/2.0,0);
-    if(!scene()) { return; }
-    this->scene()->update(tick/2.0,0,1,scene()->height());
+	this->setPos(tick / 2.0, 0);
+	if (!scene()) {
+		return;
+	}
+	this->scene()->update(tick / 2.0, 0, 1, scene()->height());
 
-    p->ensureVisible(this,p->viewport()->width()/2,0-scene()->height());
-    /* 0-scene()->height() ensures that the vertical viewport location is
-     * NOT changed when this function fires. */
+	p->ensureVisible(this, p->viewport()->width() / 2, 0 - scene()->height());
+	/* 0-scene()->height() ensures that the vertical viewport location is
+	 * NOT changed when this function fires. */
 
-    this->scene()->update(x,y,w,h);
+	this->scene()->update(x, y, w, h);
 }
 
 /*******************************************************/
 
-PianoRoll::PianoRoll(QWidget *parent) :
-    QGraphicsView(parent),
-    ui(new Ui::PianoRoll)
+PianoRoll::PianoRoll(QWidget* parent)
+	: QGraphicsView(parent),
+	  ui(new Ui::PianoRoll)
 {
-    ui->setupUi(this);
-    addAction(ui->actionZoom100);
-    darker = QBrush(QColor("#c2e6ff"));
-    lighter1 = QBrush(QColor("#eaf6ff"));
-    lighter2 = QBrush(QColor("#daffd3"));
+	ui->setupUi(this);
+	addAction(ui->actionZoom100);
+	darker = QBrush(QColor("#c2e6ff"));
+	lighter1 = QBrush(QColor("#eaf6ff"));
+	lighter2 = QBrush(QColor("#daffd3"));
 
-    on_actionMove_toggled(false);
+	on_actionMove_toggled(false);
 
-    connect(MainWind::settings,SIGNAL(somethingChanged(QString)),this,SLOT(handleChange(QString)));
+	connect(MainWind::settings, SIGNAL(somethingChanged(QString)), this,
+			SLOT(handleChange(QString)));
 #ifndef QT_NO_OPENGL
-    if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers))); }
+	if (MainWind::settings->getHWA()) {
+		this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+	}
 #endif
 
-    midiFile = 0;
-    line = 0;
-    me = this;
+	midiFile = 0;
+	line = 0;
+	me = this;
 }
 
 PianoRoll::~PianoRoll()
 {
-    delete ui;
+	delete ui;
 }
 
-void PianoRoll::init(QToolBar *controlsToolbar)
+void PianoRoll::init(QToolBar* controlsToolbar)
 {
-    QActionGroup* ag = new QActionGroup(controlsToolbar);
-    controlsToolbar->addAction(ui->actionHand);
-    ag->addAction(ui->actionHand);
+	QActionGroup* ag = new QActionGroup(controlsToolbar);
+	controlsToolbar->addAction(ui->actionHand);
+	ag->addAction(ui->actionHand);
 
-    controlsToolbar->addAction(ui->actionMove);
-    ag->addAction(ui->actionMove);
+	controlsToolbar->addAction(ui->actionMove);
+	ag->addAction(ui->actionMove);
 }
 
 void PianoRoll::handleChange(QString a)
 {
 #ifndef QT_NO_OPENGL
-    if(a == "HWA") {
-        if(MainWind::settings->getHWA()) { this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers))); }
-        else { this->setViewport(new QWidget()); }
-    }
+	if (a == "HWA") {
+		if (MainWind::settings->getHWA()) {
+			this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+		} else {
+			this->setViewport(new QWidget());
+		}
+	}
 #endif
 }
 
 void PianoRoll::on_actionZoom100_triggered()
 {
-    resetTransform();
+	resetTransform();
 }
 
 void PianoRoll::handleNoteChange()
 {
-    emit somethingChanged();
+	emit somethingChanged();
 }
 
 PianoRollLine* PianoRoll::initLine(qint32 tick)
 {
-    line = new PianoRollLine(this);
-    line->setTick(tick);
-    scene()->addItem((QGraphicsItem*)line);
-    return line;
+	line = new PianoRollLine(this);
+	line->setTick(tick);
+	scene()->addItem((QGraphicsItem*)line);
+	return line;
 }
 
 void PianoRoll::deleteLine()
 {
-    scene()->removeItem((QGraphicsItem*)line);
-    delete line;
-    line = 0;
+	scene()->removeItem((QGraphicsItem*)line);
+	delete line;
+	line = 0;
 }
 
 void PianoRoll::finishMove()
 {
-    /* This calls all the finishMove() events
-     * in all selected items. For some reason,
-     * not all the mouse events are fired on
-     * all items when more than one item is moved */
-    foreach(QGraphicsItem* i, this->scene()->selectedItems()) {
-        PianoRollEvent* e = (PianoRollEvent*)i;
-        e->finishMove();
-    }
+	/* This calls all the finishMove() events
+	 * in all selected items. For some reason,
+	 * not all the mouse events are fired on
+	 * all items when more than one item is moved */
+	foreach (QGraphicsItem* i, this->scene()->selectedItems()) {
+		PianoRollEvent* e = (PianoRollEvent*)i;
+		e->finishMove();
+	}
 }
 
 void PianoRoll::initEditor(QMidiFile* f)
 {
-    if(this->scene()) {
-        this->scene()->clear();
-        delete this->scene();
-    }
-    this->setScene(new QGraphicsScene(this));
-    midiFile = f;
-    PianoRollEvent* edEv = 0;
-    QMidiEvent* noteOn = 0;
+	if (this->scene()) {
+		this->scene()->clear();
+		delete this->scene();
+	}
+	this->setScene(new QGraphicsScene(this));
+	midiFile = f;
+	PianoRollEvent* edEv = 0;
+	QMidiEvent* noteOn = 0;
 
-    QMap<int,QMidiEvent*> lastNoteOn;
+	QMap<int, QMidiEvent*> lastNoteOn;
 
-    QList<QMidiEvent*>* events = midiFile->events();
-    for(int i = 0;i<events->count(); i++) {
-        QMidiEvent* e = events->at(i);
-        if(e->isNoteEvent()) {
-            if(e->type() == QMidiEvent::NoteOff) {
-                noteOn = lastNoteOn.value(e->note(),0);
-                if(!noteOn) { continue; }
-                edEv = new PianoRollEvent();
-                edEv->setColor(MainWind::trackColors->value(e->track()));
-                connect(edEv,SIGNAL(somethingChanged()),
-                        this,SLOT(handleNoteChange()));
+	QList<QMidiEvent*>* events = midiFile->events();
+	for (int i = 0; i < events->count(); i++) {
+		QMidiEvent* e = events->at(i);
+		if (e->isNoteEvent()) {
+			if (e->type() == QMidiEvent::NoteOff) {
+				noteOn = lastNoteOn.value(e->note(), 0);
+				if (!noteOn) {
+					continue;
+				}
+				edEv = new PianoRollEvent();
+				edEv->setColor(MainWind::trackColors->value(e->track()));
+				connect(edEv, SIGNAL(somethingChanged()), this, SLOT(handleNoteChange()));
 
-                qreal y = (127 - e->note())*NOTE_HEIGHT;
-                qreal w = (e->tick() - noteOn->tick())/2.0;
-                edEv->setSize(noteOn->tick()/2.0,y,w,NOTE_HEIGHT);
-                edEv->setNoteOnAndOff(noteOn,e);
-                scene()->addItem((QGraphicsItem*)edEv);
+				qreal y = (127 - e->note()) * NOTE_HEIGHT;
+				qreal w = (e->tick() - noteOn->tick()) / 2.0;
+				edEv->setSize(noteOn->tick() / 2.0, y, w, NOTE_HEIGHT);
+				edEv->setNoteOnAndOff(noteOn, e);
+				scene()->addItem((QGraphicsItem*)edEv);
 
-                lastNoteOn.remove(e->note());
-            }
-            else
-            { lastNoteOn.insert(e->note(),e); }
-        }
-    }
-    this->setSceneRect(QRect());
+				lastNoteOn.remove(e->note());
+			} else {
+				lastNoteOn.insert(e->note(), e);
+			}
+		}
+	}
+	this->setSceneRect(QRect());
 }
 void PianoRoll::wheelEvent(QWheelEvent* e)
 {
-    // http://www.qtcentre.org/threads/35738#post174006
-    if(e->modifiers().testFlag(Qt::ControlModifier)) {
-        int numSteps = e->delta() / 15 / 8;
+	// http://www.qtcentre.org/threads/35738#post174006
+	if (e->modifiers().testFlag(Qt::ControlModifier)) {
+		int numSteps = e->delta() / 15 / 8;
 
-        if(numSteps == 0) {
-            e->ignore();
-            return;
-        }
-        qreal sc = pow(1.25, numSteps);
-        zoom(sc, mapToScene(e->pos()));
-        e->accept();
-    }
-    else
-    { QGraphicsView::wheelEvent(e); }
+		if (numSteps == 0) {
+			e->ignore();
+			return;
+		}
+		qreal sc = pow(1.25, numSteps);
+		zoom(sc, mapToScene(e->pos()));
+		e->accept();
+	} else {
+		QGraphicsView::wheelEvent(e);
+	}
 }
 
 void PianoRoll::zoom(qreal factor, QPointF centerPoint)
 {
-    scale(factor, factor);
-    centerOn(centerPoint);
+	scale(factor, factor);
+	centerOn(centerPoint);
 }
 
-static int pianoKeyColor[12] = {
-    0 /* white */, 1 /* black */, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0
-};
+static int pianoKeyColor[12] = {0 /* white */, 1 /* black */, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0};
 
-void PianoRoll::drawBackground(QPainter *painter, const QRectF &rect)
+void PianoRoll::drawBackground(QPainter* painter, const QRectF& rect)
 {
-    qreal width = rect.width();
+	qreal width = rect.width();
 
-    painter->setClipRect(rect);
-    painter->setPen(Qt::NoPen);
-    for(int i = 0; i < 128; i++) {
-        if(i == 60) { // Middle C
-            painter->setBrush(QBrush(QColor("#80ff80")));
-        } else {
-            int octave = (i - 5) / 12;
-            painter->setBrush(pianoKeyColor[i % 12] ? darker : ((octave % 2) ? lighter1 : lighter2));
-        }
-        painter->drawRect(QRectF(rect.x(),i*NOTE_HEIGHT,width,NOTE_HEIGHT));
-    }
+	painter->setClipRect(rect);
+	painter->setPen(Qt::NoPen);
+	for (int i = 0; i < 128; i++) {
+		if (i == 60) { // Middle C
+			painter->setBrush(QBrush(QColor("#80ff80")));
+		} else {
+			int octave = (i - 5) / 12;
+			painter->setBrush(pianoKeyColor[i % 12] ? darker :
+													  ((octave % 2) ? lighter1 : lighter2));
+		}
+		painter->drawRect(QRectF(rect.x(), i * NOTE_HEIGHT, width, NOTE_HEIGHT));
+	}
 }
 
 void PianoRoll::on_actionMove_toggled(bool checked)
 {
-    if(checked) {
-        canMoveItems = true;
-        this->setDragMode(QGraphicsView::RubberBandDrag);
-    } else {
-        canMoveItems = false;
-        this->setDragMode(QGraphicsView::ScrollHandDrag);
-        if(!this->scene()) { return; } /* Otherwise, this crashes the program */
-        foreach(QGraphicsItem* s, this->scene()->selectedItems()) {
-            s->setSelected(false);
-        }
-    }
+	if (checked) {
+		canMoveItems = true;
+		this->setDragMode(QGraphicsView::RubberBandDrag);
+	} else {
+		canMoveItems = false;
+		this->setDragMode(QGraphicsView::ScrollHandDrag);
+		if (!this->scene()) {
+			return;
+		} /* Otherwise, this crashes the program */
+		foreach (QGraphicsItem* s, this->scene()->selectedItems()) {
+			s->setSelected(false);
+		}
+	}
 }
 
 /*******************************************************/
 
-PianoRollEvent::PianoRollEvent(QObject *p)
-    : QObject(p), QGraphicsRectItem(0)
+PianoRollEvent::PianoRollEvent(QObject* p)
+	: QObject(p), QGraphicsRectItem(0)
 {
-    setFlag(QGraphicsItem::ItemIsFocusable);
-    setFlag(QGraphicsItem::ItemIsSelectable);
-    setFlag(QGraphicsItem::ItemIsMovable);
+	setFlag(QGraphicsItem::ItemIsFocusable);
+	setFlag(QGraphicsItem::ItemIsSelectable);
+	setFlag(QGraphicsItem::ItemIsMovable);
 }
 
-void PianoRollEvent::mousePressEvent(QGraphicsSceneMouseEvent *e)
+void PianoRollEvent::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
-    if(PianoRoll::canMoveItems) {
-        QGraphicsRectItem::mousePressEvent(e);
-    }
+	if (PianoRoll::canMoveItems) {
+		QGraphicsRectItem::mousePressEvent(e);
+	}
 }
-void PianoRollEvent::mouseMoveEvent(QGraphicsSceneMouseEvent *e)
+void PianoRollEvent::mouseMoveEvent(QGraphicsSceneMouseEvent* e)
 {
-    if(PianoRoll::canMoveItems) {
-        QGraphicsRectItem::mouseMoveEvent(e);
-    }
+	if (PianoRoll::canMoveItems) {
+		QGraphicsRectItem::mouseMoveEvent(e);
+	}
 }
-void PianoRollEvent::mouseReleaseEvent(QGraphicsSceneMouseEvent *e)
+void PianoRollEvent::mouseReleaseEvent(QGraphicsSceneMouseEvent* e)
 {
-    if(!PianoRoll::canMoveItems) { return; }
-    QGraphicsRectItem::mouseReleaseEvent(e);
-    PianoRoll::me->finishMove();
+	if (!PianoRoll::canMoveItems) {
+		return;
+	}
+	QGraphicsRectItem::mouseReleaseEvent(e);
+	PianoRoll::me->finishMove();
 }
 void PianoRollEvent::finishMove()
 {
-    int note = 127-(y()/NOTE_HEIGHT);
-    qint32 tick = x()*2;
-    qint32 dur = myNoteOff->tick()-myNoteOn->tick();
-    if(tick == myNoteOn->tick()) { return; }
-    else { emit somethingChanged(); }
+	int note = 127 - (y() / NOTE_HEIGHT);
+	qint32 tick = x() * 2;
+	qint32 dur = myNoteOff->tick() - myNoteOn->tick();
+	if (tick == myNoteOn->tick()) {
+		return;
+	} else {
+		emit somethingChanged();
+	}
 
-    if(note > 127) { note = 127; }
-    if(note < 0) { note = 0; }
-    if(tick < 0) { tick = 0; }
-    setY((127-note)*NOTE_HEIGHT);
-    setX(tick/2.0);
+	if (note > 127) {
+		note = 127;
+	}
+	if (note < 0) {
+		note = 0;
+	}
+	if (tick < 0) {
+		tick = 0;
+	}
+	setY((127 - note) * NOTE_HEIGHT);
+	setX(tick / 2.0);
 
-    myNoteOn->setNote(note);
-    myNoteOn->setTick(tick);
-    myNoteOff->setNote(note);
-    myNoteOff->setTick(tick+dur);
+	myNoteOn->setNote(note);
+	myNoteOn->setTick(tick);
+	myNoteOff->setNote(note);
+	myNoteOff->setTick(tick + dur);
 }
 
-void PianoRollEvent::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void PianoRollEvent::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    painter->setBrush(myColor);
-    if(this->isSelected()) {
-        painter->setPen(Qt::DashLine);
-    } else {
-        painter->setPen(Qt::SolidLine);
-    }
-    if(this->rect().width() > 3) {
-        painter->drawRoundedRect(rect(),3,3);
-    } else {
-        painter->drawRoundedRect(rect(),1,1);
-    }
+	painter->setBrush(myColor);
+	if (this->isSelected()) {
+		painter->setPen(Qt::DashLine);
+	} else {
+		painter->setPen(Qt::SolidLine);
+	}
+	if (this->rect().width() > 3) {
+		painter->drawRoundedRect(rect(), 3, 3);
+	} else {
+		painter->drawRoundedRect(rect(), 1, 1);
+	}
 }

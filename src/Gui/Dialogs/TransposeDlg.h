@@ -31,7 +31,8 @@
 
 #include "../TracksEdit.h"
 
-namespace Ui {
+namespace Ui
+{
 class TransposeDlg;
 }
 
@@ -40,21 +41,21 @@ class TransposeDlg;
  */
 class TransposeDlg : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit TransposeDlg(QWidget *parent = 0, TracksEdit* tracksEdit = 0);
-    ~TransposeDlg();
+	explicit TransposeDlg(QWidget* parent = 0, TracksEdit* tracksEdit = 0);
+	~TransposeDlg();
 
-    QList<int> tracksToTranspose();
-    int transposeSteps();
+	QList<int> tracksToTranspose();
+	int transposeSteps();
 
 private slots:
-    void on_selectNoneBtn_clicked();
-    void on_selectAllBtn_clicked();
+	void on_selectNoneBtn_clicked();
+	void on_selectAllBtn_clicked();
 
 private:
-    Ui::TransposeDlg *ui;
+	Ui::TransposeDlg* ui;
 };
 
 #endif // TRANSPOSEDLG_H

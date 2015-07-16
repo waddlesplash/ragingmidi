@@ -25,36 +25,37 @@
 #include "SeekSlider.h"
 #include "ui_SeekSlider.h"
 
-SeekSlider::SeekSlider(QWidget *parent) :
-    QSlider(parent), ui(new Ui::SeekSlider)
+SeekSlider::SeekSlider(QWidget* parent)
+	: QSlider(parent),
+	  ui(new Ui::SeekSlider)
 {
-    ui->setupUi(this);
-    enableUpdate = true;
-    setTracking(false);
+	ui->setupUi(this);
+	enableUpdate = true;
+	setTracking(false);
 }
 
 SeekSlider::~SeekSlider()
 {
-    delete ui;
+	delete ui;
 }
 
 void SeekSlider::setValue(qint32 v)
 {
-    if(enableUpdate) {
-        QSlider::setValue(v);
-    } else {
-        emit valueChanged(v); // passthrough
-    }
+	if (enableUpdate) {
+		QSlider::setValue(v);
+	} else {
+		emit valueChanged(v); // passthrough
+	}
 }
 
-void SeekSlider::mousePressEvent(QMouseEvent *e)
+void SeekSlider::mousePressEvent(QMouseEvent* e)
 {
-    enableUpdate = false;
-    QSlider::mousePressEvent(e);
+	enableUpdate = false;
+	QSlider::mousePressEvent(e);
 }
-void SeekSlider::mouseReleaseEvent(QMouseEvent *e)
+void SeekSlider::mouseReleaseEvent(QMouseEvent* e)
 {
-    QSlider::mouseReleaseEvent(e);
-    emit sliderMoveFinished(this->value());
-    enableUpdate = true;
+	QSlider::mouseReleaseEvent(e);
+	emit sliderMoveFinished(this->value());
+	enableUpdate = true;
 }

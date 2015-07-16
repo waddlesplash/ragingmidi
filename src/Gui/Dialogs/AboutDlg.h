@@ -28,7 +28,8 @@
 #include <QDialog>
 #include <QUrl>
 
-namespace Ui {
+namespace Ui
+{
 class AboutDlg;
 }
 
@@ -40,19 +41,19 @@ class AboutDlg;
  */
 class AboutDlg : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit AboutDlg(QWidget *parent = 0);
-    ~AboutDlg();
+	explicit AboutDlg(QWidget* parent = 0);
+	~AboutDlg();
 
 private slots:
-    void on_authorsText_anchorClicked(const QUrl &arg1);
-    void on_fromRevLbl_linkActivated(const QString &link);
-    void on_urlLbl_linkActivated(const QString &link);
+	void on_authorsText_anchorClicked(const QUrl& arg1);
+	void on_fromRevLbl_linkActivated(const QString& link);
+	void on_urlLbl_linkActivated(const QString& link);
 
 private:
-    Ui::AboutDlg *ui;
+	Ui::AboutDlg* ui;
 };
 
 #endif // ABOUTDLG_H

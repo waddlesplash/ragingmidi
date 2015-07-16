@@ -24,35 +24,37 @@
 
 #include "Settings.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-#   include <QStandardPaths>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QStandardPaths>
 #else
-#   include <QDesktopServices>
+#include <QDesktopServices>
 #endif
 
 Settings::Settings(bool dontLoadNow)
 {
-    sets = new QSettings("waddlesplash","ragingmidi");
-    if(!dontLoadNow) { load(); }
+	sets = new QSettings("waddlesplash", "ragingmidi");
+	if (!dontLoadNow) {
+		load();
+	}
 }
 Settings::~Settings()
 {
-    delete sets;
+	delete sets;
 }
 
 void Settings::load()
 {
-    HWA = sets->value("EnableHWA",false).toBool();
+	HWA = sets->value("EnableHWA", false).toBool();
 
-#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-    QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+	QVariant s = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
 #else
-    QVariant s = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+	QVariant s = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 #endif
-    FileDlgLoc = sets->value("FileDlgLoc",s).toString();
+	FileDlgLoc = sets->value("FileDlgLoc", s).toString();
 }
 void Settings::save()
 {
-    sets->setValue("EnableHWA",HWA);
-    sets->setValue("FileDlgLoc",FileDlgLoc);
+	sets->setValue("EnableHWA", HWA);
+	sets->setValue("FileDlgLoc", FileDlgLoc);
 }

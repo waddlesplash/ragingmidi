@@ -36,7 +36,8 @@
  * \brief Allows the user to view and edit the current time position the file is at.
  */
 
-namespace Ui {
+namespace Ui
+{
 class TimeEdit;
 }
 
@@ -45,30 +46,30 @@ class TimeEdit;
  */
 class TimeEdit : public QStackedWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit TimeEdit(QWidget *parent = 0);
-    ~TimeEdit();
+	explicit TimeEdit(QWidget* parent = 0);
+	~TimeEdit();
 
-    void setMidiFile(QMidiFile* f);
-    qint32 tick();
+	void setMidiFile(QMidiFile* f);
+	qint32 tick();
 
 public slots:
-    /* 2nd arg is "don't update Time Editor widget */
-    void setTick(int tick, bool dontUpdateTEW = false);
+	/* 2nd arg is "don't update Time Editor widget */
+	void setTick(int tick, bool dontUpdateTEW = false);
 
 signals:
-    void tickChanged(int tick);
+	void tickChanged(int tick);
 
 protected:
-    void mouseReleaseEvent(QMouseEvent *e);
+	void mouseReleaseEvent(QMouseEvent* e);
 
 private slots:
-    void on_editorWidget_editingFinished();
+	void on_editorWidget_editingFinished();
 
 private:
-    Ui::TimeEdit *ui;
-    QMidiFile* file;
+	Ui::TimeEdit* ui;
+	QMidiFile* file;
 };
 
 #endif // TIMEEDIT_H

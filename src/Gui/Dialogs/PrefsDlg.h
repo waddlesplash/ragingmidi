@@ -33,7 +33,8 @@
 #include <QDialog>
 #include <QAbstractButton>
 
-namespace Ui {
+namespace Ui
+{
 class PrefsDlg;
 }
 
@@ -42,19 +43,19 @@ class PrefsDlg;
  */
 class PrefsDlg : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit PrefsDlg(QWidget *parent = 0);
-    ~PrefsDlg();
+	explicit PrefsDlg(QWidget* parent = 0);
+	~PrefsDlg();
 
 private slots:
-    void on_buttonBox_clicked(QAbstractButton *button);
+	void on_buttonBox_clicked(QAbstractButton* button);
 
 private:
-    Ui::PrefsDlg *ui;
+	Ui::PrefsDlg* ui;
 
-    void applyPrefs();
+	void applyPrefs();
 };
 
 #endif // PREFSDLG_H

@@ -27,27 +27,29 @@
 
 #include <math.h> // for floor()
 
-TimeLabel::TimeLabel(QWidget *parent) :
-    QLabel(parent),
-    ui(new Ui::TimeLabel)
+TimeLabel::TimeLabel(QWidget* parent)
+	: QLabel(parent),
+	  ui(new Ui::TimeLabel)
 {
-    ui->setupUi(this);
-    myTick = 0;
+	ui->setupUi(this);
+	myTick = 0;
 }
 
 TimeLabel::~TimeLabel()
 {
-    delete ui;
+	delete ui;
 }
 
 void TimeLabel::setTick(qint32 t)
 {
-    if(!file) { return; }
-    myTick = t;
-    float time = file->timeFromTick(myTick);
-    int min = floor(time/60.0);
-    time -= min*60;
-    QString tim("%1:%2");
-    tim = tim.arg(min).arg(time,6,'f',3,'0');
-    this->setText(tim);
+	if (!file) {
+		return;
+	}
+	myTick = t;
+	float time = file->timeFromTick(myTick);
+	int min = floor(time / 60.0);
+	time -= min * 60;
+	QString tim("%1:%2");
+	tim = tim.arg(min).arg(time, 6, 'f', 3, '0');
+	this->setText(tim);
 }
