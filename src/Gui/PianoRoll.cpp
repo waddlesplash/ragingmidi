@@ -182,9 +182,9 @@ void PianoRoll::initEditor(QMidiFile* f)
 
 	QMap<int, QMidiEvent*> lastNoteOn;
 
-	QList<QMidiEvent*>* events = midiFile->events();
-	for (int i = 0; i < events->count(); i++) {
-		QMidiEvent* e = events->at(i);
+	QList<QMidiEvent*> events = midiFile->events();
+	for (int i = 0; i < events.count(); i++) {
+		QMidiEvent* e = events.at(i);
 		if (e->isNoteEvent()) {
 			if (e->type() == QMidiEvent::NoteOff) {
 				noteOn = lastNoteOn.value(e->note(), 0);

@@ -69,9 +69,9 @@ void Player::run()
 	QElapsedTimer t;
 	t.start();
 
-	QList<QMidiEvent*>* events = f->events();
-	for (int i = 0; i < events->count(); i++) {
-		e = events->at(i);
+	QList<QMidiEvent*> events = f->events();
+	for (int i = 0; i < events.count(); i++) {
+		e = events.at(i);
 		if (e->isNoteEvent() && (e->tick() < sTick)) {
 			continue;
 		}

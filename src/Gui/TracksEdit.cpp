@@ -70,7 +70,7 @@ void TrackPreview::paintEvent(QPaintEvent* event)
 	p.setBrush(Qt::SolidPattern);
 	p.setClipRegion(event->region());
 	int w = size().width(), h = size().height();
-	QList<QMidiEvent*>* events = midiFile->events();
+	QList<QMidiEvent*> events = midiFile->events();
 
 	p.setPen(Qt::gray);
 	p.drawLine(0, 0, w, 0); // Top
@@ -79,8 +79,8 @@ void TrackPreview::paintEvent(QPaintEvent* event)
 
 	int startTick = curTick - ((w * SCALE_FACTOR) / 2); // Scale is 1/4, but we want center
 	int endTick = curTick + ((w * SCALE_FACTOR) / 2);
-	if (endTick > events->last()->tick()) {
-		endTick = events->last()->tick();
+	if (endTick > events.last()->tick()) {
+		endTick = events.last()->tick();
 		startTick = endTick - (w * SCALE_FACTOR);
 	}
 	if (startTick < 0) {
@@ -92,8 +92,8 @@ void TrackPreview::paintEvent(QPaintEvent* event)
 	p.drawRect(x, 0, 2, h);
 	p.setPen(Qt::black);
 
-	for (int i = 0; i < events->count(); i++) {
-		QMidiEvent* e = events->at(i);
+	for (int i = 0; i < events.count(); i++) {
+		QMidiEvent* e = events.at(i);
 		if ((e->tick() < startTick) || (e->type() != QMidiEvent::NoteOn) ||
 			(e->track() != trackNum)) {
 			continue;
@@ -350,7 +350,7 @@ void TracksEdit::setupTracks(QMidiFile* f, QSlider* songPosSlider)
 				SelectInstrument sel(this);
 				sel.setInsNum(instr);
 				i->setInst(sel.insName());
-				MainWind::midiOut->setInstr(e->voice(), e->number());
+				MainWind::midiOut->setInstrument(e->voice(), e->number());
 				didInstr = true;
 			} else if ((e->type() == QMidiEvent::ControlChange) ||
 					   (e->number() == /* Coarse Pan */ 10)) {
@@ -501,7 +501,7 @@ void TracksEdit::modifyInstrument(TrackItem* itm)
 				midiFile->removeEvent(e);
 			}
 		}
-		MainWind::midiOut->setInstr(itm->voice(), ins->insNum());
+		MainWind::midiOut->setInstrument(itm->voice(), ins->insNum());
 		if (didChange) {
 			emit somethingChanged();
 		}
