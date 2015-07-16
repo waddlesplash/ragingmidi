@@ -1,5 +1,3 @@
-src/QMidi/
-
 *.user*
 *build*
 *generated*
